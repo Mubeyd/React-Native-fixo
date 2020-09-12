@@ -1,28 +1,20 @@
-
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, View, Text, StatusBar, SafeAreaView, ScrollView } from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import MainTab from './src/screens/MainTab';
+
 
 
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-        >
-          <View>
-            <Text>FIXO</Text>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <MainTab/>
+    </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
 
 export default App;
