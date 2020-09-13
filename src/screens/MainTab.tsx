@@ -1,6 +1,5 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Services from './Services';
@@ -22,9 +21,8 @@ const MainTab = () => (
             options={{
                 tabBarLabel: 'MyOrder',
                 tabBarColor: '#1f65ff',
-
                 tabBarIcon: ({ color }) => (
-                    <Icon name="ios-file-tray-stacked-sharp" color={color} size={26} />
+                    <Icon name="ios-file-tray-stacked-sharp" color={color} size={24} />
                 ),
             }}
         />
@@ -35,7 +33,7 @@ const MainTab = () => (
                 tabBarLabel: 'Services',
                 tabBarColor: '#009387',
                 tabBarIcon: ({ color }) => (
-                    <Icon name="ios-construct-sharp" color={color} size={26} />
+                    <Icon name="ios-construct-sharp" color={color} size={24} />
                 ),
             }}
         />
@@ -46,9 +44,8 @@ const MainTab = () => (
             options={{
                 tabBarLabel: 'Profile',
                 tabBarColor: '#694fad',
-
                 tabBarIcon: ({ color }) => (
-                    <Icon name="ios-person" color={color} size={26} />
+                    <Icon name="ios-person" color={color} size={24} />
                 ),
             }}
         />
@@ -58,9 +55,8 @@ const MainTab = () => (
             options={{
                 tabBarLabel: 'Settings',
                 tabBarColor: '#d02860',
-
                 tabBarIcon: ({ color }) => (
-                    <Icon name="ios-options-sharp" color={color} size={26} />
+                    <Icon name="ios-options-sharp" color={color} size={24} />
                 ),
             }}
         />
