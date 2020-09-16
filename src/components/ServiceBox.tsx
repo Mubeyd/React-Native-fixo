@@ -1,8 +1,8 @@
+import { TouchableNativeFeedback } from 'react-native-gesture-handler'
 import React from 'react'
 import { StyleSheet, Text, View, ViewStyle } from 'react-native'
-import { TouchableNativeFeedback } from 'react-native-gesture-handler'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { backgroundIconColor, borderColor, paragraphFontSize, space, windowDimension } from '../config/styleConstants'
+import { backgroundIconColor, borderColor, largeFontSize, paragraphFontSize, space, windowDimension } from '../config/styleConstants'
 
 export interface Prop {
     color: string
@@ -18,6 +18,7 @@ const ServiceBox = (props: Prop, navigate: any) => {
                 onPress={() => navigate()}
                 style={styles.container}
             >
+                <Text style={styles.text}>{props.name}</Text>
                 <MaterialCommunityIcons
                     name={props.iconName}
                     style={[
@@ -30,7 +31,6 @@ const ServiceBox = (props: Prop, navigate: any) => {
                         navigate()
                     }}
                 />
-                <Text style={styles.text}>{props.name}</Text>
             </TouchableNativeFeedback>
         </View>
     )
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: space * 2,
         width: boxSize,
+        height: boxSize/1.8,
     },
     icon: {
         fontSize: space * 4,
@@ -60,9 +61,9 @@ const styles = StyleSheet.create({
         margin: space / 2,
     },
     text: {
-        fontSize: paragraphFontSize,
+        fontSize: largeFontSize,
         marginTop: space,
-        textAlign: 'center',
+        textAlign: 'left',
         color: '#fff'
     },
 })
