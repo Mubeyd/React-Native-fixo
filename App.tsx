@@ -11,8 +11,8 @@ import RootStackScreen from './src/screens/RootStackScreen';
 const App = () => {
   return (
     <NavigationContainer>
-      {/* <RootStackScreen /> */}
-      <MainTab/>
+      <RootStackScreen />
+      {/* <MainTab/> */}
     </NavigationContainer>
   );
 };
