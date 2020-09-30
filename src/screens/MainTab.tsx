@@ -20,7 +20,7 @@ const MainTab = () => (
             component={MyOrder}
             options={{
                 tabBarLabel: 'MyOrder',
-                tabBarColor: '#1f65ff',
+                tabBarColor: '#009387',
                 tabBarIcon: ({ color }) => (
                     <Icon name="ios-file-tray-stacked-sharp" color={color} size={24} />
                 ),
@@ -31,7 +31,7 @@ const MainTab = () => (
             component={Services}
             options={{
                 tabBarLabel: 'Services',
-                tabBarColor: '#009387',
+                tabBarColor: '#36A7E7',
                 tabBarIcon: ({ color }) => (
                     <Icon name="ios-construct-sharp" color={color} size={24} />
                 ),
