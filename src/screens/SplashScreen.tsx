@@ -12,8 +12,9 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
+import {version} from '../config/constants'
 
-const SplashScreen = (navigation: any) => {
+const SplashScreen = ({navigation}) => {
     const { colors } = useTheme();
 
     return (
@@ -37,7 +38,7 @@ const SplashScreen = (navigation: any) => {
                 <Text style={[styles.title, {
                     color: colors.text
                 }]}>Your home deserves the best</Text>
-                <Text style={styles.text}>Sign in with account</Text>
+                {/* <Text style={styles.text}>Sign in with account</Text> */}
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
                         <LinearGradient
@@ -53,6 +54,8 @@ const SplashScreen = (navigation: any) => {
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
+                <Text style={styles.textVersion}>Starlab.tech</Text>
+                <Text style={styles.textVersion}>Version : {version}</Text>
             </Animatable.View>
         </View>
     );
@@ -92,7 +95,13 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'grey',
-        marginTop: 5
+        marginTop: 5,
+    },
+    textVersion: {
+        color: 'grey',
+        marginTop: 15,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
     },
     button: {
         alignItems: 'flex-end',
