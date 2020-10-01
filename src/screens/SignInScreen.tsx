@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     View,
     Text,
@@ -16,17 +16,21 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import { useTheme } from 'react-native-paper';
 
+import { AuthContext } from '../components/Context'
+
 
 const SignInScreen = ({ navigation }) => {
 
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        isValidUser: true,
-        isValidPassword: true,
-    });
+
+
+    // const [data, setData] = React.useState({
+    //     username: '',
+    //     check_textInputChange: false,
+    //     secureTextEntry: true,
+    //     isValidUser: true,
+    // });
+
+    const { signIn } = useContext(AuthContext)
 
     const { colors } = useTheme();
 
@@ -68,7 +72,7 @@ const SignInScreen = ({ navigation }) => {
                 <View style={styles.button}>
                     <TouchableOpacity
                         style={styles.signUp}
-                        onPress={(e) => console.log("signUp")}
+                        onPress={() => signIn()}
                     >
                         <LinearGradient
                             colors={['#08d4c4', '#01ab9d']}
