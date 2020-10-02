@@ -16,6 +16,46 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(false);
 
+  const initialLoginState = {
+    isLoading: true,
+    userToken: null,
+    userNumber: null
+  }
+
+  const loginReducer = (prevState, action) => {
+    switch (action.type) {
+      case 'RETRIEVE_TOKEN': 
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGIN': 
+        return {
+          ...prevState,
+          userNumber: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGOUT': 
+        return {
+          ...prevState,
+          userNumber: null,
+          userToken: null,
+          isLoading: false,
+        };
+      case 'REGISTER': 
+        return {
+          ...prevState,
+          userNumber: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+    }
+  }
+
+  // const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
+
   const authContext = useMemo(() => ({
     signIn: () => {
       setUserToken(true);
