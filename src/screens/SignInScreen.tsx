@@ -23,6 +23,7 @@ import firestore from '@react-native-firebase/firestore'
 import { User } from '../models/firestoreInterfaces';
 import { useBackButton } from '../hooks/useBackButton';
 import { Button, Input, Text } from '@ui-kitten/components'
+import { backgroundColor, space } from '../config/styleConstants';
 
 
 
@@ -130,14 +131,17 @@ const SignInScreen = ({ navigation }) => {
                             setPhoneNumber(e)
                             console.log(e)
                         }}
-                        // onEndEditing={(e) => console.log(e)}
+                    // onEndEditing={(e) => console.log(e)}
                     />
                 </View>
 
-                <View style={styles.button}>
+                {/* <View style={styles.button}>
                     <TouchableOpacity
                         style={styles.signUp}
-                        onPress={() => signIn()}
+                        onPress={() => {
+
+                            signIn()
+                        }}
                     >
                         <LinearGradient
                             colors={['#08d4c4', '#01ab9d']}
@@ -148,7 +152,67 @@ const SignInScreen = ({ navigation }) => {
                             }]}>Sign Up</Text>
                         </LinearGradient>
                     </TouchableOpacity>
-                </View>
+                </View> */}
+                {!confirming ? (
+                    <Button
+                        style={styles.buttonLogin}
+                        status='success'
+                        disabled={phoneNumber.length !== 13 || !phoneNumber.startsWith('+')}
+                        onPress={async () => {
+                            try {
+                                setLoading(true)
+                                const confirm = await auth().signInWithPhoneNumber(phoneNumber)
+                                setConfirming(true)
+
+                                setConfirmResult(() => async (c: string) => {
+                                    setLoading(true)
+                                    try {
+                                        await confirm.confirm(c)
+                                        console.log('success :>> ');
+                                    } catch (e) {
+                                        console.log(error);
+                                    } finally {
+                                        setLoading(false)
+                                    }
+                                })
+                            } catch (e) {
+                                console.log('error :>> ', e)
+                            } finally {
+                                setLoading(false)
+                            }
+                        }}
+                    >
+                        Next
+                    </Button>
+                ) : null}
+
+                {confirming ? (
+                    <>
+                        <Input
+                            autoFocus
+                            style={styles.loginInput}
+                            placeholder="Code"
+                            maxLength={14}
+                            keyboardType="number-pad"
+                            returnKeyType="go"
+                            onChangeText={e => {
+                                setCode(e)
+                            }}
+                        />
+                        <Button
+                            disabled={!code}
+                            style={styles.buttonLogin}
+                            status="primary"
+                            size="large"
+                            onPress={() => {
+                                confirmResult(code)
+                            }}
+                        >
+                            {t('login.login')}
+                        </Button>
+                    </>
+                ) : null}
+
             </Animatable.View>
         </View>
     );
@@ -211,5 +275,12 @@ const styles = StyleSheet.create({
     textSign: {
         fontSize: 18,
         fontWeight: 'bold'
-    }
+    },
+    buttonLogin: {
+        borderColor: backgroundColor,
+        marginTop: space,
+    },
+    loginInput: {
+        marginVertical: space,
+    },
 });
