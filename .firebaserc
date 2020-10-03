@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "fixo-4848a",
+    "production": "fixo-4848a"
+  }
+}
