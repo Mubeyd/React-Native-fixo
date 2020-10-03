@@ -10,11 +10,24 @@ import { AuthContext } from './src/components/Context'
 
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
+import SplashScreen from 'react-native-splash-screen';
+import Permissions from 'react-native-permissions'
+
 
 
 
 
 const App = () => {
+
+  useEffect(() => {
+    SplashScreen.hide()
+      ; (async () => {
+        // await Permissions.request(Permissions.PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
+        // await Permissions.request(Permissions.PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE)
+        // await Permissions.request(Permissions.PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+        // await Permissions.request(Permissions.PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION)
+      })()
+  }, [])
 
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(false);
