@@ -202,13 +202,13 @@ const SignInScreen = ({ navigation }) => {
                         <Button
                             disabled={!code}
                             style={styles.buttonLogin}
-                            status="primary"
+                            status='success'
                             size="large"
                             onPress={() => {
                                 confirmResult(code)
                             }}
                         >
-                            {t('login.login')}
+                            Login
                         </Button>
                     </>
                 ) : null}
