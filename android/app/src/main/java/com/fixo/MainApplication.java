@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
+import androidx.multidex.MultiDexApplication;
 
 public class MainApplication extends Application implements ReactApplication {
 
