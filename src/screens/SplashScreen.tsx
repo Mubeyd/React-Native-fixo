@@ -14,9 +14,16 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
 import {version} from '../config/constants'
 import { usersColRef } from '../config/firebaseCollections';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import auth from '@react-native-firebase/auth'
+
+
 
 const SplashScreen = ({navigation}) => {
+    
     const { colors } = useTheme();
+    const [user] = useAuthState(auth())
+
 
     let userName
     const getUser = async() => {
@@ -72,8 +79,8 @@ const SplashScreen = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.textVersion}>Starlab.tech</Text>
-                {/* <Text style={styles.textVersion}>Version : {version}</Text> */}
-                <Text style={styles.textVersion}>Name : {subscriber.name}</Text>
+                <Text style={styles.textVersion}>Version : {version}</Text>
+                {/* <Text style={styles.textVersion}>Name : {subscriber.name}</Text> */}
             </Animatable.View>
         </View>
     );
