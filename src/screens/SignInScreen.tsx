@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -17,9 +17,58 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 
 import { AuthContext } from '../components/Context'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '@react-native-firebase/auth'
+import { usersColRef } from '../config/firebaseCollections';
+import firestore from '@react-native-firebase/firestore'
+import { User } from '../models/firestoreInterfaces';
+import { useBackButton } from '../hooks/useBackButton';
+
+
 
 
 const SignInScreen = ({ navigation }) => {
+
+    const [phoneNumber, setPhoneNumber] = useState('+90')
+    const [code, setCode] = useState('')
+    const [confirmResult, setConfirmResult] = useState()
+    const [loginWithNumber, setLoginWithNumber] = useState(false)
+    const [confirming, setConfirming] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [user] = useAuthState(auth())
+
+
+    useEffect(() => {
+        if (user) {
+            ;(async () => {
+                const usersSnapshot = await usersColRef.where('phoneNumber', '==', user!.phoneNumber).get()
+                if (usersSnapshot.size === 0) {
+                    await usersColRef.add({
+                        phoneNumber: user!.phoneNumber,
+                        createdAt: firestore.FieldValue.serverTimestamp(),
+                        name: '',
+                    } as User)
+                }
+            })()
+        }
+    }, [ user])
+
+    useBackButton(() => {
+        if (loginWithNumber) {
+            setLoginWithNumber(false)
+            return true
+        }
+        return false
+    })
+
+    useBackButton(() => {
+        if (confirming) {
+            setConfirming(false)
+            return true
+        }
+        return false
+    })
+
 
 
 
