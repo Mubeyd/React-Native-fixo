@@ -8,6 +8,9 @@ import { ActivityIndicator } from 'react-native-paper';
 
 import { AuthContext } from './src/components/Context'
 
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider } from '@ui-kitten/components';
+
 
 
 
@@ -24,27 +27,27 @@ const App = () => {
 
   const loginReducer = (prevState, action) => {
     switch (action.type) {
-      case 'RETRIEVE_TOKEN': 
+      case 'RETRIEVE_TOKEN':
         return {
           ...prevState,
           userToken: action.token,
           isLoading: false,
         };
-      case 'LOGIN': 
+      case 'LOGIN':
         return {
           ...prevState,
           userNumber: action.id,
           userToken: action.token,
           isLoading: false,
         };
-      case 'LOGOUT': 
+      case 'LOGOUT':
         return {
           ...prevState,
           userNumber: null,
           userToken: null,
           isLoading: false,
         };
-      case 'REGISTER': 
+      case 'REGISTER':
         return {
           ...prevState,
           userNumber: action.id,
@@ -85,17 +88,19 @@ const App = () => {
   }
 
   return (
-    <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        {userToken == ! null ? (
-          <MainTab />
-        ) : (
-            <RootStackScreen />
-          )
-        }
-      </NavigationContainer>
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <AuthContext.Provider value={authContext}>
+        <NavigationContainer>
+          {userToken == ! null ? (
+            <MainTab />
+          ) : (
+              <RootStackScreen />
+            )
+          }
+        </NavigationContainer>
 
-    </AuthContext.Provider>
+      </AuthContext.Provider>
+    </ApplicationProvider>
   );
 };
 
