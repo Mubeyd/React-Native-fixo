@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
-    Text,
     TouchableOpacity,
     TextInput,
     Platform,
@@ -23,6 +22,8 @@ import { usersColRef } from '../config/firebaseCollections';
 import firestore from '@react-native-firebase/firestore'
 import { User } from '../models/firestoreInterfaces';
 import { useBackButton } from '../hooks/useBackButton';
+import { Button, Input, Text } from '@ui-kitten/components'
+
 
 
 
@@ -40,7 +41,7 @@ const SignInScreen = ({ navigation }) => {
 
     useEffect(() => {
         if (user) {
-            ;(async () => {
+            ; (async () => {
                 const usersSnapshot = await usersColRef.where('phoneNumber', '==', user!.phoneNumber).get()
                 if (usersSnapshot.size === 0) {
                     await usersColRef.add({
@@ -51,7 +52,7 @@ const SignInScreen = ({ navigation }) => {
                 }
             })()
         }
-    }, [ user])
+    }, [user])
 
     useBackButton(() => {
         if (loginWithNumber) {
@@ -105,16 +106,31 @@ const SignInScreen = ({ navigation }) => {
                         color={colors.text}
                         size={20}
                     />
-                    <TextInput
-                        placeholder="Phone Number"
-                        placeholderTextColor="#666666"
+                    <Input
+                        maxLength={13}
+                        autoFocus
+                        disabled={confirming}
                         style={[styles.textInput, {
                             color: colors.text
                         }]}
+                        returnKeyType="next"
+                        textContentType="telephoneNumber"
                         keyboardType="phone-pad"
+                        placeholder="Phone Number"
+                        placeholderTextColor="#666666"
                         autoCapitalize="none"
-                        onChangeText={(e) => console.log(e)}
-                        onEndEditing={(e) => console.log(e)}
+                        value={phoneNumber}
+                        onChangeText={(e) => {
+                            if (e === '') {
+                                setPhoneNumber('+')
+                            }
+                            if (!e.startsWith('+')) {
+                                return
+                            }
+                            setPhoneNumber(e)
+                            console.log(e)
+                        }}
+                        // onEndEditing={(e) => console.log(e)}
                     />
                 </View>
 
