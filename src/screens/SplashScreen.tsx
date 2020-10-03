@@ -13,9 +13,26 @@ import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
 import {version} from '../config/constants'
+import { usersColRef } from '../config/firebaseCollections';
 
 const SplashScreen = ({navigation}) => {
     const { colors } = useTheme();
+
+    let userName
+    const getUser = async() => {
+        const userDoc = await usersColRef.doc('oJ9vbqghN3LSvSTHOFLK').get()
+        console.log(userDoc.data())
+        const userName = userDoc.data()
+        console.log('userName', userName)
+    }
+    getUser()
+
+    const subscriber = usersColRef.doc('oJ9vbqghN3LSvSTHOFLK').onSnapshot(doc => {doc.data()})
+    // usersColRef.doc('oJ9vbqghN3LSvSTHOFLK').onSnapshot(doc => {
+    //     console.log('doc.data() :>> ', doc.data());
+    // })
+
+    
 
     return (
         <View style={styles.container}>
@@ -55,7 +72,8 @@ const SplashScreen = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.textVersion}>Starlab.tech</Text>
-                <Text style={styles.textVersion}>Version : {version}</Text>
+                {/* <Text style={styles.textVersion}>Version : {version}</Text> */}
+                <Text style={styles.textVersion}>Name : {subscriber.name}</Text>
             </Animatable.View>
         </View>
     );
