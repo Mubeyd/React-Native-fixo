@@ -13,6 +13,7 @@ import { ApplicationProvider } from '@ui-kitten/components';
 import SplashScreen from 'react-native-splash-screen';
 import Permissions from 'react-native-permissions'
 import useUser from './src/hooks/useUser';
+import Settings from './src/containers/Settings';
 
 
 
@@ -105,17 +106,18 @@ const App = () => {
 
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
-      <AuthContext.Provider value={authContext}>
-        <NavigationContainer>
-          {userToken == ! null ? (
-            <MainTab />
-          ) : (
-              <RootStackScreen />
-            )
-          }
-        </NavigationContainer>
-
-      </AuthContext.Provider>
+      <Settings>
+        <AuthContext.Provider value={authContext}>
+          <NavigationContainer>
+            {userToken == ! null ? (
+              <MainTab />
+            ) : (
+                <RootStackScreen />
+              )
+            }
+          </NavigationContainer>
+        </AuthContext.Provider>
+      </Settings>
     </ApplicationProvider>
   );
 };
