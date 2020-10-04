@@ -12,12 +12,15 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import SplashScreen from 'react-native-splash-screen';
 import Permissions from 'react-native-permissions'
+import useUser from './src/hooks/useUser';
 
 
 
 
 
 const App = () => {
+
+  useUser()
 
   useEffect(() => {
     SplashScreen.hide()

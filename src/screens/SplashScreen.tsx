@@ -16,21 +16,26 @@ import {version} from '../config/constants'
 import { usersColRef } from '../config/firebaseCollections';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import auth from '@react-native-firebase/auth'
+import useUser from '../hooks/useUser';
 
 
 
 const SplashScreen = ({navigation}) => {
     
     const { colors } = useTheme();
-    const [user] = useAuthState(auth())
+    // const [user] = useAuthState(auth())
 
+
+    const user = useUser()
+
+    console.log('user', user?.phoneNumber)
 
     let userName
     const getUser = async() => {
         const userDoc = await usersColRef.doc('oJ9vbqghN3LSvSTHOFLK').get()
-        console.log(userDoc.data())
+        // console.log(userDoc.data())
         const userName = userDoc.data()
-        console.log('userName', userName)
+        // console.log('userName', userName)
     }
     getUser()
 

@@ -11,7 +11,7 @@ const Profile = ({ }: Props) => {
 
     const getUser = async() => {
         const userName = await usersColRef.doc('2ZIcHG7l9FQ7hhzSUyCX').get()
-        console.log(userName.data())
+        // console.log(userName.data())
     }
     getUser()
 
