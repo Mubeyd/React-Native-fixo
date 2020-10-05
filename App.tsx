@@ -15,6 +15,7 @@ import Permissions from 'react-native-permissions'
 import useUser from './src/hooks/useUser';
 import Settings from './src/containers/Settings';
 import Locale from './src/containers/Locale';
+import Providers from './src/config/Providers';
 
 
 
@@ -109,16 +110,7 @@ const App = () => {
     <ApplicationProvider {...eva} theme={eva.light}>
       <Settings>
         <Locale>
-          <AuthContext.Provider value={authContext}>
-            <NavigationContainer>
-              {userToken == ! null ? (
-                <MainTab />
-              ) : (
-                  <RootStackScreen />
-                )
-              }
-            </NavigationContainer>
-          </AuthContext.Provider>
+          <Providers />
         </Locale>
       </Settings>
     </ApplicationProvider>

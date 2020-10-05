@@ -28,8 +28,8 @@ const SplashScreen = ({navigation}) => {
 
     const user = useUser()
 
-    console.log('user', user?.phoneNumber)
-    console.log('user', user?.uid)
+    console.log('user PhoneNumber', user?.phoneNumber)
+    console.log('user Id', user?.uid)
 
     let userName
     const getUser = async() => {

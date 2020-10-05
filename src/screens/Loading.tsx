@@ -6,6 +6,7 @@ import { backgroundColor, space, windowDimension } from '../config/styleConstant
 export interface Props {}
 
 const Loading = ({}: Props) => {
+    console.log('loading :>> ');
     return (
         <View style={styles.container}>
             <Image resizeMode="contain" style={styles.logo} source={logo} />
