@@ -31,8 +31,8 @@ const AuthLoading = ({ }: Props) => {
 
     return (
         <NavigationContainer>
-            {/* { user ? <RootStackScreen /> : <MainTab />} */}
-            { user ? <MainTab /> : <RootStackScreen />}
+            { user ? <RootStackScreen /> : <MainTab />}
+            {/* { user ? <MainTab /> : <RootStackScreen />} */}
         </NavigationContainer>
 
     )

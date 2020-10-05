@@ -81,7 +81,7 @@ const SignInScreen = ({ navigation }) => {
     //     isValidUser: true,
     // });
 
-    const { signIn } = useContext(AuthContext)
+    // const { signIn } = useContext(AuthContext)
 
     const { colors } = useTheme();
 
@@ -164,7 +164,7 @@ const SignInScreen = ({ navigation }) => {
                                 const confirm = await auth().signInWithPhoneNumber(phoneNumber)
                                 setConfirming(true)
 
-                                setConfirmResult(() => async (c: string) => {
+                                setConfirmResult( () => async (c: string) => {
                                     setLoading(true)
                                     try {
                                         await confirm.confirm(c)
@@ -206,6 +206,7 @@ const SignInScreen = ({ navigation }) => {
                             size="large"
                             onPress={() => {
                                 confirmResult(code)
+                                console.log('code', code)
                             }}
                         >
                             Login
