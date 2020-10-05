@@ -14,6 +14,7 @@ import SplashScreen from 'react-native-splash-screen';
 import Permissions from 'react-native-permissions'
 import useUser from './src/hooks/useUser';
 import Settings from './src/containers/Settings';
+import Locale from './src/containers/Locale';
 
 
 
@@ -107,16 +108,18 @@ const App = () => {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
       <Settings>
-        <AuthContext.Provider value={authContext}>
-          <NavigationContainer>
-            {userToken == ! null ? (
-              <MainTab />
-            ) : (
-                <RootStackScreen />
-              )
-            }
-          </NavigationContainer>
-        </AuthContext.Provider>
+        <Locale>
+          <AuthContext.Provider value={authContext}>
+            <NavigationContainer>
+              {userToken == ! null ? (
+                <MainTab />
+              ) : (
+                  <RootStackScreen />
+                )
+              }
+            </NavigationContainer>
+          </AuthContext.Provider>
+        </Locale>
       </Settings>
     </ApplicationProvider>
   );
