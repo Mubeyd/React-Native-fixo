@@ -72,17 +72,6 @@ const SignInScreen = ({ navigation }) => {
     })
 
 
-
-
-    // const [data, setData] = React.useState({
-    //     username: '',
-    //     check_textInputChange: false,
-    //     secureTextEntry: true,
-    //     isValidUser: true,
-    // });
-
-    // const { signIn } = useContext(AuthContext)
-
     const { colors } = useTheme();
 
     return (

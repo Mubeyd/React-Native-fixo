@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { StyleSheet, Text, View, Button, Alert } from 'react-native'
+import auth from '@react-native-firebase/auth';
+
 import { AuthContext } from '../components/Context'
 import { usersColRef } from '../config/firebaseCollections'
 
@@ -7,13 +9,22 @@ export interface Props { }
 
 const Profile = ({ }: Props) => {
 
-    const { signOut } = useContext(AuthContext)
+    // const { signOut } = useContext(AuthContext)
 
-    const getUser = async() => {
+    const getUser = async () => {
         const userName = await usersColRef.doc('2ZIcHG7l9FQ7hhzSUyCX').get()
         // console.log(userName.data())
     }
     getUser()
+
+    const logout = async () => {
+        try {
+            await auth().signOut();
+            console.log('logout success :>> ');
+        } catch (e) {
+            console.log('error logout', e)
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -28,10 +39,12 @@ const Profile = ({ }: Props) => {
                 color='#543251'
                 title="LOGOUT"
                 onPress={() => {
-                    signOut()
-                    // console.log('logout')
+                    // signOut()
+                    logout()
+                    console.log('logout')
                     Alert.alert('LOGOUT!')
-                }}
+                }
+                }
             />
         </View>
     )
