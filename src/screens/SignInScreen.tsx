@@ -120,28 +120,9 @@ const SignInScreen = ({ navigation }) => {
                             setPhoneNumber(e)
                             console.log(e)
                         }}
-                    // onEndEditing={(e) => console.log(e)}
                     />
                 </View>
 
-                {/* <View style={styles.button}>
-                    <TouchableOpacity
-                        style={styles.signUp}
-                        onPress={() => {
-
-                            signIn()
-                        }}
-                    >
-                        <LinearGradient
-                            colors={['#08d4c4', '#01ab9d']}
-                            style={styles.signUp}
-                        >
-                            <Text style={[styles.textSign, {
-                                color: '#fff'
-                            }]}>Sign Up</Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
-                </View> */}
                 {!confirming ? (
                     <Button
                         style={styles.buttonLogin}
@@ -250,21 +231,6 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingLeft: 10,
         color: '#05375a',
-    },
-    button: {
-        alignItems: 'center',
-        marginTop: 50
-    },
-    signUp: {
-        width: '100%',
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10
-    },
-    textSign: {
-        fontSize: 18,
-        fontWeight: 'bold'
     },
     buttonLogin: {
         borderColor: backgroundColor,

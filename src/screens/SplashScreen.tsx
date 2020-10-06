@@ -23,29 +23,10 @@ import useUser from '../hooks/useUser';
 const SplashScreen = ({navigation}) => {
     
     const { colors } = useTheme();
-    // const [user] = useAuthState(auth())
-
-
     const user = useUser()
 
     console.log('user PhoneNumber', user?.phoneNumber)
     console.log('user Id', user?.uid)
-
-    let userName
-    const getUser = async() => {
-        const userDoc = await usersColRef.doc('oJ9vbqghN3LSvSTHOFLK').get()
-        // console.log(userDoc.data())
-        const userName = userDoc.data()
-        // console.log('userName', userName)
-    }
-    getUser()
-
-    const subscriber = usersColRef.doc('oJ9vbqghN3LSvSTHOFLK').onSnapshot(doc => {doc.data()})
-    // usersColRef.doc('oJ9vbqghN3LSvSTHOFLK').onSnapshot(doc => {
-    //     console.log('doc.data() :>> ', doc.data());
-    // })
-
-    
 
     return (
         <View style={styles.container}>
@@ -68,7 +49,6 @@ const SplashScreen = ({navigation}) => {
                 <Text style={[styles.title, {
                     color: colors.text
                 }]}>Your home deserves the best</Text>
-                {/* <Text style={styles.text}>Sign in with account</Text> */}
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
                         <LinearGradient
@@ -86,7 +66,6 @@ const SplashScreen = ({navigation}) => {
                 </View>
                 <Text style={styles.textVersion}>Starlab.tech</Text>
                 <Text style={styles.textVersion}>Version : {version}</Text>
-                {/* <Text style={styles.textVersion}>Name : {subscriber.name}</Text> */}
             </Animatable.View>
         </View>
     );
@@ -123,10 +102,6 @@ const styles = StyleSheet.create({
         color: '#05375a',
         fontSize: 30,
         fontWeight: 'bold'
-    },
-    text: {
-        color: 'grey',
-        marginTop: 5,
     },
     textVersion: {
         color: 'grey',
