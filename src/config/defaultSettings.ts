@@ -35,7 +35,7 @@ const defaultLang = getDefaultLocale()
 const defaultSettings: Settings = {
     locale: defaultLang,
     direction: getDirFromLocale(defaultLang),
-    companyId: undefined,
+    userId: undefined,
 }
 
 export default defaultSettings

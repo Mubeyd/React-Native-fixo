@@ -1,21 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, Button, Alert } from 'react-native'
 import auth from '@react-native-firebase/auth';
 
-import { AuthContext } from '../components/Context'
-import { usersColRef } from '../config/firebaseCollections'
 
 export interface Props { }
 
 const Profile = ({ }: Props) => {
-
-    // const { signOut } = useContext(AuthContext)
-
-    const getUser = async () => {
-        const userName = await usersColRef.doc('2ZIcHG7l9FQ7hhzSUyCX').get()
-        // console.log(userName.data())
-    }
-    getUser()
 
     const logout = async () => {
         try {
@@ -35,11 +25,9 @@ const Profile = ({ }: Props) => {
                 onPress={() => Alert.alert('Button Clicked!')}
             />
             <Button
-                // style={styles.button}
                 color='#543251'
                 title="LOGOUT"
                 onPress={() => {
-                    // signOut()
                     logout()
                     console.log('logout')
                     Alert.alert('LOGOUT!')
@@ -58,9 +46,5 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    button: {
-        flex: 1,
-        margin: 12,
     }
 });

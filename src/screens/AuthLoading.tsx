@@ -19,14 +19,14 @@ const AuthLoading = ({ }: Props) => {
             return
         }
 
-        // if (user) {
-        //     // console.log('user.uid :>> ', user?.uid);
-        //     // <MainTab />
-        // } else {
-        //     // console.log('user.uid else :>> ', user?.uid);
-        //     console.log('userId :>> ', userId);
-        //     // <RootStackScreen />
-        // }
+        if (user) {
+            console.log('user.uid :>> ', user?.uid);
+            console.log(' Authlodaing userId :>> ', userId);
+
+        } else {
+            // console.log('user.uid else :>> ', user?.uid);
+            console.log(' Authlodaing userId :>> ', userId);
+        }
     }, [user, loading, userId, loadingSettings])
 
     return (

@@ -157,15 +157,15 @@ const SignInScreen = ({ navigation }) => {
                                     setLoading(true)
                                     try {
                                         await confirm.confirm(c)
-                                        console.log('success :>> ');
+                                        console.log('success catching verification code :>> ', c);
                                     } catch (e) {
-                                        console.log(error);
+                                        console.log('error catching verification code :>> ', e);
                                     } finally {
                                         setLoading(false)
                                     }
                                 })
                             } catch (e) {
-                                console.log('error :>> ', e)
+                                console.log('error login phone number :>> ', e)
                             } finally {
                                 setLoading(false)
                             }
