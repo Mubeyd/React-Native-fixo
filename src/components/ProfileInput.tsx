@@ -11,7 +11,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 //     rest?: any
 // }
 
-const ProfileInput = ({ labelValue, placeholderText, iconType, ...rest }) => {
+const ProfileInput = ({ labelValue, iconType, ...rest }) => {
     // const { labelValue, placeholderText, iconType, ...rest } = props
     return (
         <View style={styles.inputContainer}>
@@ -22,7 +22,7 @@ const ProfileInput = ({ labelValue, placeholderText, iconType, ...rest }) => {
                 value={labelValue}
                 style={styles.input}
                 numberOfLines={1}
-                placeholder={placeholderText}
+                // placeholder={placeholderText}
                 placeholderTextColor="#666"
                 {...rest}
             />
