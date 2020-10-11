@@ -16,9 +16,6 @@ const EditName = ({navigation, route }) => {
         console.log('userUseDocSnapshot :>> ', userUseDocSnapshot);
     }
 
-
-
-
     return (
         <View style={styles.container}>
             <Text>EditName</Text>

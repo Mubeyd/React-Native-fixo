@@ -9,19 +9,12 @@ const EditSurname = ({navigation, route }) => {
 
     const { user, id } = route.params;
     const [userUseDocSnapshot] = useDocument(usersColRef.doc(id ?? 'noUser'))
-
     const [surname, setSurname] = useState(user)
 
-
     const changeName = async () => {
-
         await usersColRef.doc(id).update({ surname: surname })
-
         console.log('userUseDocSnapshot :>> ', userUseDocSnapshot);
     }
-
-
-
 
     return (
         <View style={styles.container}>

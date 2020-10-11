@@ -17,9 +17,6 @@ const ProfileRootStack = createStackNavigator();
             <ProfileRootStack.Screen name="EditName" component={EditName}/>
             <ProfileRootStack.Screen name="EditSurname" component={EditSurname}/>
         </ProfileRootStack.Navigator>
-        // <View>
-        //     <Text></Text>
-        // </View>
     )
 }
 
