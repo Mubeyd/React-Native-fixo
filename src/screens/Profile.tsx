@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, Button, Alert, ViewStyle } from 'react-native'
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore'
+import { StyleSheet, Text, View, ViewStyle } from 'react-native'
+import auth from '@react-native-firebase/auth';
 import useUser from '../hooks/useUser';
 import { backgroundColor, borderColor, borderRadius, borderWidth, cardElevation, largeFontSize, primaryTextColor, space } from '../config/styleConstants';
 import ProfileInput from '../components/ProfileInput'
-import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
+import { useDocument } from 'react-firebase-hooks/firestore';
 import { usersColRef } from '../config/firebaseCollections';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import EditLocation from '../components/EditLocation';
 
 
@@ -28,21 +25,12 @@ const Profile = ({ navigation }: Props) => {
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.phoneNumber);
 
-    const logout = async () => {
-        try {
-            await auth().signOut();
-            console.log('logout success :>> ');
-        } catch (e) {
-            console.log('error logout', e)
-        }
-    }
-
     const phoneNumber = user?.phoneNumber ?? editingUser?.phoneNumber
 
 
     return (
         <View style={styles.container}>
-            <Text style={styles.headerText}>Profile Screen</Text>
+            <Text style={styles.headerText}>Profile</Text>
             <ProfileInput
                 labelValue={phoneNumber}
                 iconType='phone'
@@ -87,22 +75,12 @@ const Profile = ({ navigation }: Props) => {
 
             />
 
-            {/* <Button
-                color='#b22bba'
-                title="LOGOUT"
-                onPress={() => {
-                    // logout()
-                    console.log('logout')
-                    Alert.alert('LOGOUT!')
-                }}
-            /> */}
-
             <View>
                 <Text style={styles.locationText}>
                     Edit Location
                 </Text>
 
-                <View style={{flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                     <EditLocation
                         backgroundColor='#4287f5'
                         text='home'
@@ -139,8 +117,9 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 24,
-        color: '#e03f16',
+        color: '#694fad',
         margin: 8,
+        fontWeight: 'bold',
     },
     locationText: {
         fontSize: 24,
