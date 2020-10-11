@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import SettingCard from '../components/SettingCard'
 import { space, windowHeight } from '../config/styleConstants'
@@ -32,6 +32,7 @@ const Settings = ({ }: Props) => {
                     text='Sign out'
                     onPress={() => {
                         // logout()
+                        Alert.alert('LOGOUT!')
                         console.log("object")
                     }}
                 />
