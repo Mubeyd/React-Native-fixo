@@ -6,13 +6,14 @@ import Services from './Services';
 import MyOrder from './MyOrders'
 import Profile from './Profile';
 import Settings from './Settings';
+import ProfileStack from './ProfileStack';
 
 
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTab = () => (
     <Tab.Navigator
-        initialRouteName="Profile"
+        initialRouteName="ProfileStack"
         activeColor="#fff"
     >
         <Tab.Screen
@@ -39,8 +40,8 @@ const MainTab = () => (
         />
 
         <Tab.Screen
-            name="Profile"
-            component={Profile}
+            name="ProfileStack"
+            component={ProfileStack}
             options={{
                 tabBarLabel: 'Profile',
                 tabBarColor: '#694fad',

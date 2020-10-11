@@ -44,10 +44,11 @@ const Profile = ({navigation }: Props) => {
     const [userUseDocSnapshot] = useDocument(usersColRef.doc(editingUserId ?? 'noUser'))
     const editingUser = userUseDocSnapshot?.data()
 
-    // useEffect(() => { }, [editingUser])
+    useEffect(() => { }, [editingUser])
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', uidData);
-    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser);
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
+    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.id);
+    // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
 
     // console.log('userData.phoneNumber :>> :>> ', userData?.phoneNumber);
     // console.log('userData.userName :>> :>> ', userData?.userName);
@@ -110,7 +111,7 @@ const Profile = ({navigation }: Props) => {
             phoneNumber: user?.phoneNumber ?? '+90',
             // userName: `${userNameTrue ?? 'aljfhsiesfsu'}`,
             userName: `${uid?.userName ? userNameTrue : 'aljfhsiesfsu'}`,
-            surname: `${editingUser?.surname ?? 'sdsdfs'}`
+            surname: `${uid?.userName ?? 'sdsdfs'}`
         },
         onSubmit: async values => {
             let userId: string
@@ -153,6 +154,7 @@ const Profile = ({navigation }: Props) => {
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>Profile Screen</Text>
+            <Text style={styles.headerText}>{editingUser?.surname}</Text>
             <ProfileInput
                 labelValue={phoneNumber}
                 // placeholderText={formProps.values.phoneNumber}
@@ -196,7 +198,10 @@ const Profile = ({navigation }: Props) => {
                 color='#b22bba'
                 title="edit surname"
                 onPress={() => {
-                    // navigation.navigate("EditSurname")
+                    navigation.navigate('ProfileStack', {
+                        screen: 'EditSurname',
+                        params: { user: editingUser?.surname, id: uidData},
+                      } )
                     console.log('EditSurname')
                 }}
             />
