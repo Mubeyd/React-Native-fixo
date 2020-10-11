@@ -9,6 +9,7 @@ import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { usersColRef } from '../config/firebaseCollections';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import EditLocation from '../components/EditLocation';
 
 
 export interface Props { }
@@ -58,12 +59,13 @@ const Profile = ({ navigation }: Props) => {
                 autoCorrect={false}
                 onChangeText={console.log('from edit comp object')}
                 editable={false}
-                onPress={() => 
-                    {navigation.navigate('ProfileStack', {
+                onPress={() => {
+                    navigation.navigate('ProfileStack', {
                         screen: 'EditName',
                         params: { user: editingUser?.name, id: uidData },
                     })
-                    console.log('EditName')}
+                    console.log('EditName')
+                }
                 }
 
             />
@@ -74,17 +76,18 @@ const Profile = ({ navigation }: Props) => {
                 autoCorrect={false}
                 onChangeText={console.log('from edit comp object')}
                 editable={false}
-                onPress={() => 
-                    {navigation.navigate('ProfileStack', {
+                onPress={() => {
+                    navigation.navigate('ProfileStack', {
                         screen: 'EditSurname',
                         params: { user: editingUser?.surname, id: uidData },
                     })
-                    console.log('EditSurname')}
+                    console.log('EditSurname')
+                }
                 }
 
             />
 
-            <Button
+            {/* <Button
                 color='#b22bba'
                 title="LOGOUT"
                 onPress={() => {
@@ -92,7 +95,33 @@ const Profile = ({ navigation }: Props) => {
                     console.log('logout')
                     Alert.alert('LOGOUT!')
                 }}
-            />
+            /> */}
+
+            <View>
+                <Text style={styles.locationText}>
+                    Edit Location
+                </Text>
+
+                <View style={{flexDirection: 'row'}}>
+                    <EditLocation
+                        backgroundColor='#4287f5'
+                        text='home'
+                    />
+                    <EditLocation
+                        backgroundColor='#e32b56'
+                        text='home'
+                    />
+                    <EditLocation
+                        backgroundColor='#e0b424'
+                        text='home'
+                    />
+                    <EditLocation
+                        backgroundColor='#4287f5'
+                        text='+'
+                    />
+                </View>
+
+            </View>
         </View>
     )
 }
@@ -112,6 +141,11 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: '#e03f16',
         margin: 8,
+    },
+    locationText: {
+        fontSize: 24,
+        color: '#4287f5',
+        margin: space,
     },
     card: {
         flexDirection: 'row',

@@ -19,8 +19,8 @@ const EditName = ({navigation, route }) => {
     return (
         <View style={styles.container}>
             <Text>EditName</Text>
-            <Text>{id}</Text>
-            <Text>{user}</Text>
+            {/* <Text>{id}</Text>
+            <Text>{user}</Text> */}
             <ProfileInput
                 labelValue={name}
                 iconType="user"
