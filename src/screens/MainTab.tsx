@@ -12,7 +12,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const MainTab = () => (
     <Tab.Navigator
-        initialRouteName="Services"
+        initialRouteName="Profile"
         activeColor="#fff"
     >
         <Tab.Screen

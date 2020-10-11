@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Button, Alert, ViewStyle } from 'react-native'
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore'
 import { useFormik } from 'formik'
 import useUser from '../hooks/useUser';
 import { backgroundColor, borderColor, borderRadius, borderWidth, cardElevation, largeFontSize, primaryTextColor, space } from '../config/styleConstants';
 import ProfileInput from '../components/ProfileInput'
-import { useCollection } from 'react-firebase-hooks/firestore';
+import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { usersColRef } from '../config/firebaseCollections';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
@@ -19,10 +20,17 @@ interface FormikFields {
     surname: string
 }
 
-const Profile = ({ }: Props) => {
+const Profile = ({navigation }: Props) => {
     const user = useUser()
+    const uid = useUser()
+    const uidData = uid?.uid
+    const editingUserId: string | undefined = uidData
+
 
     const [fireAuthUser, loadingUser] = useAuthState(auth())
+
+    console.log('fireAuthUser :>>:>>:>>', fireAuthUser?.uid);
+    // const userData2 = useCollection
 
 
 
@@ -33,13 +41,25 @@ const Profile = ({ }: Props) => {
     const user2 = (userSnapshot as FirebaseFirestoreTypes.QuerySnapshot)?.docs[0]
     const userData = user2?.data()
 
-    console.log('userData.phoneNumber :>> :>> ', userData?.phoneNumber);
+    const [userUseDocSnapshot] = useDocument(usersColRef.doc(editingUserId ?? 'noUser'))
+    const editingUser = userUseDocSnapshot?.data()
+
+    // useEffect(() => { }, [editingUser])
+    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', uidData);
+    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser);
+    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
+
+    // console.log('userData.phoneNumber :>> :>> ', userData?.phoneNumber);
+    // console.log('userData.userName :>> :>> ', userData?.userName);
+    // console.log('userData.surname :>> :>> ', userData?.surname);
 
 
 
-    console.log('user PhoneNumber', user?.phoneNumber)
-    console.log('user? :>> ', user?.userName);
-    console.log('user? :>> ', user?.surname);
+
+
+    // console.log('user PhoneNumber', user?.phoneNumber)
+    // console.log('user? :>> ', user?.userName);
+    // console.log('user? :>> ', user?.surname);
     // console.log('user Id', user?.uid)
 
     const logout = async () => {
@@ -51,20 +71,81 @@ const Profile = ({ }: Props) => {
         }
     }
 
+    // const surname= `${userData?.surname ?? ''}`
+    // const userName = userData?.userName
+    // const surname = userData?.surname
+
+    const userTrue = user ? user : false
+    const userNameTrue = userTrue ? userTrue.userName : false
+
+    console.log('userNameTrue :>> ', userNameTrue);
+
+
+    const userId = String(fireAuthUser?.uid)
+    if (typeof userId === 'string') {
+        console.log('userId is string :>> ', userId);
+    }
+
+
+
+    const userDoc = async () => {
+        await usersColRef.doc('gxZRUa2ZomSiHLfhDXZ1').get().then(async docSnapshot => {
+            // console.log('docSnapshot.data() :>> ', data2331);
+            const data2331 = await docSnapshot.data()
+            if (docSnapshot.exists) {
+                console.log('User id: ', docSnapshot.id);
+                console.log('User data id: ', uid?.uid);
+                console.log('User data name: ', uid?.surname);
+            } else {
+                console.log('no object');
+            }
+        })
+    }
+    // userDoc()
+    // const userDocData = userDoc
+
 
     const formProps = useFormik<FormikFields>({
         initialValues: {
-            phoneNumber: '+90',
-            userName: `${user?.userName ?? ''}`,
-            surname: `${user?.surname ?? ''}`
+            phoneNumber: user?.phoneNumber ?? '+90',
+            // userName: `${userNameTrue ?? 'aljfhsiesfsu'}`,
+            userName: `${uid?.userName ? userNameTrue : 'aljfhsiesfsu'}`,
+            surname: `${editingUser?.surname ?? 'sdsdfs'}`
         },
         onSubmit: async values => {
+            let userId: string
+            // const phoneNumber = userData?.phoneNumber ?? values.phoneNumber
+
+            const data = {
+                phoneNumber: values.phoneNumber,
+                userName: values.userName,
+                surname: values.surname,
+                createdAt: firestore.FieldValue.serverTimestamp(),
+            }
+
+            let ref
+
+            if (user?.uid) {
+                // delete data.createdAt
+                // ref = user.ref
+            } else {
+                // ref = usersColRef.doc()
+            }
+
+            // await 
+
+
+
+
         }
     })
-    console.log('values.phoneNumber :>> ', formProps.values.phoneNumber);
-    console.log('values.userName :>> ', formProps.values.userName); 
-    console.log('values.surname :>> ', formProps.values.surname); 
-    
+    console.log('formProps.values.phoneNumber :>> ', formProps.values.phoneNumber);
+    console.log('formProps.values.userName :>> ', formProps.values.userName);
+    console.log('formProps.values.surname :>> ', formProps.values.surname);
+
+
+    // useEffect(() => {},[formProps])
+
     const phoneNumber = user?.phoneNumber ?? formProps.values.phoneNumber
 
 
@@ -82,14 +163,18 @@ const Profile = ({ }: Props) => {
 
             <ProfileInput
                 labelValue={formProps.values.userName}
+                // labelValue={userName}
                 // placeholderText="uyftf"
                 iconType="user"
                 autoCapitalize="none"
                 autoCorrect={false}
                 onChangeText={formProps.handleChange('userName')}
+            // editable={false}
+
             />
             <ProfileInput
                 labelValue={formProps.values.surname}
+                // labelValue={surname}
                 // placeholderText="uyftf"
                 iconType="user"
                 autoCapitalize="none"
@@ -106,6 +191,15 @@ const Profile = ({ }: Props) => {
             <View style={styles.card}>
                 <Text style={styles.nameText}>Surname: {user?.surname}</Text>
             </View> */}
+
+            <Button
+                color='#b22bba'
+                title="edit surname"
+                onPress={() => {
+                    // navigation.navigate("EditSurname")
+                    console.log('EditSurname')
+                }}
+            />
 
             <Button
                 color='#b22bba'
