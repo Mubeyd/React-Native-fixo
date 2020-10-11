@@ -20,26 +20,12 @@ interface FormikFields {
     surname: string
 }
 
-const Profile = ({navigation }: Props) => {
+const Profile = ({ navigation }: Props) => {
     const user = useUser()
     const uid = useUser()
     const uidData = uid?.uid
     const editingUserId: string | undefined = uidData
 
-
-    const [fireAuthUser, loadingUser] = useAuthState(auth())
-
-    console.log('fireAuthUser :>>:>>:>>', fireAuthUser?.uid);
-    // const userData2 = useCollection
-
-
-
-    const [userSnapshot, loadingUserSnapshot] = useCollection(
-        usersColRef.where('phoneNumber', '==', (fireAuthUser as FirebaseAuthTypes.User)?.phoneNumber || '')
-    )
-
-    const user2 = (userSnapshot as FirebaseFirestoreTypes.QuerySnapshot)?.docs[0]
-    const userData = user2?.data()
 
     const [userUseDocSnapshot] = useDocument(usersColRef.doc(editingUserId ?? 'noUser'))
     const editingUser = userUseDocSnapshot?.data()
@@ -47,21 +33,7 @@ const Profile = ({navigation }: Props) => {
     useEffect(() => { }, [editingUser])
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', uidData);
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
-    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.id);
-    // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
-
-    // console.log('userData.phoneNumber :>> :>> ', userData?.phoneNumber);
-    // console.log('userData.userName :>> :>> ', userData?.userName);
-    // console.log('userData.surname :>> :>> ', userData?.surname);
-
-
-
-
-
-    // console.log('user PhoneNumber', user?.phoneNumber)
-    // console.log('user? :>> ', user?.userName);
-    // console.log('user? :>> ', user?.surname);
-    // console.log('user Id', user?.uid)
+    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.phoneNumber);
 
     const logout = async () => {
         try {
@@ -72,82 +44,8 @@ const Profile = ({navigation }: Props) => {
         }
     }
 
-    // const surname= `${userData?.surname ?? ''}`
-    // const userName = userData?.userName
-    // const surname = userData?.surname
 
-    const userTrue = user ? user : false
-    const userNameTrue = userTrue ? userTrue.userName : false
-
-    console.log('userNameTrue :>> ', userNameTrue);
-
-
-    const userId = String(fireAuthUser?.uid)
-    if (typeof userId === 'string') {
-        console.log('userId is string :>> ', userId);
-    }
-
-
-
-    const userDoc = async () => {
-        await usersColRef.doc('gxZRUa2ZomSiHLfhDXZ1').get().then(async docSnapshot => {
-            // console.log('docSnapshot.data() :>> ', data2331);
-            const data2331 = await docSnapshot.data()
-            if (docSnapshot.exists) {
-                console.log('User id: ', docSnapshot.id);
-                console.log('User data id: ', uid?.uid);
-                console.log('User data name: ', uid?.surname);
-            } else {
-                console.log('no object');
-            }
-        })
-    }
-    // userDoc()
-    // const userDocData = userDoc
-
-
-    const formProps = useFormik<FormikFields>({
-        initialValues: {
-            phoneNumber: user?.phoneNumber ?? '+90',
-            // userName: `${userNameTrue ?? 'aljfhsiesfsu'}`,
-            userName: `${uid?.userName ? userNameTrue : 'aljfhsiesfsu'}`,
-            surname: `${uid?.userName ?? 'sdsdfs'}`
-        },
-        onSubmit: async values => {
-            let userId: string
-            // const phoneNumber = userData?.phoneNumber ?? values.phoneNumber
-
-            const data = {
-                phoneNumber: values.phoneNumber,
-                userName: values.userName,
-                surname: values.surname,
-                createdAt: firestore.FieldValue.serverTimestamp(),
-            }
-
-            let ref
-
-            if (user?.uid) {
-                // delete data.createdAt
-                // ref = user.ref
-            } else {
-                // ref = usersColRef.doc()
-            }
-
-            // await 
-
-
-
-
-        }
-    })
-    console.log('formProps.values.phoneNumber :>> ', formProps.values.phoneNumber);
-    console.log('formProps.values.userName :>> ', formProps.values.userName);
-    console.log('formProps.values.surname :>> ', formProps.values.surname);
-
-
-    // useEffect(() => {},[formProps])
-
-    const phoneNumber = user?.phoneNumber ?? formProps.values.phoneNumber
+    const phoneNumber = user?.phoneNumber ?? editingUser?.phoneNumber
 
 
 
@@ -157,42 +55,39 @@ const Profile = ({navigation }: Props) => {
             <Text style={styles.headerText}>{editingUser?.surname}</Text>
             <ProfileInput
                 labelValue={phoneNumber}
-                // placeholderText={formProps.values.phoneNumber}
                 iconType='phone'
                 keyboardType="phone-pad"
-                onChangeText={formProps.handleChange('phoneNumber')}
+                onChangeText={console.log('from edit comp object')}
+                onPress={() => console.log('from edit comp object')}
+                editable={false}
             />
 
             <ProfileInput
-                labelValue={formProps.values.userName}
-                // labelValue={userName}
-                // placeholderText="uyftf"
-                iconType="user"
+                labelValue={editingUser?.name}
+                iconType="edit"
                 autoCapitalize="none"
                 autoCorrect={false}
-                onChangeText={formProps.handleChange('userName')}
-            // editable={false}
+                onChangeText={console.log('from edit comp object')}
+                editable={false}
+                onPress={() => console.log('from edit comp object')}
 
             />
             <ProfileInput
-                labelValue={formProps.values.surname}
-                // labelValue={surname}
-                // placeholderText="uyftf"
-                iconType="user"
+                labelValue={editingUser?.surname}
+                iconType="edit"
                 autoCapitalize="none"
                 autoCorrect={false}
-                onChangeText={formProps.handleChange('surname')}
-            />
+                onChangeText={console.log('from edit comp object')}
+                editable={false}
+                onPress={() => 
+                    {navigation.navigate('ProfileStack', {
+                        screen: 'EditSurname',
+                        params: { user: editingUser?.surname, id: uidData },
+                    })
+                    console.log('EditSurname')}
+                }
 
-            {/* <View style={styles.card}>
-                <Text style={styles.nameText}>Number: {user?.phoneNumber}</Text>
-            </View>
-            <View style={styles.card}>
-                <Text style={styles.nameText}>Name: {user?.name}</Text>
-            </View>
-            <View style={styles.card}>
-                <Text style={styles.nameText}>Surname: {user?.surname}</Text>
-            </View> */}
+            />
 
             <Button
                 color='#b22bba'
@@ -200,8 +95,8 @@ const Profile = ({navigation }: Props) => {
                 onPress={() => {
                     navigation.navigate('ProfileStack', {
                         screen: 'EditSurname',
-                        params: { user: editingUser?.surname, id: uidData},
-                      } )
+                        params: { user: editingUser?.surname, id: uidData },
+                    })
                     console.log('EditSurname')
                 }}
             />

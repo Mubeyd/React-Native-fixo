@@ -1,28 +1,25 @@
 import React, { ReactChild } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { windowHeight, windowWidth } from '../config/styleConstants';
-
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-// interface Props {
-//     labelValue: string
-//     placeholderText: string
-//     iconType: string
-//     rest?: any
-// }
 
-const ProfileInput = ({ labelValue, iconType, ...rest }) => {
+const ProfileInput = ({ labelValue, iconType,onPress,  ...rest }) => {
     // const { labelValue, placeholderText, iconType, ...rest } = props
     return (
         <View style={styles.inputContainer}>
             <View style={styles.iconStyle}>
-                <AntDesign name={iconType} size={25} color="#666" />
+                <AntDesign
+                    name={iconType}
+                    size={25}
+                    color="#666"
+                    onPress={() => onPress()}
+                />
             </View>
             <TextInput
                 value={labelValue}
                 style={styles.input}
                 numberOfLines={1}
-                // placeholder={placeholderText}
                 placeholderTextColor="#666"
                 {...rest}
             />
@@ -63,7 +60,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         fontWeight: "bold",
-        letterSpacing : 2
+        letterSpacing: 2
     },
     //   inputField: {
     //     padding: 10,
