@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Button, Alert, ViewStyle } from 'react-native'
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore'
-import { useFormik } from 'formik'
 import useUser from '../hooks/useUser';
 import { backgroundColor, borderColor, borderRadius, borderWidth, cardElevation, largeFontSize, primaryTextColor, space } from '../config/styleConstants';
 import ProfileInput from '../components/ProfileInput'
@@ -14,18 +13,11 @@ import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 export interface Props { }
 
-interface FormikFields {
-    phoneNumber: string
-    userName: string
-    surname: string
-}
-
 const Profile = ({ navigation }: Props) => {
     const user = useUser()
     const uid = useUser()
     const uidData = uid?.uid
     const editingUserId: string | undefined = uidData
-
 
     const [userUseDocSnapshot] = useDocument(usersColRef.doc(editingUserId ?? 'noUser'))
     const editingUser = userUseDocSnapshot?.data()
@@ -44,15 +36,12 @@ const Profile = ({ navigation }: Props) => {
         }
     }
 
-
     const phoneNumber = user?.phoneNumber ?? editingUser?.phoneNumber
-
 
 
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>Profile Screen</Text>
-            <Text style={styles.headerText}>{editingUser?.surname}</Text>
             <ProfileInput
                 labelValue={phoneNumber}
                 iconType='phone'
@@ -69,7 +58,13 @@ const Profile = ({ navigation }: Props) => {
                 autoCorrect={false}
                 onChangeText={console.log('from edit comp object')}
                 editable={false}
-                onPress={() => console.log('from edit comp object')}
+                onPress={() => 
+                    {navigation.navigate('ProfileStack', {
+                        screen: 'EditName',
+                        params: { user: editingUser?.name, id: uidData },
+                    })
+                    console.log('EditName')}
+                }
 
             />
             <ProfileInput
@@ -87,18 +82,6 @@ const Profile = ({ navigation }: Props) => {
                     console.log('EditSurname')}
                 }
 
-            />
-
-            <Button
-                color='#b22bba'
-                title="edit surname"
-                onPress={() => {
-                    navigation.navigate('ProfileStack', {
-                        screen: 'EditSurname',
-                        params: { user: editingUser?.surname, id: uidData },
-                    })
-                    console.log('EditSurname')
-                }}
             />
 
             <Button

@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
+import EditName from './EditName';
 import EditSurname from './EditSurname';
-import MainTab from './MainTab';
 import Profile from './Profile';
 
 const ProfileStack = () => {
@@ -14,6 +14,7 @@ const ProfileRootStack = createStackNavigator();
         headerMode='none'
         initialRouteName="Profile">
             <ProfileRootStack.Screen name="ProfileTab" component={Profile}/>
+            <ProfileRootStack.Screen name="EditName" component={EditName}/>
             <ProfileRootStack.Screen name="EditSurname" component={EditSurname}/>
         </ProfileRootStack.Navigator>
         // <View>

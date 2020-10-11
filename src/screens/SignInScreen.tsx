@@ -48,7 +48,7 @@ const SignInScreen = ({ navigation }) => {
                     await usersColRef.add({
                         phoneNumber: user!.phoneNumber,
                         createdAt: firestore.FieldValue.serverTimestamp(),
-                        userName: '',
+                        name: '',
                         surname: '',
                     } as User)
                 }
