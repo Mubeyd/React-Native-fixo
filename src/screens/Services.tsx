@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, StatusBar, Button, TextInput } from 'react-native'
 import { useTheme } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import ServiceBox from '../components/ServiceBox';
 import { servicesColor } from '../config/styleConstants';
 
@@ -19,12 +20,13 @@ const Services = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar barStyle={theme.dark ? "light-content" : "dark-content"} />
 
-            <View>
+            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <TextInput
                     style={styles.serchInput}
                     onChangeText={text => onChangeText(text)}
                     value={value}
                 />
+                <Ionicons name='location-outline' size={30} />
             </View>
             <View style={styles.row}>
                 <ServiceBox
@@ -82,9 +84,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     serchInput: {
-        height: 40,
+        height: 50,
+        width: 280,
         borderColor: 'gray',
-        borderWidth: 1
+        borderWidth: 1,
+        borderRadius: 12,
+        margin: 12,
+        alignContent: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
     },
     row: {
         flexDirection: 'row',
