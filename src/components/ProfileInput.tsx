@@ -1,10 +1,10 @@
-import React, { ReactChild } from 'react';
+import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { windowHeight, windowWidth } from '../config/styleConstants';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
-const ProfileInput = ({ labelValue, iconType,onPress,  ...rest }) => {
+const ProfileInput = ({ labelValue, iconType,onPress,placeholder,  ...rest }) => {
     // const { labelValue, placeholderText, iconType, ...rest } = props
     return (
         <View style={styles.inputContainer}>
@@ -20,7 +20,8 @@ const ProfileInput = ({ labelValue, iconType,onPress,  ...rest }) => {
                 value={labelValue}
                 style={styles.input}
                 numberOfLines={1}
-                placeholderTextColor="#666"
+                placeholderTextColor="#999"
+                placeholder={placeholder}
                 {...rest}
             />
         </View>

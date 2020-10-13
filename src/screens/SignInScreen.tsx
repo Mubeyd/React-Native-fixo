@@ -88,15 +88,15 @@ const SignInScreen = ({ navigation }) => {
                 }]}
             >
                 <Text style={[styles.text_footer, {
-                    color: colors.text
+                    color: colors.text, 
                 }]}> Enter Your Phone Number </Text>
 
                 <View style={styles.action}>
-                    <FontAwesome
-                        name="mobile-phone"
-                        color={colors.text}
-                        size={20}
-                    />
+                        <FontAwesome
+                            name="mobile-phone"
+                            color={colors.text}
+                            size={30}
+                        />
                     <Input
                         maxLength={13}
                         autoFocus
@@ -218,7 +218,9 @@ const styles = StyleSheet.create({
     },
     text_footer: {
         color: '#05375a',
-        fontSize: 18
+        fontSize: 18,
+        marginBottom:12,
+
     },
     action: {
         flexDirection: 'row',

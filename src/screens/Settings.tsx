@@ -31,7 +31,7 @@ const Settings = ({ }: Props) => {
                 <SettingCard
                     text='Sign out'
                     onPress={() => {
-                        // logout()
+                        logout()
                         Alert.alert('LOGOUT!')
                         console.log("object")
                     }}

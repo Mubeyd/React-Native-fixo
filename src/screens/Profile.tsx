@@ -33,15 +33,18 @@ const Profile = ({ navigation }: Props) => {
             <Text style={styles.headerText}>Profile</Text>
             <ProfileInput
                 labelValue={phoneNumber}
+                placeholder="Phone Number"
                 iconType='phone'
                 keyboardType="phone-pad"
                 onChangeText={console.log('from edit comp object')}
                 onPress={() => console.log('from edit comp object')}
                 editable={false}
+
             />
 
             <ProfileInput
                 labelValue={editingUser?.name}
+                placeholder="Name & Surname"
                 iconType="edit"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -59,6 +62,7 @@ const Profile = ({ navigation }: Props) => {
             />
             <ProfileInput
                 labelValue={editingUser?.surname}
+                placeholder="Name & Surname"
                 iconType="edit"
                 autoCapitalize="none"
                 autoCorrect={false}
