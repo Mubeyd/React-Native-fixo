@@ -5,9 +5,6 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 const ServicesMap = () => {
 
     return (
-        // <View>
-        //     <Text>Google Maps Here</Text>
-        // </View>
 
         <View style={styles.container}>
             <MapView
