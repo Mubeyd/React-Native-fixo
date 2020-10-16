@@ -10,28 +10,33 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
 const onLocationEnablePressed = () => {
     if (Platform.OS === 'android') {
-      RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({interval: 10000, fastInterval: 5000})
-      .then(data => {
-        Alert.alert(data);
-      }).catch(err => {
-        // The user has not accepted to enable the location services or something went wrong during the process
-        // "err" : { "code" : "ERR00|ERR01|ERR02", "message" : "message"}
-        // codes : 
-        //  - ERR00 : The user has clicked on Cancel button in the popup
-        //  - ERR01 : If the Settings change are unavailable
-        //  - ERR02 : If the popup has failed to open
-        Alert.alert("Error " + err.message + ", Code : " + err.code);
-      });
+        RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
+            .then(data => {
+                Alert.alert(data);
+            }).catch(err => {
+                // The user has not accepted to enable the location services or something went wrong during the process
+                // "err" : { "code" : "ERR00|ERR01|ERR02", "message" : "message"}
+                // codes : 
+                //  - ERR00 : The user has clicked on Cancel button in the popup
+                //  - ERR01 : If the Settings change are unavailable
+                //  - ERR02 : If the popup has failed to open
+                Alert.alert("Error " + err.message + ", Code : " + err.code);
+            });
     }
-  }
+}
 
 
 const ServicesMap = () => {
+
+    const [currentLatitude, setCurrentLatitude] = useState(0)
+    const [currentLongitude, setCurrentLongitude] = useState(0)
 
     const getLocation = () => {
         // get result if gps is erabled *****
         Geolocation.getCurrentPosition(position => {
             const initialPosition = JSON.stringify(position);
+            setCurrentLatitude(position.coords.latitude)
+            setCurrentLongitude(position.coords.longitude)
             console.log('initialPosition :>> ', initialPosition);
         },
             error => Alert.alert('Error', JSON.stringify(error)),
@@ -44,8 +49,8 @@ const ServicesMap = () => {
             <MapView
                 style={styles.container}
                 initialRegion={{
-                    latitude: 37.04836,
-                    longitude: 37.34371,
+                    latitude: currentLatitude ? currentLatitude : 37.04836,
+                    longitude: currentLongitude ? currentLongitude : 37.34371,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
@@ -62,6 +67,15 @@ const ServicesMap = () => {
                     onPress={() => {
                         getLocation()
                     }}
+                >
+                </Marker>
+                <Marker
+                    coordinate={{
+                        latitude: currentLatitude,
+                        longitude: currentLongitude,
+                    }}
+                    image={require('../assets/icons8-live-photos-96.png')}
+
                 >
                 </Marker>
             </MapView>

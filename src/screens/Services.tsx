@@ -28,7 +28,7 @@ const Services = ({ navigation }) => {
                     // value={value}
                     placeholder='Search Here'
                 />
-                <Ionicons name='location-outline' size={30} />
+                <Ionicons name='search-outline' size={30} />
             </View>
 
             <View style={styles.row}>
