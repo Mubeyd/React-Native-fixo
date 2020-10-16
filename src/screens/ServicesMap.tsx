@@ -1,8 +1,24 @@
 import React from 'react'
-import { Platform, StyleSheet, Text, View } from 'react-native'
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import { Alert, Platform, StyleSheet, Text, View } from 'react-native'
+import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import Geolocation from '@react-native-community/geolocation';
+import { useState } from 'react';
+import { Button } from 'react-native-paper';
+import SplashScreen from 'react-native-splash-screen';
+import Permissions from 'react-native-permissions'
+
 
 const ServicesMap = () => {
+
+    const getLocation = () => {
+        // get result if gps is erabled *****
+        Geolocation.getCurrentPosition(position => {
+            const initialPosition = JSON.stringify(position);
+            console.log('initialPosition :>> ', initialPosition);
+        },
+            error => Alert.alert('Error', JSON.stringify(error)),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+    }
 
     return (
 
@@ -25,6 +41,9 @@ const ServicesMap = () => {
                     image={require('../assets/map_marker.png')}
                     title='Gazintep Kalesi'
                     description='Tarihi Mekan'
+                    onPress={() => {
+                        getLocation()
+                    }}
                 >
                 </Marker>
             </MapView>

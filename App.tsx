@@ -22,7 +22,7 @@ const App = () => {
         // for later
         // await Permissions.request(Permissions.PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
         // await Permissions.request(Permissions.PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE)
-        // await Permissions.request(Permissions.PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+        await Permissions.request(Permissions.PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
         // await Permissions.request(Permissions.PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION)
       })()
   }, [])
