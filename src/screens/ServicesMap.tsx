@@ -1,11 +1,29 @@
 import React from 'react'
-import { Alert, Platform, StyleSheet, Text, View } from 'react-native'
+import { Alert, Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import Geolocation from '@react-native-community/geolocation';
 import { useState } from 'react';
 import { Button } from 'react-native-paper';
 import SplashScreen from 'react-native-splash-screen';
 import Permissions from 'react-native-permissions'
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
+
+const onLocationEnablePressed = () => {
+    if (Platform.OS === 'android') {
+      RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({interval: 10000, fastInterval: 5000})
+      .then(data => {
+        Alert.alert(data);
+      }).catch(err => {
+        // The user has not accepted to enable the location services or something went wrong during the process
+        // "err" : { "code" : "ERR00|ERR01|ERR02", "message" : "message"}
+        // codes : 
+        //  - ERR00 : The user has clicked on Cancel button in the popup
+        //  - ERR01 : If the Settings change are unavailable
+        //  - ERR02 : If the popup has failed to open
+        Alert.alert("Error " + err.message + ", Code : " + err.code);
+      });
+    }
+  }
 
 
 const ServicesMap = () => {
@@ -47,6 +65,7 @@ const ServicesMap = () => {
                 >
                 </Marker>
             </MapView>
+            <TouchableOpacity onPress={onLocationEnablePressed}><Text>Click here !</Text></TouchableOpacity>
         </View>
     )
 }

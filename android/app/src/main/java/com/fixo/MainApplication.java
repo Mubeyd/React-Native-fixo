@@ -13,6 +13,7 @@ import java.util.List;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import androidx.multidex.MultiDexApplication;
+// import com.heanoria.library.reactnative.locationenabler.RNAndroidLocationEnablerPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           packages.add(new LinearGradientPackage());
           packages.add(new SafeAreaContextPackage());
+          // packages.add(new RNAndroidLocationEnablerPackage());
           
           return packages;
         }
