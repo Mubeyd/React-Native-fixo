@@ -33,7 +33,7 @@ const SignInScreen = ({ navigation }) => {
 
     const [phoneNumber, setPhoneNumber] = useState('+90')
     const [code, setCode] = useState('')
-    const [confirmResult, setConfirmResult] = useState()
+    const [confirmResult, setConfirmResult] = useState(() => {})
     const [loginWithNumber, setLoginWithNumber] = useState(false)
     const [confirming, setConfirming] = useState(false)
     const [loading, setLoading] = useState(false)
