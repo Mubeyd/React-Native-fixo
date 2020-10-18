@@ -24,24 +24,7 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 
 
-const onLocationEnablePressed = () => {
-    if (Platform.OS === 'android') {
-        RNAndroidLocationEnabler.promptForEnableLocationIfNeeded(
-            { interval: 10000, fastInterval: 5000 }
-        )
-            .then(data => {
-                Alert.alert(data);
-            }).catch(err => {
-                // The user has not accepted to enable the location services or something went wrong during the process
-                // "err" : { "code" : "ERR00|ERR01|ERR02", "message" : "message"}
-                // codes : 
-                //  - ERR00 : The user has clicked on Cancel button in the popup
-                //  - ERR01 : If the Settings change are unavailable
-                //  - ERR02 : If the popup has failed to open
-                Alert.alert("Error " + err.message + ", Code : " + err.code);
-            });
-    }
-}
+
 
 
 const ServicesMap = () => {
@@ -50,6 +33,9 @@ const ServicesMap = () => {
         latitude: 37.034411,
         longitude: 37.319067
     })
+
+
+
 
     const initialMapState = {
         markers,
@@ -127,6 +113,30 @@ const ServicesMap = () => {
     const _map = useRef(null);
     const _scrollView = useRef(null);
 
+    const [ifLocaionIsON, setIfLocaionIsON] = useState(false)
+
+    const onLocationEnablePressed = () => {
+        if (Platform.OS === 'android') {
+            RNAndroidLocationEnabler.promptForEnableLocationIfNeeded(
+                { interval: 10000, fastInterval: 5000 }
+            )
+                .then(data => {
+                    Alert.alert(data);
+                    console.log('then :>> ', data);
+                    setIfLocaionIsON(true)
+
+                }).catch(err => {
+                    // The user has not accepted to enable the location services or something went wrong during the process
+                    // "err" : { "code" : "ERR00|ERR01|ERR02", "message" : "message"}
+                    // codes : 
+                    //  - ERR00 : The user has clicked on Cancel button in the popup
+                    //  - ERR01 : If the Settings change are unavailable
+                    //  - ERR02 : If the popup has failed to open
+                    Alert.alert("Error " + err.message + ", Code : " + err.code);
+                });
+        }
+    }
+
     // use useLocation Hook later instead this func.
     const getLocation = () => {
         // get result if gps is enabled *****
@@ -139,8 +149,39 @@ const ServicesMap = () => {
             })
             console.log('initialPosition :>> ', initialPosition);
         },
-            error => Alert.alert('Error', JSON.stringify(error)),
+            (error) => {
+                console.log('Error :>> ', JSON.stringify(error));
+                Alert.alert('Error', JSON.stringify(error))
+                setIfLocaionIsON(false)
+
+            },
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+    }
+
+    let viewLocation = false 
+
+    let checkIfLocaionIsON = currentLocation.latitude === 37.034411 ? viewLocation = false : viewLocation = true
+    // let checkIfLocaionIsON = checkIfLocaionIsON ? setIfLocaionIsON(false) : setIfLocaionIsON(true)
+
+    const pdsFunc = async () => {
+
+        // check if its enabled get locatoin and render live location
+        // else ask to enable location service 
+
+
+        if (!ifLocaionIsON) {
+            onLocationEnablePressed()
+            getLocation()
+
+            // if (!checkIfLocaionIsON) {
+                
+                //     checkIfLocaionIsON = true
+                // getLocation()
+            // }
+        } else {
+            getLocation()
+            checkIfLocaionIsON
+        }
     }
 
     return (
@@ -173,7 +214,21 @@ const ServicesMap = () => {
                         </Marker>
                     );
                 })}
-                <Marker
+
+                {
+                    viewLocation ?
+                        <Marker
+                            coordinate={{
+                                latitude: currentLocation.latitude,
+                                longitude: currentLocation.longitude,
+                            }}
+                            image={require('../assets/icons8-live-photos-96.png')}
+                            title='Cuurent Location'
+                        >
+                        </Marker>
+                        : null
+                }
+                {/* <Marker
                     coordinate={{
                         latitude: currentLocation.latitude,
                         longitude: currentLocation.longitude,
@@ -181,7 +236,7 @@ const ServicesMap = () => {
                     image={require('../assets/icons8-live-photos-96.png')}
                     title='Cuurent Location'
                 >
-                </Marker>
+                </Marker> */}
             </MapView>
             {/* <View>
                 // check if user pressed on a marker then display the card related
@@ -292,14 +347,15 @@ const ServicesMap = () => {
 
 
 
-            <View style={styles.gpdIcon1}>
+            <View style={styles.gpsIcon1}>
                 <MaterialIcons
-                    onPress={() => getLocation()} name="gps-fixed" size={36} />
+                    onPress={() => pdsFunc()}
+                    name="gps-fixed" size={36} />
             </View>
-            <View style={styles.gpdIcon2}>
+            {/* <View style={styles.gpsIcon2}>
                 <Ionicons
                     onPress={onLocationEnablePressed} name="location-outline" size={36} />
-            </View>
+            </View> */}
             {/* <View style={styles.searchBox}>
                 <TextInput
                     placeholder="Search here"
@@ -335,7 +391,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 10,
     },
-    gpdIcon1: {
+    gpsIcon1: {
         position: 'absolute',
         marginTop: Platform.OS === 'ios' ? 40 : 20,
         marginRight: 40,
@@ -345,7 +401,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: 'center',
     },
-    gpdIcon2: {
+    gpsIcon2: {
         position: 'absolute',
         marginTop: Platform.OS === 'ios' ? 40 : 20,
         marginLeft: 20,

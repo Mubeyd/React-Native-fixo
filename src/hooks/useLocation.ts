@@ -8,16 +8,16 @@ export async function useLocation(): Promise<[Number, Number]> {
     longitude: 37.319067,
   });
 
-
   // setTimeout func.
 
-  if (1) { // check if location is enabled 
-      // get location
+  if (1) {
+    // check if location is enabled
+    // get location
   } else {
-      // ask to enable location
-
+    // ask to enable location
   }
-  await Geolocation.getCurrentPosition(
+  
+  Geolocation.getCurrentPosition(
     (position) => {
       const initialPosition = JSON.stringify(position);
       setCurrentLocation({
@@ -29,7 +29,7 @@ export async function useLocation(): Promise<[Number, Number]> {
     },
     (error) => Alert.alert('Error', JSON.stringify(error)),
     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
-  )
+  );
 
   return [currentLocation.latitude, currentLocation.longitude];
 }
