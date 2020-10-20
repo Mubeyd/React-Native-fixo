@@ -4,18 +4,19 @@ import { StyleSheet, Text, View, ViewStyle } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { backgroundIconColor, borderColor, largeFontSize, paragraphFontSize, space, windowDimension } from '../config/styleConstants'
 
-export interface Prop {
+export interface Props {
     color: string
     iconName: string
     name: string
+    onPress: any
 }
 
-const ServiceBox = (props: Prop, navigate: any) => {
+const ServiceBox = (props: Props) => {
 
     return (
         <View style={styles.mainContainer}>
             <TouchableNativeFeedback
-                onPress={() => navigate()}
+                onPress={props.onPress}
                 style={styles.container}
             >
                 <Text style={styles.text}>{props.name}</Text>
@@ -27,9 +28,9 @@ const ServiceBox = (props: Prop, navigate: any) => {
                             color: props.color,
                         },
                     ]}
-                    onPress={() => {
-                        navigate()
-                    }}
+                    // onPress={() => {
+                    //     navigate()
+                    // }}
                 />
             </TouchableNativeFeedback>
         </View>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: space * 2,
         width: boxSize,
-        height: boxSize/1.8,
+        height: boxSize / 1.8,
     },
     icon: {
         fontSize: space * 4,

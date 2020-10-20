@@ -2,18 +2,17 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Services from './Services';
 import MyOrder from './MyOrders'
-import Profile from './Profile';
 import Settings from './Settings';
 import ProfileStack from './ProfileStack';
+import ServicesStack from './ServicesStack';
 
 
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTab = () => (
     <Tab.Navigator
-        initialRouteName="MyOrder"
+        initialRouteName="ServicesStack"
         activeColor="#fff"
     >
         <Tab.Screen
@@ -28,8 +27,8 @@ const MainTab = () => (
             }}
         />
         <Tab.Screen
-            name="Services"
-            component={Services}
+            name="ServicesStack"
+            component={ServicesStack}
             options={{
                 tabBarLabel: 'Services',
                 tabBarColor: '#36A7E7',

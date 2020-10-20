@@ -9,7 +9,7 @@ import Permissions from 'react-native-permissions'
 import useUser from './src/hooks/useUser';
 import Settings from './src/containers/Settings';
 import Locale from './src/containers/Locale';
-import Providers from './src/config/Providers';
+import Providers from './src/navigation/Providers';
 
 
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
         // for later
         // await Permissions.request(Permissions.PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
         // await Permissions.request(Permissions.PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE)
-        // await Permissions.request(Permissions.PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+        await Permissions.request(Permissions.PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
         // await Permissions.request(Permissions.PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION)
       })()
   }, [])
