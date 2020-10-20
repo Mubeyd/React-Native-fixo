@@ -34,9 +34,6 @@ const ServicesMap = () => {
         longitude: 37.319067
     })
 
-
-
-
     const initialMapState = {
         markers,
         region: {
@@ -158,7 +155,7 @@ const ServicesMap = () => {
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
     }
 
-    let viewLocation = false 
+    let viewLocation = false
 
     let checkIfLocaionIsON = currentLocation.latitude === 37.034411 ? viewLocation = false : viewLocation = true
     // let checkIfLocaionIsON = checkIfLocaionIsON ? setIfLocaionIsON(false) : setIfLocaionIsON(true)
@@ -174,9 +171,9 @@ const ServicesMap = () => {
             getLocation()
 
             // if (!checkIfLocaionIsON) {
-                
-                //     checkIfLocaionIsON = true
-                // getLocation()
+
+            //     checkIfLocaionIsON = true
+            // getLocation()
             // }
         } else {
             getLocation()
@@ -228,15 +225,6 @@ const ServicesMap = () => {
                         </Marker>
                         : null
                 }
-                {/* <Marker
-                    coordinate={{
-                        latitude: currentLocation.latitude,
-                        longitude: currentLocation.longitude,
-                    }}
-                    image={require('../assets/icons8-live-photos-96.png')}
-                    title='Cuurent Location'
-                >
-                </Marker> */}
             </MapView>
             {/* <View>
                 // check if user pressed on a marker then display the card related
@@ -302,70 +290,11 @@ const ServicesMap = () => {
                     </View>
                 ))}
             </Animated.ScrollView>
-
-            {/* <MapView
-                style={styles.container}
-                initialRegion={{
-                    latitude: currentLatitude ? currentLatitude : 37.04836,
-                    longitude: currentLongitude ? currentLongitude : 37.34371,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-                provider={PROVIDER_GOOGLE}
-            >
-                <Marker
-                    coordinate={{
-                        latitude: 37.04836,
-                        longitude: 37.34371,
-                    }}
-                    image={require('../assets/map_marker.png')}
-                    title='Gazintep Kalesi'
-                    description='Tarihi Mekan'
-                    onPress={() => {
-                        // getLocation()
-                    }}
-                >
-                    <Callout>
-                        <View>
-                            <View style={styles.markerWrap}>
-                                <Text>Best Fixer</Text>
-                                <Text>A short Description sdfsafa</Text>
-                            </View>
-                        </View>
-                    </Callout>
-                </Marker>
-                <Marker
-                    coordinate={{
-                        latitude: currentLatitude,
-                        longitude: currentLongitude,
-                    }}
-                    image={require('../assets/icons8-live-photos-96.png')}
-                    title='Cuurent Location'
-                >
-                </Marker>
-            </MapView> */}
-
-
-
             <View style={styles.gpsIcon1}>
                 <MaterialIcons
                     onPress={() => pdsFunc()}
                     name="gps-fixed" size={36} />
             </View>
-            {/* <View style={styles.gpsIcon2}>
-                <Ionicons
-                    onPress={onLocationEnablePressed} name="location-outline" size={36} />
-            </View> */}
-            {/* <View style={styles.searchBox}>
-                <TextInput
-                    placeholder="Search here"
-                    placeholderTextColor="#000"
-                    autoCapitalize="none"
-                    style={{ flex: 1, padding: 0 }}
-                />
-                <Ionicons name="ios-search" size={20} />
-            </View> */}
-            {/* <TouchableOpacity onPress={onLocationEnablePressed}><Text>Click here !</Text></TouchableOpacity> */}
         </View>
     )
 }
