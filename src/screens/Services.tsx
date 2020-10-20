@@ -34,52 +34,53 @@ const Services = ({ navigation }) => {
             <View style={styles.row}>
                 <ServiceBox
                     color={servicesIconColor}
-                    iconName="silverware-clean"
+                    iconName={require('../assets/icons/cleaning.png')}
                     name='Cleaning'
                     onPress={() => navigation.navigate('ServicesMap')}
                 />
                 <ServiceBox
                     color={servicesIconColor}
-                    iconName="pipe-disconnected"
+                    iconName={require('../assets/icons/plumbing.png')}
                     name='Plumbing'
                     onPress={() => navigation.navigate('ServicesMap')}
                 />
                 <ServiceBox
                     color={servicesIconColor}
-                    iconName="format-paint"
+                    iconName={require('../assets/icons/painting.png')}
                     name='Painting'
                     onPress={() => navigation.navigate('ServicesMap')}
                 />
                 <ServiceBox
                     color={servicesIconColor}
-                    iconName="douban"
+                    iconName={require('../assets/icons/general.png')}
                     name='General'
                     onPress={() => navigation.navigate('ServicesMap')}
                 />
                 <ServiceBox
                     color={servicesIconColor}
-                    iconName="hospital-building"
+                    iconName={require('../assets/icons/building.png')}
                     name='Building'
                     onPress={() => navigation.navigate('ServicesMap')}
                 />
                 <ServiceBox
                     color={servicesIconColor}
-                    iconName="pine-tree"
+                    iconName={require('../assets/icons/gardening.png')}
                     name='Gardening'
                     onPress={() => navigation.navigate('ServicesMap')}
                 />
                 <ServiceBox
                     color={servicesIconColor}
-                    iconName="cable-data"
+                    iconName={require('../assets/icons/electricity.png')}
                     name='Electricity'
                     onPress={() => navigation.navigate('ServicesMap')}
                 />
                 <ServiceBox
                     color={servicesIconColor}
-                    iconName="car-seat-heater"
+                    iconName={require('../assets/icons/heat.png')}
                     name='Heat'
                     onPress={() => navigation.navigate('ServicesMap')}
                 />
+
             </View>
         </ScrollView>
     )
