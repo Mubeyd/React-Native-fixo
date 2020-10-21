@@ -4,8 +4,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import Services from './Services'
 import ServicesMap from './ServicesMap'
 
-const ServicesStack = () => {
-
+const ServicesStack = (navigation) => {
+    // navigation.setOptions({ tabBarVisible: false })
     const ServicesRootStack = createStackNavigator()
     return (
         <ServicesRootStack.Navigator

@@ -1,5 +1,5 @@
 import { firebase } from '@react-native-firebase/auth'
-import { NavigationContainer } from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import React, { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth/'
 
@@ -9,6 +9,9 @@ import MainTab from './MainTab'
 import RootStackScreen from './RootStackScreen'
 
 export interface Props { }
+
+// make background white
+DefaultTheme.colors.background = '#ffffff';
 
 const AuthLoading = ({ }: Props) => {
     const [user, loading] = useAuthState(firebase.auth())
