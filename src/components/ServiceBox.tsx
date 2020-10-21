@@ -5,10 +5,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { backgroundIconColor, borderColor, largeFontSize, paragraphFontSize, space, windowDimension } from '../config/styleConstants'
 
 export interface Props {
-    color: string
-    iconName: any
+    // color: string
+    iconPath: any
     name: string
     onPress: any
+    iconWidth: number
+    iconHeight: number
 }
 
 const ServiceBox = (props: Props) => {
@@ -19,14 +21,17 @@ const ServiceBox = (props: Props) => {
                 onPress={props.onPress}
                 style={styles.container}
             >
+                {/* <Image
+                        style={styles.gradientImage}
+                        source={require('../assets/icons/Clip.png')}
+                    >
+
+                    </Image> */}
                 <Text style={styles.text}>{props.name}</Text>
-                <View>
-                    <Image
-                        style={styles.icon}
-                        source={props.iconName}
-                        resizeMode='center'
-                    />
-                </View>
+                <Image
+                    style={[styles.icon, { width: props.iconWidth, height: props.iconHeight }]}
+                    source={props.iconPath}
+                />
             </TouchableNativeFeedback>
         </View>
     )
@@ -48,21 +53,30 @@ const styles = StyleSheet.create({
         borderRadius: space * 2,
         borderWidth: 1,
         justifyContent: 'center',
-        paddingVertical: space * 2,
         width: boxSize,
-        height: boxSize / 1.8,
+        height: boxSize / 1.5,
     },
     icon: {
         alignSelf: 'flex-end',
-        width: boxSize / 4,
-        height: boxSize / 4,
-        marginRight: boxSize / 6,
+        marginRight: boxSize / 8,
+        marginTop: boxSize / 26,
+        resizeMode: 'stretch'
     },
     text: {
         fontSize: largeFontSize,
-        marginTop: space / 2,
-        marginLeft: boxSize / 6,
+        marginBottom: space / 1,
+        marginLeft: boxSize / 10,
         textAlign: 'left',
         color: '#fff',
     },
+    gradientView: {
+        // backgroundColor: '#546467',
+        // borderRadius: space * 2,
+    },
+    gradientImage: {
+        resizeMode: 'stretch',
+        width: 90,
+        height: 90,
+        opacity: 0.5,
+    }
 })
