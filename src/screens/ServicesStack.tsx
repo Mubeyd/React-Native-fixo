@@ -9,6 +9,7 @@ const ServicesStack = (navigation) => {
     const ServicesRootStack = createStackNavigator()
     return (
         <ServicesRootStack.Navigator
+        
             headerMode='none'
             initialRouteName="Services">
             <ServicesRootStack.Screen name='Services' component={Services} />

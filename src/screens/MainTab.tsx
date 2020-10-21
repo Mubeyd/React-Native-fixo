@@ -10,7 +10,19 @@ import ServicesStack from './ServicesStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
+const getTabBarVisibility = (route) => {
+    const routeName = route.state
+        ? route.state.routes[route.state.index].name
+        : '';
+
+    if (routeName === 'ServicesMap') {
+        return false;
+    }
+
+    return true;
+}
 const MainTab = () => (
+    
     <Tab.Navigator
         initialRouteName="ServicesStack"
         activeColor="#fff"
@@ -29,13 +41,14 @@ const MainTab = () => (
         <Tab.Screen
             name="ServicesStack"
             component={ServicesStack}
-            options={{
-                tabBarLabel: 'Services',
-                tabBarColor: '#36A7E7',
-                tabBarIcon: ({ color }) => (
-                    <Icon name="ios-construct-sharp" color={color} size={24} />
-                ),
-            }}
+            options={({ route }) => ({
+                    // tabBarVisible: getTabBarVisibility(route), /// for later
+                    tabBarLabel: 'Services',
+                    tabBarColor: '#36A7E7',
+                    tabBarIcon: ({ color }) => (
+                        <Icon name="ios-construct-sharp" color={color} size={24} />
+                    ),
+                })}
         />
 
         <Tab.Screen
