@@ -1,6 +1,6 @@
 import { TouchableNativeFeedback } from 'react-native-gesture-handler'
 import React from 'react'
-import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { backgroundIconColor, borderColor, largeFontSize, paragraphFontSize, space, windowDimension } from '../config/styleConstants'
 
@@ -17,22 +17,21 @@ const ServiceBox = (props: Props) => {
 
     return (
         <View style={styles.mainContainer}>
-            <TouchableNativeFeedback
-                onPress={props.onPress}
-                style={styles.container}
+            <ImageBackground
+                style={styles.gradientImage}
+                source={require('../assets/icons/Clip.png')}
             >
-                {/* <Image
-                        style={styles.gradientImage}
-                        source={require('../assets/icons/Clip.png')}
-                    >
-
-                    </Image> */}
-                <Text style={styles.text}>{props.name}</Text>
-                <Image
-                    style={[styles.icon, { width: props.iconWidth, height: props.iconHeight }]}
-                    source={props.iconPath}
-                />
-            </TouchableNativeFeedback>
+                <TouchableNativeFeedback
+                    onPress={props.onPress}
+                    style={styles.container}
+                >
+                    <Text style={styles.text}>{props.name}</Text>
+                    <Image
+                        style={[styles.icon, { width: props.iconWidth, height: props.iconHeight }]}
+                        source={props.iconPath}
+                    />
+                </TouchableNativeFeedback>
+            </ImageBackground>
         </View>
     )
 }
@@ -45,16 +44,19 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         margin: space / 2,
-    },
-    container: {
-        flexDirection: 'column',
         backgroundColor: backgroundIconColor,
         borderColor: borderColor,
         borderRadius: space * 2,
         borderWidth: 1,
+
+
+    },
+    container: {
+        flexDirection: 'column',
         justifyContent: 'center',
         width: boxSize,
         height: boxSize / 1.5,
+        // opacity: 0.5,
     },
     icon: {
         alignSelf: 'flex-end',
@@ -69,14 +71,12 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         color: '#fff',
     },
-    gradientView: {
-        // backgroundColor: '#546467',
-        // borderRadius: space * 2,
-    },
     gradientImage: {
-        resizeMode: 'stretch',
-        width: 90,
-        height: 90,
-        opacity: 0.5,
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center",
+        // width: 90,
+        // height: 90,
+        // opacity: 0.5,
     }
 })
