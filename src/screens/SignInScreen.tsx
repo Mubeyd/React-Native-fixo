@@ -139,7 +139,7 @@ const SignInScreen = ({ navigation }) => {
                             }
                         }}
                     >
-                        Next
+                        Get verification code
                     </Button>
                 ) : null}
 
@@ -159,7 +159,7 @@ const SignInScreen = ({ navigation }) => {
                                     setCode(e)
                                 }}
                                 iconType='message1'
-                                
+
                                 onPress={() => console.log('from edit comp object')}
                             />
                         </View>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingBottom: 30
     },
     footer: {
         flex: 3,
@@ -206,7 +206,8 @@ const styles = StyleSheet.create({
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 30,
+        marginTop: 20,
     },
     text_footer: {
         color: '#05375a',

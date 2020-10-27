@@ -17,20 +17,19 @@ export default SettingCard
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
-        width: '100%',
+        marginTop: 20,
+        width: '90%',
         height: windowHeight / 15,
-        backgroundColor: '#fcfcfc',
+        backgroundColor: '#f5d5d9',
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 3,
-
+        borderRadius: 12,
     },
     buttonText: {
         fontSize: space * 2,
         fontWeight: 'bold',
-        color: '#4287f5',
+        color: '#000000',
         fontFamily: 'Lato-Regular',
     },
 })
