@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ViewStyle } from 'react-native'
 import auth from '@react-native-firebase/auth';
 import useUser from '../hooks/useUser';
 import { backgroundColor, borderColor, borderRadius, borderWidth, cardElevation, largeFontSize, primaryTextColor, space } from '../config/styleConstants';
-import ProfileInput from '../components/ProfileInput'
+import InputLine from '../components/InputLine'
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { usersColRef } from '../config/firebaseCollections';
 import EditLocation from '../components/EditLocation';
@@ -31,7 +31,7 @@ const Profile = ({ navigation }: Props) => {
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>Profile</Text>
-            <ProfileInput
+            <InputLine
                 labelValue={phoneNumber}
                 placeholder="Phone Number"
                 iconType='phone'
@@ -42,7 +42,7 @@ const Profile = ({ navigation }: Props) => {
 
             />
 
-            <ProfileInput
+            <InputLine
                 labelValue={editingUser?.name}
                 placeholder="Name & Surname"
                 iconType="edit"
@@ -60,7 +60,7 @@ const Profile = ({ navigation }: Props) => {
                 }
 
             />
-            <ProfileInput
+            <InputLine
                 labelValue={editingUser?.surname}
                 placeholder="Name & Surname"
                 iconType="edit"

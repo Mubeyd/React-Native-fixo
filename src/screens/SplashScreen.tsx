@@ -29,8 +29,9 @@ const SplashScreen = ({navigation}) => {
     console.log('user Id', user?.uid)
 
     return (
-        <View style={styles.container}>
-            <StatusBar backgroundColor='#009387' barStyle="light-content" />
+        
+        <LinearGradient colors={['#36A7E7', '#6DBCE8']} style={styles.container}>
+            <StatusBar backgroundColor='#36A7E7' barStyle="light-content" />
             <View style={styles.header}>
                 <Animatable.Image
                     animation="bounceIn"
@@ -52,7 +53,7 @@ const SplashScreen = ({navigation}) => {
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
                         <LinearGradient
-                            colors={['#08d4c4', '#01ab9d']}
+                            colors={['#6DBCE8', '#36A7E7']}
                             style={styles.signIn}
                         >
                             <Text style={styles.textSign}>Get Started</Text>
@@ -67,7 +68,7 @@ const SplashScreen = ({navigation}) => {
                 <Text style={styles.textVersion}>Starlab.tech</Text>
                 <Text style={styles.textVersion}>Version : {version}</Text>
             </Animatable.View>
-        </View>
+            </LinearGradient>
     );
 };
 
@@ -79,7 +80,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#009387'
+        // backgroundColor: '#36A7E7'
     },
     header: {
         flex: 2,

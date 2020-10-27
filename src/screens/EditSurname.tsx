@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { Button, StyleSheet, Text, View } from 'react-native'
-import ProfileInput from '../components/ProfileInput';
+import InputLine from '../components/InputLine';
 import { usersColRef } from '../config/firebaseCollections';
 import { space } from '../config/styleConstants';
 
-const EditSurname = ({navigation, route }) => {
+const EditSurname = ({ navigation, route }) => {
 
     const { user, id } = route.params;
     const [userUseDocSnapshot] = useDocument(usersColRef.doc(id ?? 'noUser'))
@@ -21,13 +21,13 @@ const EditSurname = ({navigation, route }) => {
             <Text>EditSurname</Text>
             <Text>{id}</Text>
             <Text>{user}</Text>
-            <ProfileInput
+            <InputLine
                 labelValue={surname}
                 iconType="user"
                 autoCapitalize="none"
                 autoCorrect={false}
                 onChangeText={(e) => setSurname(e)}
-                onPress={()=> console.log('object :>> ')}
+                onPress={() => console.log('object :>> ')}
             />
             <Button
                 color='#b22bba'
