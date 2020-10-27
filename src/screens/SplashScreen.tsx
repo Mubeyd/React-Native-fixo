@@ -6,18 +6,13 @@ import {
     Dimensions,
     StyleSheet,
     StatusBar,
-    Image
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
 import {version} from '../config/constants'
-import { usersColRef } from '../config/firebaseCollections';
-import { useAuthState } from 'react-firebase-hooks/auth'
-import auth from '@react-native-firebase/auth'
 import useUser from '../hooks/useUser';
-
 
 
 const SplashScreen = ({navigation}) => {
@@ -80,7 +75,6 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: '#36A7E7'
     },
     header: {
         flex: 2,

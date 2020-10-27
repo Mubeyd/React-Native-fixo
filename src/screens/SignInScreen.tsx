@@ -1,21 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
-    TouchableOpacity,
-    TextInput,
     Platform,
     StyleSheet,
     StatusBar,
-    Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 
 import { useTheme } from 'react-native-paper';
 
-import { AuthContext } from '../components/Context'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '@react-native-firebase/auth'
 import { usersColRef } from '../config/firebaseCollections';
@@ -25,9 +19,6 @@ import { useBackButton } from '../hooks/useBackButton';
 import { Button, Input, Text } from '@ui-kitten/components'
 import { backgroundColor, space } from '../config/styleConstants';
 import InputLine from '../components/InputLine';
-
-
-
 
 
 const SignInScreen = ({ navigation }) => {
@@ -172,17 +163,6 @@ const SignInScreen = ({ navigation }) => {
                                 onPress={() => console.log('from edit comp object')}
                             />
                         </View>
-                        {/* <Input
-                            style={styles.loginInput}
-                            autoFocus
-                            placeholder="Code"
-                            maxLength={14}
-                            keyboardType="number-pad"
-                            returnKeyType="go"
-                            onChangeText={e => {
-                                setCode(e)
-                            }}
-                        /> */}
                         <Button
                             disabled={!code}
                             style={styles.buttonLogin}
@@ -208,7 +188,6 @@ export default SignInScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: '#009387'
     },
     header: {
         flex: 1,
@@ -256,7 +235,6 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     loginInput: {
-        // marginVertical: space,
         marginLeft: space,
         alignSelf: 'center',
     },
