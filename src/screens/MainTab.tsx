@@ -24,7 +24,7 @@ const getTabBarVisibility = (route) => {
 const MainTab = () => (
     
     <Tab.Navigator
-        initialRouteName="ServicesStack"
+        initialRouteName="MyOrder"
         activeColor="#fff"
     >
         <Tab.Screen
@@ -32,7 +32,7 @@ const MainTab = () => (
             component={MyOrder}
             options={{
                 tabBarLabel: 'MyOrder',
-                tabBarColor: '#009387',
+                tabBarColor: '#36A7E7',
                 tabBarIcon: ({ color }) => (
                     <Icon name="ios-file-tray-stacked-sharp" color={color} size={24} />
                 ),
@@ -56,7 +56,7 @@ const MainTab = () => (
             component={ProfileStack}
             options={{
                 tabBarLabel: 'Profile',
-                tabBarColor: '#694fad',
+                tabBarColor: '#36A7E7',
                 tabBarIcon: ({ color }) => (
                     <Icon name="ios-person" color={color} size={24} />
                 ),
@@ -67,7 +67,7 @@ const MainTab = () => (
             component={Settings}
             options={{
                 tabBarLabel: 'Settings',
-                tabBarColor: '#d02860',
+                tabBarColor: '#36A7E7',
                 tabBarIcon: ({ color }) => (
                     <Icon name="ios-options-sharp" color={color} size={24} />
                 ),
