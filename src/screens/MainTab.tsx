@@ -6,6 +6,7 @@ import MyOrder from './MyOrders'
 import Settings from './Settings';
 import ProfileStack from './ProfileStack';
 import ServicesStack from './ServicesStack';
+import OrdersTabs from './OrdersTabs';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -24,14 +25,14 @@ const getTabBarVisibility = (route) => {
 const MainTab = () => (
     
     <Tab.Navigator
-        initialRouteName="MyOrder"
+        initialRouteName="OrdersTabs"
         activeColor="#fff"
     >
         <Tab.Screen
             name="MyOrder"
-            component={MyOrder}
+            component={OrdersTabs}
             options={{
-                tabBarLabel: 'MyOrder',
+                tabBarLabel: 'OrdersTabs',
                 tabBarColor: '#36A7E7',
                 tabBarIcon: ({ color }) => (
                     <Icon name="ios-file-tray-stacked-sharp" color={color} size={24} />
