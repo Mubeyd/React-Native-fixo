@@ -7,7 +7,6 @@ const Tab = createMaterialTopTabNavigator();
 
 const OrdersTabs = () => {
 
-
     return (
         <Tab.Navigator
             initialRouteName='CrurrentOrders'
@@ -24,9 +23,27 @@ const OrdersTabs = () => {
                 showIcon: true,
                 pressColor: '#9BC9E2',
                 scrollEnabled: false,
-                tabStyle: { borderRadius: 30, margin: 12, justifyContent: 'center', alignContent: 'center' },
-                indicatorStyle: { backgroundColor: '#36A7E7', height: '80%', borderRadius: 30, marginBottom: 8, marginLeft: 12, width: '45%' },
-                style: { backgroundColor: '#ffffff', borderRadius: 36, margin: 24, height: 76, width: '90%' },
+                tabStyle: {
+                    borderRadius: 30,
+                    margin: 12,
+                    justifyContent: 'center',
+                    alignContent: 'center'
+                },
+                indicatorStyle: {
+                    backgroundColor: '#36A7E7',
+                    height: '80%',
+                    borderRadius: 30,
+                    marginBottom: 8,
+                    marginLeft: 12,
+                    width: '45%'
+                },
+                style: {
+                    backgroundColor: '#ffffff',
+                    borderRadius: 36,
+                    margin: 24,
+                    height: 76,
+                    width: '90%'
+                },
                 labelStyle: { fontSize: 14 },
 
             }}
