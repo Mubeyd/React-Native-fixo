@@ -23,7 +23,7 @@ const getTabBarVisibility = (route) => {
     return true;
 }
 const MainTab = () => (
-    
+
     <Tab.Navigator
         initialRouteName="OrdersTabs"
         activeColor="#fff"
@@ -37,19 +37,20 @@ const MainTab = () => (
                 tabBarIcon: ({ color }) => (
                     <Icon name="ios-file-tray-stacked-sharp" color={color} size={24} />
                 ),
+                // tabBarBadge: 3,
             }}
         />
         <Tab.Screen
             name="ServicesStack"
             component={ServicesStack}
             options={({ route }) => ({
-                    // tabBarVisible: getTabBarVisibility(route), /// for later
-                    tabBarLabel: 'Services',
-                    tabBarColor: '#36A7E7',
-                    tabBarIcon: ({ color }) => (
-                        <Icon name="ios-construct-sharp" color={color} size={24} />
-                    ),
-                })}
+                // tabBarVisible: getTabBarVisibility(route), /// for later
+                tabBarLabel: 'Services',
+                tabBarColor: '#36A7E7',
+                tabBarIcon: ({ color }) => (
+                    <Icon name="ios-construct-sharp" color={color} size={24} />
+                ),
+            })}
         />
 
         <Tab.Screen

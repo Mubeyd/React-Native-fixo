@@ -5,7 +5,6 @@ import OrderCard from '../components/OrderCard'
 const PastOrders = () => {
     return (
         <View>
-            <Text>PastOrders</Text>
             <OrderCard />
             <OrderCard />
         </View>
