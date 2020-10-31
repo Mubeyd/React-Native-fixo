@@ -15,7 +15,7 @@ const OrdersTabs = () => {
             swipeEnabled={true}
             swipeVelocityImpact={0.2}
             springVelocityScale={0}
-            sceneContainerStyle={{ backgroundColor: '#d1dfff', margin: 10, borderRadius: 20 }}
+            sceneContainerStyle={{ backgroundColor: '#ffffff', margin: 10, borderRadius: 20 }}
             style={{ backgroundColor: '#ffffff' }}
             tabBarOptions={{
                 activeTintColor: '#ffffff',

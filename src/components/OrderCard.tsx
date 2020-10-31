@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     conatiner: {
         borderRadius: 15,
         margin: space * 1,
-        backgroundColor: '#cef2ef',
+        backgroundColor: '#DFF3FF',
 
     },
     viewPart1: {
