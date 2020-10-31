@@ -49,11 +49,11 @@ const OrdersTabs = () => {
             }}
         >
             <Tab.Screen
-                name="CrurrentOrders"
+                name="Crurrent Orders"
                 component={CrurrentOrders}
             />
             <Tab.Screen
-                name="PastOrders"
+                name="Past Orders"
                 component={PastOrders}
             />
         </Tab.Navigator>

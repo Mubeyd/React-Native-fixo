@@ -10,7 +10,7 @@ const OrderCard = () => {
         <View style={styles.conatiner}>
             <View style={styles.viewPart1}>
                 <View style={styles.viewInner1}>
-                    <AntDesign name='filetext1' size={34} />
+                    <AntDesign name='github' size={64} color= '#6274fc'/>
                     <Text>Muhammed Ubeyd</Text>
                     <StarRating ratings={4} reviews={55} />
                 </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     viewPart2: {
         flexDirection: 'row',
         margin: 3,
-        padding: 3
+        padding: 3,
     },
     text: {
         flexDirection: 'row',
