@@ -2,7 +2,6 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import MyOrder from './MyOrders'
 import Settings from './Settings';
 import ProfileStack from './ProfileStack';
 import ServicesStack from './ServicesStack';

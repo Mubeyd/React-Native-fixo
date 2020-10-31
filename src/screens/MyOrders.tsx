@@ -54,8 +54,6 @@ const MyOrders = ({ navigation }) => {
     )
 }
 
-export default MyOrders
-
 
 const styles = StyleSheet.create({
     container: {
