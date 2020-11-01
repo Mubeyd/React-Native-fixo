@@ -1,6 +1,5 @@
-import { wrap } from 'lodash'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { space } from '../config/styleConstants'
@@ -9,39 +8,44 @@ import StarRating from './StartRating'
 const CurrentOrderCard = () => {
     return (
         <View style={styles.conatiner}>
-            <View style={styles.columnLeft}>
-                <AntDesign name='github' size={64} color='#6274fc' />
-                <Text>Muhammed Ubeyd</Text>
-                <StarRating ratings={4} reviews={55} />
-                <Text>Price : 75$</Text>
-            </View>
-
-            <View style={styles.columnRight}>
-                <View style={styles.explainTextView}>
-                    <Text numberOfLines={2} style={styles.explainText}>
-                        Lorem Ipsum is simply dummy ksjdfhs sdjeoir sljfs sjkdgf skjd ksjdf ksjf
-                </Text>
-                    <Text numberOfLines={2} style={styles.explainText}>
-                        Lorem Ipsum is simply dummy
-                </Text>
+            <ImageBackground
+                style={styles.gradientImage}
+                source={require('../assets/icons/orderscomp.png')}
+            >
+                <View style={styles.columnLeft}>
+                    <AntDesign name='github' size={64} color='#6274fc' />
+                    <Text>Muhammed Ubeyd</Text>
+                    <StarRating ratings={4} reviews={55} />
+                    <Text>Estimated Price : 75$</Text>
                 </View>
 
-                <View style={styles.buttonsView}>
-                    <TouchableOpacity
-                        onPress={() => { }}
-                        style={styles.orderStateTouch}
-                    >
-                        <Text> Order State </Text>
-                    </TouchableOpacity>
+                <View style={styles.columnRight}>
+                    <View style={styles.explainTextView}>
+                        <Text numberOfLines={2} style={styles.explainText}>
+                            Lorem Ipsum is simply dummy ksjdfhs sdjeoir sljfs sjkdgf skjd ksjdf ksjf
+                </Text>
+                        <Text numberOfLines={2} style={styles.explainText}>
+                            Lorem Ipsum is simply dummy
+                </Text>
+                    </View>
 
-                    <TouchableOpacity
-                        onPress={() => { }}
-                        style={styles.detailsTouch}
-                    >
-                        <Text> Details </Text>
-                    </TouchableOpacity>
+                    <View style={styles.buttonsView}>
+                        <TouchableOpacity
+                            onPress={() => { }}
+                            style={styles.orderStateTouch}
+                        >
+                            <Text> Order State </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => { }}
+                            style={styles.detailsTouch}
+                        >
+                            <Text> Details </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            </ImageBackground>
         </View>
     )
 }
@@ -52,11 +56,14 @@ const styles = StyleSheet.create({
     conatiner: {
         borderRadius: 15,
         margin: space * 1,
-        backgroundColor: '#DFF3FF',
-        flexDirection: 'row',
-        height: 180,
-        padding: 12,
+        backgroundColor: '#fff',
+        height: 220,
         elevation: 2,
+    },
+    gradientImage: {
+        flex: 1,
+        resizeMode: "stretch",
+        flexDirection: 'row',
     },
     columnLeft: {
         justifyContent: 'space-around',
@@ -84,6 +91,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7a3a3',
         padding: 5,
         borderRadius: 6,
+        marginRight: 6,
     },
     buttonText: {
 
@@ -96,5 +104,8 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: 'flex-start',
         marginBottom: 12,
+        color: '#36A7E7',
+        fontSize: 18,
     },
+    
 })
