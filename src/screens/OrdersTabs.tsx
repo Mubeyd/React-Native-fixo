@@ -15,7 +15,7 @@ const OrdersTabs = () => {
             swipeEnabled={true}
             swipeVelocityImpact={0.2}
             springVelocityScale={0}
-            sceneContainerStyle={{ backgroundColor: '#ffffff', margin: 10, borderRadius: 20 }}
+            sceneContainerStyle={{ backgroundColor: '#ffffff', margin: 0, }}
             style={{ backgroundColor: '#ffffff' }}
             tabBarOptions={{
                 activeTintColor: '#ffffff',
@@ -25,26 +25,32 @@ const OrdersTabs = () => {
                 scrollEnabled: false,
                 tabStyle: {
                     borderRadius: 30,
-                    margin: 12,
                     justifyContent: 'center',
                     alignContent: 'center'
                 },
                 indicatorStyle: {
                     backgroundColor: '#36A7E7',
-                    height: '80%',
+                    height: 48,
                     borderRadius: 30,
-                    marginBottom: 8,
-                    marginLeft: 12,
+                    marginBottom: 6,
+                    marginTop: 6,
+                    marginLeft: 6,
+                    marginRight: 0,
+                    // margin: 6,
                     width: '45%'
                 },
                 style: {
                     backgroundColor: '#ffffff',
                     borderRadius: 36,
-                    margin: 24,
-                    height: 76,
+                    marginTop: 24,
+                    marginHorizontal: 24,
+                    height: 58,
                     width: '90%'
                 },
-                labelStyle: { fontSize: 14 },
+                labelStyle: {
+                    fontSize: 14,
+                    marginBottom: 0
+                },
 
             }}
         >

@@ -2,10 +2,9 @@ import { TouchableNativeFeedback } from 'react-native-gesture-handler'
 import React from 'react'
 import { Image, ImageBackground, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { backgroundIconColor, borderColor, largeFontSize, paragraphFontSize, space, windowDimension } from '../config/styleConstants'
+import { backgroundIconColor, borderColor, largeFontSize, space, windowDimension } from '../config/styleConstants'
 
 export interface Props {
-    // color: string
     iconPath: any
     name: string
     onPress: any
@@ -56,7 +55,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: boxSize,
         height: boxSize / 1.5,
-        // opacity: 0.5,
     },
     icon: {
         alignSelf: 'flex-end',
@@ -74,9 +72,5 @@ const styles = StyleSheet.create({
     gradientImage: {
         flex: 1,
         resizeMode: "cover",
-        // justifyContent: "center",
-        // width: 90,
-        // height: 90,
-        // opacity: 0.5,
     }
 })

@@ -1,13 +1,18 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View,ScrollView, Text } from 'react-native'
+// import { ScrollView } from 'react-native-gesture-handler'
+import CurrentOrderCard from '../components/CurrentOrderCard'
 import OrderCard from '../components/OrderCard'
 
 const PastOrders = () => {
     return (
-        <View>
-            <OrderCard />
-            <OrderCard />
-        </View>
+        <ScrollView>
+            {/* <OrderCard /> */}
+            <CurrentOrderCard/>
+            <CurrentOrderCard/>
+            <CurrentOrderCard/>
+            <CurrentOrderCard/>
+        </ScrollView>
     )
 }
 

@@ -14,9 +14,9 @@ const CurrentOrderCard = () => {
             >
                 <View style={styles.columnLeft}>
                     <AntDesign name='github' size={64} color='#6274fc' />
-                    <Text>Muhammed Ubeyd</Text>
+                    <Text style={styles.userName}>Muhammed Ubeyd</Text>
                     <StarRating ratings={4} reviews={55} />
-                    <Text>Estimated Price : 75$</Text>
+                    <Text style={styles.price}>Estimated Price : 75$</Text>
                 </View>
 
                 <View style={styles.columnRight}>
@@ -58,29 +58,52 @@ const styles = StyleSheet.create({
         margin: space * 1,
         backgroundColor: '#fff',
         height: 220,
-        elevation: 2,
+        elevation: 3,
+        width: '90%',
+        alignSelf: 'center'
     },
     gradientImage: {
         flex: 1,
         resizeMode: "stretch",
         flexDirection: 'row',
+        borderRadius: 15,
     },
     columnLeft: {
         justifyContent: 'space-around',
         alignItems: 'center',
-        marginLeft: 12
+        marginLeft: 12,
+        marginBottom: 12
+    },
+    userName: {
+        fontWeight: 'bold',
+        fontSize: 14,
+    },
+    price: {
+        fontWeight: 'bold',
     },
     columnRight: {
         flex: 1,
         justifyContent: 'space-around',
-        marginLeft: 23,
+        marginLeft: 18,
+        marginRight: 6,
+        marginBottom: 0
     },
-    textStyle: {
+    explainTextView: {
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+    },
+    explainText: {
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        marginBottom: 12,
+        color: '#36A7E7',
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     buttonsView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 12,
+        marginTop: 24,
     },
     orderStateTouch: {
         backgroundColor: '#b4a3f7',
@@ -93,19 +116,4 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         marginRight: 6,
     },
-    buttonText: {
-
-    },
-    explainTextView: {
-        flexWrap: 'wrap',
-        alignItems: 'flex-start',
-    },
-    explainText: {
-        flexWrap: 'wrap',
-        alignItems: 'flex-start',
-        marginBottom: 12,
-        color: '#36A7E7',
-        fontSize: 18,
-    },
-    
 })
