@@ -7,11 +7,11 @@ import OrderCard from '../components/OrderCard'
 const PastOrders = () => {
     return (
         <ScrollView>
-            {/* <OrderCard /> */}
+            <OrderCard />
+            {/* <CurrentOrderCard/>
             <CurrentOrderCard/>
             <CurrentOrderCard/>
-            <CurrentOrderCard/>
-            <CurrentOrderCard/>
+            <CurrentOrderCard/> */}
         </ScrollView>
     )
 }

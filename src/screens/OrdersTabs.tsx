@@ -2,6 +2,7 @@ import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CrurrentOrders from './CrurrentOrders';
 import PastOrders from './PastOrders';
+import { space } from '../config/styleConstants';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -42,7 +43,7 @@ const OrdersTabs = () => {
                 style: {
                     backgroundColor: '#ffffff',
                     borderRadius: 36,
-                    marginTop: 24,
+                    marginTop: space,
                     marginHorizontal: 24,
                     height: 58,
                     width: '90%'

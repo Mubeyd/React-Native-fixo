@@ -5,7 +5,30 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import { space } from '../config/styleConstants'
 import StarRating from './StartRating'
 
-const CurrentOrderCard = () => {
+interface Props {
+    name: string
+    logo: string
+    ratings: number
+    reviews: number
+    price: number
+    description: string
+    orderState: 'waiting' | 'processing' | 'cancelled' | 'done'
+}
+const CurrentOrderCard = (props: Props) => {
+
+    let color = '#ffffff'
+
+    if (props.orderState === 'waiting') {
+        color = '#fcba03'
+    } else if (props.orderState === 'processing') {
+        color = '#00a0fc'
+    } else if (props.orderState === 'cancelled') {
+        color = '#ff0000'
+    } else if (props.orderState === 'done') {
+        color = '#00ff11'
+    }
+
+
     return (
         <View style={styles.conatiner}>
             <ImageBackground
@@ -13,28 +36,28 @@ const CurrentOrderCard = () => {
                 source={require('../assets/icons/orderscomp.png')}
             >
                 <View style={styles.columnLeft}>
-                    <AntDesign name='github' size={64} color='#6274fc' />
-                    <Text style={styles.userName}>Muhammed Ubeyd</Text>
-                    <StarRating ratings={4} reviews={55} />
-                    <Text style={styles.price}>Estimated Price : 75$</Text>
+                    <AntDesign name={props.logo} size={64} color='#c2cacf' />
+                    <Text style={styles.userName}>{props.name}</Text>
+                    <StarRating ratings={props.ratings} reviews={props.reviews} />
+                    <Text style={styles.price}>Estimated Price : {props.price}$</Text>
                 </View>
 
                 <View style={styles.columnRight}>
                     <View style={styles.explainTextView}>
                         <Text numberOfLines={2} style={styles.explainText}>
-                            Lorem Ipsum is simply dummy ksjdfhs sdjeoir sljfs sjkdgf skjd ksjdf ksjf
-                </Text>
+                            {props.description}
+                        </Text>
                         <Text numberOfLines={2} style={styles.explainText}>
-                            Lorem Ipsum is simply dummy
-                </Text>
+                            {props.description}
+                        </Text>
                     </View>
 
                     <View style={styles.buttonsView}>
                         <TouchableOpacity
                             onPress={() => { }}
-                            style={styles.orderStateTouch}
+                            style={[styles.orderStateTouch, { backgroundColor: color, }]}
                         >
-                            <Text> Order State </Text>
+                            <Text> {props.orderState} </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
@@ -77,6 +100,7 @@ const styles = StyleSheet.create({
     userName: {
         fontWeight: 'bold',
         fontSize: 14,
+        marginTop: 24
     },
     price: {
         fontWeight: 'bold',
@@ -106,7 +130,7 @@ const styles = StyleSheet.create({
         marginTop: 24,
     },
     orderStateTouch: {
-        backgroundColor: '#b4a3f7',
+        // backgroundColor: '#b4a3f7',
         padding: 5,
         borderRadius: 6,
     },
