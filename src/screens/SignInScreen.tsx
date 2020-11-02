@@ -42,6 +42,7 @@ const SignInScreen = ({ navigation }) => {
                         createdAt: firestore.FieldValue.serverTimestamp(),
                         name: '',
                         surname: '',
+                        adress: '',
                     } as User)
                 }
             })()

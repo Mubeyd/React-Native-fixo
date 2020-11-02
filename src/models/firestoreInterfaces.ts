@@ -1,11 +1,20 @@
 import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore";
 
 export interface User {
+    phoneNumber: string
     name: string
     surname: string
-    phoneNumber: string
-    // adress: string
+    addresses: string
     createdAt: FirebaseFirestoreTypes.Timestamp
+}
+
+export interface Address {
+    country: string
+    city: string
+    province: string
+    details: string
+    latitude: number
+    longitude: number
 }
 
 export interface Provider {

@@ -28,6 +28,7 @@ const EditName = ({ navigation, route }) => {
                 autoCorrect={false}
                 onChangeText={(e) => setName(e)}
                 onPress={() => console.log('object :>> ')}
+                placeholder="Name & Surname"
             />
             <Button
                 color='#b22bba'

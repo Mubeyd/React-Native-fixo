@@ -24,7 +24,7 @@ const getTabBarVisibility = (route) => {
 const MainTab = () => (
 
     <Tab.Navigator
-        initialRouteName="OrdersTabs"
+        initialRouteName="ProfileStack"
         activeColor="#fff"
     >
         <Tab.Screen

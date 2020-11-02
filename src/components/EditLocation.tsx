@@ -3,9 +3,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { space } from '../config/styleConstants'
 
-const EditLocation = ({ text, backgroundColor }) => {
+const EditLocation = ({ text, backgroundColor, onPress }) => {
     return (
         <TouchableOpacity
+        onPress={onPress}
             style={[styles.container, { backgroundColor: backgroundColor }]}
         >
             <Text style={styles.text}>{text}</Text>

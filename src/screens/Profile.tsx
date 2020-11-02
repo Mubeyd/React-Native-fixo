@@ -22,6 +22,7 @@ const Profile = ({ navigation }: Props) => {
 
     useEffect(() => { }, [editingUser])
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', uidData);
+    // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', user);
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.phoneNumber);
 
@@ -86,18 +87,22 @@ const Profile = ({ navigation }: Props) => {
 
                 <View style={{ flexDirection: 'row' }}>
                     <EditLocation
+                        onPress={() => { }}
                         backgroundColor='#4287f5'
                         text='home'
                     />
                     <EditLocation
+                        onPress={() => { }}
                         backgroundColor='#e32b56'
-                        text='home'
+                        text='office1'
                     />
                     <EditLocation
+                        onPress={() => { }}
                         backgroundColor='#e0b424'
-                        text='home'
+                        text='office2'
                     />
                     <EditLocation
+                        onPress={() => { }}
                         backgroundColor='#4287f5'
                         text='+'
                     />

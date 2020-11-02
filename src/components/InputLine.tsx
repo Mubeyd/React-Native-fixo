@@ -4,7 +4,7 @@ import { windowHeight, windowWidth } from '../config/styleConstants';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
-const InputLine = ({ labelValue, iconType,onPress,placeholder,  ...rest }) => {
+const InputLine = ({ labelValue, iconType, onPress, placeholder, ...rest }) => {
     // const { labelValue, placeholderText, iconType, ...rest } = props
     return (
         <View style={styles.inputContainer}>

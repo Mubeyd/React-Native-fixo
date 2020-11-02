@@ -6,7 +6,6 @@ import OrderCard from '../components/OrderCard'
 const CrurrentOrders = () => {
     return (
         <ScrollView>
-            {/* <OrderCard /> */}
             <CurrentOrderCard
                 name='muhammed ubeyd'
                 logo='github'
