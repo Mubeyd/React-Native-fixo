@@ -19,8 +19,8 @@ const EditSurname = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <Text>EditSurname</Text>
-            <Text>{id}</Text>
-            <Text>{user}</Text>
+            {/* <Text>{id}</Text>
+            <Text>{user}</Text> */}
             <InputLine
                 labelValue={surname}
                 iconType="user"
@@ -28,6 +28,7 @@ const EditSurname = ({ navigation, route }) => {
                 autoCorrect={false}
                 onChangeText={(e) => setSurname(e)}
                 onPress={() => console.log('object :>> ')}
+                placeholder="Name & Surname"
             />
             <Button
                 color='#b22bba'
