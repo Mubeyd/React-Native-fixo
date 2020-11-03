@@ -63,14 +63,4 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         letterSpacing: 2
     },
-    //   inputField: {
-    //     padding: 10,
-    //     marginTop: 5,
-    //     marginBottom: 10,
-    //     width: windowWidth / 1.5,
-    //     height: windowHeight / 15,
-    //     fontSize: 16,
-    //     borderRadius: 8,
-    //     borderWidth: 1
-    //   }
 });

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, ViewStyle, Modal, Alert, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, ViewStyle, Modal, Alert, TouchableOpacity, TextInput } from 'react-native'
 import auth from '@react-native-firebase/auth';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 import useUser from '../hooks/useUser';
-import { backgroundColor, borderColor, borderRadius, borderWidth, cardElevation, largeFontSize, primaryTextColor, space } from '../config/styleConstants';
+import { backgroundColor, borderColor, borderRadius, borderWidth, cardElevation, largeFontSize, primaryTextColor, space, windowHeight } from '../config/styleConstants';
 import InputLine from '../components/InputLine'
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { usersColRef } from '../config/firebaseCollections';
@@ -10,6 +12,12 @@ import EditLocation from '../components/EditLocation';
 
 
 export interface Props { }
+
+
+const Cities = ['Gazinatep', 'Adana']
+const Provinces = ['Sahinbey', 'Sehitkamil']
+const LocationTypes = ['Home', 'Office', 'athor']
+
 
 const Profile = ({ navigation }: Props) => {
     const user = useUser()
@@ -29,8 +37,11 @@ const Profile = ({ navigation }: Props) => {
     const phoneNumber = user?.phoneNumber ?? editingUser?.phoneNumber
 
     const [modalVisible, setModalVisible] = useState(false);
+    
+    const [name, setName] = useState(editingUser?.name)
     const [surname, setSurname] = useState(editingUser?.surname)
-    const [address, setaddress] = useState(editingUser?.address)
+    const [address, setAddress] = useState(editingUser?.address)
+    const [locationType, setLocationType] = useState(LocationTypes[0])
 
 
     return (
@@ -46,6 +57,53 @@ const Profile = ({ navigation }: Props) => {
                 editable={false}
 
             />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginHorizontal: 30, }} >
+                <Ionicons color='#ccc' name='person-outline' size={48} />
+                <TextInput
+                    style={[{
+                        width: 140,
+                        height: windowHeight / 12,
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        borderColor: '#ccc',
+                        fontSize: 14,
+                        fontFamily: 'Lato-Regular',
+                        color: '#333',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        fontWeight: "bold",
+                        letterSpacing: 1,
+                        margin: 2
+                    }]}
+                    onChangeText={e => setName(e)}
+                    value={name}
+                    placeholder='Name'
+                >
+
+                </TextInput>
+                <TextInput
+                    style={[{
+                        width: 140,
+                        height: windowHeight / 12,
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        borderColor: '#ccc',
+                        fontSize: 14,
+                        fontFamily: 'Lato-Regular',
+                        color: '#333',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        fontWeight: "bold",
+                        letterSpacing: 1,
+                        margin: 2
+                    }]}
+                    onChangeText={e => setSurname(e)}
+                    value={surname}
+                    placeholder='Surname'
+                >
+
+                </TextInput>
+            </View>
 
             <InputLine
                 labelValue={editingUser?.name}
@@ -54,7 +112,7 @@ const Profile = ({ navigation }: Props) => {
                 autoCapitalize="none"
                 autoCorrect={false}
                 onChangeText={console.log('from edit comp object')}
-                editable={false}
+                editable={true}
                 onPress={() => {
                     navigation.navigate('ProfileStack', {
                         screen: 'EditName',
@@ -90,39 +148,73 @@ const Profile = ({ navigation }: Props) => {
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
+                        Alert.alert("Approve or Cancel");
                     }}
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Hello World!</Text>
-                            <InputLine
+                            <Text style={styles.headerText}>Location Info</Text>
+
+                            <View style={styles.searchView} >
+                                <TextInput
+                                    autoFocus
+                                    style={styles.serchInput}
+                                    onChangeText={e => setLocationType(e)}
+                                    value={locationType}
+                                    placeholder='Location Type'
+                                />
+                                <Ionicons color='#7accff' name='albums' size={18} />
+                            </View>
+                            <View style={{ flexDirection: 'row', marginTop: 6, justifyContent: 'space-around' }}>
+                                <TouchableOpacity
+                                    style={{ ...styles.openButton, backgroundColor: "#7accff" }}
+                                >
+                                    <Text style={styles.textStyle}>{Cities[0]}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={{ ...styles.openButton, backgroundColor: "#7accff" }}
+                                >
+                                    <Text style={styles.textStyle}>{Provinces[0]}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.searchView} >
+                                <TextInput
+                                    style={styles.serchInput}
+                                    onChangeText={e => { setAddress(e) }}
+                                    value={editingUser?.address}
+                                    placeholder='Inpute your Address'
+                                    numberOfLines={3}
+                                />
+                                <Ionicons color='#7accff' name='location-outline' size={18} />
+                            </View>
+                            {/* <InputLine
                                 labelValue={address}
                                 iconType="user"
                                 autoCapitalize="none"
                                 autoCorrect={false}
-                                onChangeText={(e) => setaddress(e)}
+                                onChangeText={(e) => setAddress(e)}
                                 onPress={() => console.log('object :>> ')}
                                 placeholder="Name & Surname"
-                            />
-
-                            <TouchableOpacity
-                                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                onPress={async() => {
-                                    await usersColRef.doc(uidData).update({ address: address })
-                                    setModalVisible(!modalVisible);
-                                }}
-                            >
-                                <Text style={styles.textStyle}>Approve</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                onPress={async() => {
-                                    setModalVisible(!modalVisible);
-                                }}
-                            >
-                                <Text style={styles.textStyle}>Hide Modal</Text>
-                            </TouchableOpacity>
+                            /> */}
+                            <View style={{ flexDirection: 'row', marginTop: 30 }}>
+                                <TouchableOpacity
+                                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                    onPress={async () => {
+                                        await usersColRef.doc(uidData).update({ address: address })
+                                        setModalVisible(!modalVisible);
+                                    }}
+                                >
+                                    <Text style={styles.textStyle}>Approve</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                    onPress={async () => {
+                                        setModalVisible(!modalVisible);
+                                    }}
+                                >
+                                    <Text style={styles.textStyle}>Cancel</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </Modal>
@@ -220,15 +312,16 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5,
-        width: 300,
-        height: 250,
+        elevation: 64,
+        width: 340,
+        height: 460,
     },
     openButton: {
         backgroundColor: "#F194FF",
-        borderRadius: 20,
+        borderRadius: 18,
         padding: 10,
-        elevation: 2
+        elevation: 2,
+        margin: 10
     },
     textStyle: {
         color: "white",
@@ -238,5 +331,31 @@ const styles = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: "center"
-    }
+    },
+    searchView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: space,
+        marginBottom: 6,
+        backgroundColor: '#fff',
+        width: '90%',
+        // height: 48,
+        alignSelf: 'center',
+        borderRadius: 24,
+        shadowColor: '#ccc',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    serchInput: {
+        // height: 44,
+        width: '75%',
+        borderRadius: 24,
+        margin: 12,
+        alignContent: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
 });
