@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, ViewStyle, Modal, Alert, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, Text, View, ViewStyle, Modal, Alert, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 
 import useUser from '../hooks/useUser';
 import { backgroundColor, borderColor, borderRadius, borderWidth, cardElevation, largeFontSize, primaryTextColor, space, windowHeight } from '../config/styleConstants';
@@ -9,6 +11,7 @@ import InputLine from '../components/InputLine'
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { usersColRef } from '../config/firebaseCollections';
 import EditLocation from '../components/EditLocation';
+import InputLineUser from '../components/InputLineUser';
 
 
 export interface Props { }
@@ -25,7 +28,9 @@ const Profile = ({ navigation }: Props) => {
     const uidData = uid?.uid
     const editingUserId: string | undefined = uidData
 
-    const [userUseDocSnapshot] = useDocument(usersColRef.doc(editingUserId ?? 'noUser'))
+    // const [userUseDocSnapshot] = useDocument(usersColRef.doc(editingUserId ?? 'noUser'))
+    const docIdConst = 'gxZRUa2ZomSiHLfhDXZ1'
+    const [userUseDocSnapshot] = useDocument(usersColRef.doc(docIdConst))
     const editingUser = userUseDocSnapshot?.data()
 
     useEffect(() => { }, [editingUser])
@@ -36,222 +41,251 @@ const Profile = ({ navigation }: Props) => {
 
     const phoneNumber = user?.phoneNumber ?? editingUser?.phoneNumber
 
+    const [editField, setEditField] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-    
+
     const [name, setName] = useState(editingUser?.name)
     const [surname, setSurname] = useState(editingUser?.surname)
     const [address, setAddress] = useState(editingUser?.address)
+
     const [locationType, setLocationType] = useState(LocationTypes[0])
 
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.headerText}>Profile</Text>
-            <InputLine
-                labelValue={phoneNumber}
-                placeholder="Phone Number"
-                iconType='phone'
-                keyboardType="phone-pad"
-                onChangeText={console.log('from edit comp object')}
-                onPress={() => console.log('from edit comp object')}
-                editable={false}
+        <ScrollView>
 
-            />
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginHorizontal: 30, }} >
-                <Ionicons color='#ccc' name='person-outline' size={48} />
-                <TextInput
-                    style={[{
-                        width: 140,
-                        height: windowHeight / 12,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        borderColor: '#ccc',
-                        fontSize: 14,
-                        fontFamily: 'Lato-Regular',
-                        color: '#333',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontWeight: "bold",
-                        letterSpacing: 1,
-                        margin: 2
-                    }]}
-                    onChangeText={e => setName(e)}
-                    value={name}
-                    placeholder='Name'
-                >
+            <View style={styles.container}>
+                {/* <Text style={styles.headerText}>Profile</Text> */}
+                <InputLine
+                    labelValue={phoneNumber}
+                    placeholder="Phone Number"
+                    iconType='phone'
+                    keyboardType="phone-pad"
+                    onChangeText={console.log('from edit comp object')}
+                    onPress={() => console.log('from edit comp object')}
+                    editable={false}
 
-                </TextInput>
-                <TextInput
-                    style={[{
-                        width: 140,
-                        height: windowHeight / 12,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        borderColor: '#ccc',
-                        fontSize: 14,
-                        fontFamily: 'Lato-Regular',
-                        color: '#333',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontWeight: "bold",
-                        letterSpacing: 1,
-                        margin: 2
-                    }]}
-                    onChangeText={e => setSurname(e)}
-                    value={surname}
-                    placeholder='Surname'
-                >
+                />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginHorizontal: 30, }} >
+                    <TextInput
+                        style={[{
+                            width: 140,
+                            height: windowHeight / 12,
+                            borderWidth: 1,
+                            borderRadius: 8,
+                            borderColor: '#ccc',
+                            fontSize: 14,
+                            fontFamily: 'Lato-Regular',
+                            color: '#333',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            fontWeight: "bold",
+                            letterSpacing: 1,
+                            margin: 2
+                        }]}
+                        onChangeText={e => setName(e)}
+                        value={editingUser?.name}
+                        placeholder='Name'
+                        editable={false}
+                    >
 
-                </TextInput>
-            </View>
+                    </TextInput>
+                    <TextInput
+                        style={[{
+                            width: 140,
+                            height: windowHeight / 12,
+                            borderWidth: 1,
+                            borderRadius: 8,
+                            borderColor: '#ccc',
+                            fontSize: 14,
+                            fontFamily: 'Lato-Regular',
+                            color: '#333',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            fontWeight: "bold",
+                            letterSpacing: 1,
+                            margin: 2
+                        }]}
+                        onChangeText={e => setSurname(e)}
+                        value={editingUser?.surname}
+                        placeholder='Surname'
+                        editable={false}
+                    >
 
-            <InputLine
-                labelValue={editingUser?.name}
-                placeholder="Name & Surname"
-                iconType="edit"
-                autoCapitalize="none"
-                autoCorrect={false}
-                onChangeText={console.log('from edit comp object')}
-                editable={true}
-                onPress={() => {
-                    navigation.navigate('ProfileStack', {
-                        screen: 'EditName',
-                        params: { user: editingUser?.name, id: uidData },
-                    })
-                    console.log('EditName')
-                }
-                }
+                    </TextInput>
+                    <AntDesign color='#000' name='edit' size={48} onPress={() => {
+                        navigation.navigate('ProfileStack', {
+                            screen: 'EditName',
+                            params: { name: editingUser?.name, surname: editingUser?.surname, id: uidData },
+                        })
+                        console.log('EditName')
+                    }} />
 
-            />
-            <InputLine
-                labelValue={editingUser?.surname}
-                placeholder="Name & Surname"
-                iconType="edit"
-                autoCapitalize="none"
-                autoCorrect={false}
-                onChangeText={console.log('from edit comp object')}
-                editable={false}
-                onPress={() => {
-                    navigation.navigate('ProfileStack', {
-                        screen: 'EditSurname',
-                        params: { user: editingUser?.surname, id: uidData },
-                    })
-                    console.log('EditSurname')
-                }
-                }
-
-            />
-            <View style={styles.centeredView}>
-
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Approve or Cancel");
-                    }}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <Text style={styles.headerText}>Location Info</Text>
-
-                            <View style={styles.searchView} >
-                                <TextInput
-                                    autoFocus
-                                    style={styles.serchInput}
-                                    onChangeText={e => setLocationType(e)}
-                                    value={locationType}
-                                    placeholder='Location Type'
-                                />
-                                <Ionicons color='#7accff' name='albums' size={18} />
-                            </View>
-                            <View style={{ flexDirection: 'row', marginTop: 6, justifyContent: 'space-around' }}>
-                                <TouchableOpacity
-                                    style={{ ...styles.openButton, backgroundColor: "#7accff" }}
-                                >
-                                    <Text style={styles.textStyle}>{Cities[0]}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={{ ...styles.openButton, backgroundColor: "#7accff" }}
-                                >
-                                    <Text style={styles.textStyle}>{Provinces[0]}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.searchView} >
-                                <TextInput
-                                    style={styles.serchInput}
-                                    onChangeText={e => { setAddress(e) }}
-                                    value={editingUser?.address}
-                                    placeholder='Inpute your Address'
-                                    numberOfLines={3}
-                                />
-                                <Ionicons color='#7accff' name='location-outline' size={18} />
-                            </View>
-                            {/* <InputLine
-                                labelValue={address}
-                                iconType="user"
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                onChangeText={(e) => setAddress(e)}
-                                onPress={() => console.log('object :>> ')}
-                                placeholder="Name & Surname"
-                            /> */}
-                            <View style={{ flexDirection: 'row', marginTop: 30 }}>
-                                <TouchableOpacity
-                                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                    onPress={async () => {
-                                        await usersColRef.doc(uidData).update({ address: address })
-                                        setModalVisible(!modalVisible);
-                                    }}
-                                >
-                                    <Text style={styles.textStyle}>Approve</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                    onPress={async () => {
-                                        setModalVisible(!modalVisible);
-                                    }}
-                                >
-                                    <Text style={styles.textStyle}>Cancel</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
-
-            </View>
-
-
-            <View>
-                <Text style={styles.locationText}>
-                    Edit Location
-                </Text>
-
-                <View style={{ flexDirection: 'row' }}>
-                    <EditLocation
-                        onPress={() => setModalVisible(true)}
-                        backgroundColor='#4287f5'
-                        text='home'
-                    />
-                    <EditLocation
-                        onPress={() => { }}
-                        backgroundColor='#e32b56'
-                        text='office1'
-                    />
-                    <EditLocation
-                        onPress={() => { }}
-                        backgroundColor='#e0b424'
-                        text='office2'
-                    />
-                    <EditLocation
-                        onPress={() => { }}
-                        backgroundColor='#4287f5'
-                        text='+'
-                    />
                 </View>
 
+                {/* <InputLine
+                    labelValue={editingUser?.name}
+                    placeholder="Name & Surname"
+                    iconType="edit"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    onChangeText={console.log('from edit comp object')}
+                    editable={true}
+                    onPress={() => {
+                        navigation.navigate('ProfileStack', {
+                            screen: 'EditName',
+                            params: { name: editingUser?.name, surname: editingUser?.surname, id: uidData },
+                        })
+                        console.log('EditName')
+                    }
+                    }
+
+                /> */}
+                {/* <InputLine
+                    labelValue={editingUser?.surname}
+                    placeholder="Name & Surname"
+                    iconType="edit"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    onChangeText={console.log('from edit comp object')}
+                    editable={false}
+                    onPress={() => {
+                        navigation.navigate('ProfileStack', {
+                            screen: 'EditSurname',
+                            params: { surname: editingUser?.surname, id: uidData },
+                        })
+                        console.log('EditSurname')
+                    }
+                    }
+
+                /> */}
+                <View style={styles.centeredView}>
+
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                            setModalVisible(!modalVisible)
+                        }}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <Text style={styles.headerText}>Location Info</Text>
+
+                                <View style={styles.searchView} >
+                                    <TextInput
+                                        autoFocus
+                                        style={styles.serchInput}
+                                        onChangeText={e => setLocationType(e)}
+                                        value={locationType}
+                                        placeholder='Location Type'
+                                    />
+                                    <Ionicons color='#7accff' name='albums' size={18} />
+                                </View>
+                                <View style={{ flexDirection: 'row', marginTop: 6, justifyContent: 'space-around' }}>
+                                    <TouchableOpacity
+                                        style={{ ...styles.openButton, backgroundColor: "#7accff" }}
+                                    >
+                                        <Text style={styles.textStyle}>{Cities[0]}</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={{ ...styles.openButton, backgroundColor: "#7accff" }}
+                                    >
+                                        <Text style={styles.textStyle}>{Provinces[0]}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.searchView} >
+                                    <TextInput
+                                        style={styles.serchInput}
+                                        onChangeText={e => { setAddress(e) }}
+                                        value={editingUser?.address}
+                                        placeholder='Inpute your Address'
+                                        numberOfLines={3}
+                                    />
+                                    <Ionicons color='#7accff' name='location-outline' size={18} />
+                                </View>
+                                <View style={{ flexDirection: 'row', marginTop: 30 }}>
+                                    <TouchableOpacity
+                                        style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                        onPress={async () => {
+                                            await usersColRef.doc(uidData).update({ address: address })
+                                            setModalVisible(!modalVisible);
+                                        }}
+                                    >
+                                        <Text style={styles.textStyle}>Approve</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                        onPress={async () => {
+                                            setModalVisible(!modalVisible);
+                                        }}
+                                    >
+                                        <Text style={styles.textStyle}>Cancel</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    {editField ?
+                        <View style={{ flexDirection: 'row', marginTop: 30 }}>
+                            <TouchableOpacity
+                                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                onPress={async () => {
+                                    // await usersColRef.doc(uidData).update({ address: address })
+                                    setEditField(!editField);
+                                }}
+                            >
+                                <Text style={styles.textStyle}>Approve</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                onPress={async () => {
+                                    setEditField(!editField);
+                                }}
+                            >
+                                <Text style={styles.textStyle}>Cancel</Text>
+                            </TouchableOpacity>
+                        </View>
+                        : null
+                    }
+
+                </View>
+
+
+                <View>
+                    <Text style={styles.locationText}>
+                        Edit Location
+                </Text>
+
+                    <View style={{ flexDirection: 'row' }}>
+                        <EditLocation
+                            onPress={() => setModalVisible(true)}
+                            backgroundColor='#4287f5'
+                            text='home'
+                        />
+                        <EditLocation
+                            onPress={() => { }}
+                            backgroundColor='#e32b56'
+                            text='office1'
+                        />
+                        <EditLocation
+                            onPress={() => { }}
+                            backgroundColor='#e0b424'
+                            text='office2'
+                        />
+                        <EditLocation
+                            onPress={() => { }}
+                            backgroundColor='#4287f5'
+                            text='+'
+                        />
+                    </View>
+
+                </View>
             </View>
-        </View>
+        </ScrollView>
+
     )
 }
 

@@ -1,43 +1,67 @@
 import React, { useState } from 'react'
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import InputLine from '../components/InputLine';
+import InputLineUser from '../components/InputLineUser';
 import { usersColRef } from '../config/firebaseCollections';
 import { space } from '../config/styleConstants';
 
 const EditName = ({ navigation, route }) => {
 
-    const { user, id } = route.params;
+    const { name, surname, id } = route.params;
     const [userUseDocSnapshot] = useDocument(usersColRef.doc(id ?? 'noUser'))
-    const [name, setName] = useState(user)
+
+    const [form, setState] = useState({
+        firstName: name,
+        lastName: surname
+    });
 
     const changeName = async () => {
-        await usersColRef.doc(id).update({ name: name })
+        await usersColRef.doc(id).update({ name: form.firstName, surname: form.lastName })
         console.log('userUseDocSnapshot :>> ', userUseDocSnapshot);
     }
 
     return (
         <View style={styles.container}>
-            <Text>EditName</Text>
-            {/* <Text>{id}</Text>
-            <Text>{user}</Text> */}
-            <InputLine
-                labelValue={name}
+            <InputLineUser
+                text='First Name'
+                labelValue={form.firstName}
                 iconType="user"
                 autoCapitalize="none"
                 autoCorrect={false}
-                onChangeText={(e) => setName(e)}
+                onChangeText={(e) => setState({ ...form, firstName: e })}
                 onPress={() => console.log('object :>> ')}
                 placeholder="Name & Surname"
             />
-            <Button
-                color='#b22bba'
-                title="changeName"
-                onPress={() => {
-                    changeName()
-                    navigation.goBack()
-                }}
+            <InputLineUser
+                text='Last Name'
+                labelValue={form.lastName}
+                iconType="user"
+                autoCapitalize="none"
+                autoCorrect={false}
+                onChangeText={(e) => setState({ ...form, lastName: e })}
+                onPress={() => console.log('object :>> ')}
+                placeholder="Name & Surname"
             />
+            <View style={{ flexDirection: 'row', marginTop: 30 }}>
+                <TouchableOpacity
+                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                    onPress={async () => {
+                        changeName()
+                        navigation.goBack()
+                    }}
+                >
+                    <Text style={styles.textStyle}>Approve</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                    onPress={async () => {
+                        navigation.goBack();
+                    }}
+                >
+                    <Text style={styles.textStyle}>Return</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -46,10 +70,21 @@ export default EditName
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         margin: space / 2,
-        marginTop: space * 1
+        marginTop: space * 2
+    },
+    openButton: {
+        backgroundColor: "#F194FF",
+        borderRadius: 18,
+        padding: 10,
+        elevation: 2,
+        margin: 10
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
     },
 })
