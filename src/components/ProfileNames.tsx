@@ -1,34 +1,47 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import { windowHeight } from '../config/styleConstants'
+import { space, windowHeight } from '../config/styleConstants'
 
 const ProfileNames = ({ firstName, lastName, onPress }) => {
     return (
         <View style={styles.container} >
-            <TextInput
-                style={styles.inputLeft}
-                value={firstName}
-                placeholder='Name'
-                editable={false}
-            >
-            </TextInput>
-            <TextInput
-                style={styles.inputRight}
-                value={lastName}
-                placeholder='Surname'
-                editable={false}
-            >
+            <View style={styles.boxView} >
+                <Text style={styles.labelText}>
+                    First Name
+                </Text>
+                <TextInput
+                    style={styles.inputLeft}
+                    value={firstName}
+                    placeholder='First Name'
+                    editable={false}
+                >
+                </TextInput>
+            </View>
+            <View style={styles.boxView}>
+                <Text style={styles.labelText}>
+                    Last Name
+                </Text>
+                <TextInput
+                    style={styles.inputRight}
+                    value={lastName}
+                    placeholder='Last Name'
+                    editable={false}
+                >
 
-            </TextInput>
-            <AntDesign
-                color='#000'
-                name='edit'
-                size={48}
+                </TextInput>
+            </View>
+            <TouchableOpacity
                 onPress={onPress}
-            />
-
+            >
+                <AntDesign
+                    color='#000'
+                    name='edit'
+                    size={48}
+                />
+            </TouchableOpacity>
         </View>
     )
 }
@@ -39,15 +52,25 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginHorizontal: 30,
+        marginHorizontal: 24,
+        marginVertical: 10,
+        alignItems: 'center',
     },
-    inputLeft: {
-        width: 140,
-        height: windowHeight / 12,
+    boxView: {
         borderWidth: 1,
         borderRadius: 8,
         borderColor: '#ccc',
-        fontSize: 14,
+        marginRight: 10,
+        height: windowHeight / 10,
+    },
+    labelText: {
+        color: '#aaa',
+        marginHorizontal: 12,
+        fontSize: space
+    },
+    inputLeft: {
+        width: 140,
+        fontSize: 16,
         fontFamily: 'Lato-Regular',
         color: '#333',
         justifyContent: 'center',
@@ -58,11 +81,7 @@ const styles = StyleSheet.create({
     },
     inputRight: {
         width: 140,
-        height: windowHeight / 12,
-        borderWidth: 1,
-        borderRadius: 8,
-        borderColor: '#ccc',
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: 'Lato-Regular',
         color: '#333',
         justifyContent: 'center',

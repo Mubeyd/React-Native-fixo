@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, ViewStyle, Modal, Alert, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ViewStyle, Modal, Alert, TouchableOpacity, TextInput, ScrollView, Picker } from 'react-native'
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -12,6 +12,7 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { usersColRef } from '../config/firebaseCollections';
 import EditLocation from '../components/EditLocation';
 import InputLineUser from '../components/InputLineUser';
+import ProfileNames from '../components/ProfileNames';
 
 
 export interface Props { }
@@ -50,12 +51,14 @@ const Profile = ({ navigation }: Props) => {
 
     const [locationType, setLocationType] = useState(LocationTypes[0])
 
+    const [selectedValue, setSelectedValue] = useState("java");
+
 
     return (
         <ScrollView>
 
             <View style={styles.container}>
-                {/* <Text style={styles.headerText}>Profile</Text> */}
+                <Text style={styles.headerText}>Profile</Text>
                 <InputLine
                     labelValue={phoneNumber}
                     placeholder="Phone Number"
@@ -66,101 +69,19 @@ const Profile = ({ navigation }: Props) => {
                     editable={false}
 
                 />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginHorizontal: 30, }} >
-                    <TextInput
-                        style={[{
-                            width: 140,
-                            height: windowHeight / 12,
-                            borderWidth: 1,
-                            borderRadius: 8,
-                            borderColor: '#ccc',
-                            fontSize: 14,
-                            fontFamily: 'Lato-Regular',
-                            color: '#333',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            fontWeight: "bold",
-                            letterSpacing: 1,
-                            margin: 2
-                        }]}
-                        onChangeText={e => setName(e)}
-                        value={editingUser?.name}
-                        placeholder='Name'
-                        editable={false}
-                    >
-
-                    </TextInput>
-                    <TextInput
-                        style={[{
-                            width: 140,
-                            height: windowHeight / 12,
-                            borderWidth: 1,
-                            borderRadius: 8,
-                            borderColor: '#ccc',
-                            fontSize: 14,
-                            fontFamily: 'Lato-Regular',
-                            color: '#333',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            fontWeight: "bold",
-                            letterSpacing: 1,
-                            margin: 2
-                        }]}
-                        onChangeText={e => setSurname(e)}
-                        value={editingUser?.surname}
-                        placeholder='Surname'
-                        editable={false}
-                    >
-
-                    </TextInput>
-                    <AntDesign color='#000' name='edit' size={48} onPress={() => {
-                        navigation.navigate('ProfileStack', {
-                            screen: 'EditName',
-                            params: { name: editingUser?.name, surname: editingUser?.surname, id: uidData },
-                        })
-                        console.log('EditName')
-                    }} />
-
-                </View>
-
-                {/* <InputLine
-                    labelValue={editingUser?.name}
-                    placeholder="Name & Surname"
-                    iconType="edit"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    onChangeText={console.log('from edit comp object')}
-                    editable={true}
+                <ProfileNames
+                    firstName={editingUser?.name}
+                    lastName={editingUser?.surname}
                     onPress={() => {
                         navigation.navigate('ProfileStack', {
                             screen: 'EditName',
                             params: { name: editingUser?.name, surname: editingUser?.surname, id: uidData },
                         })
                         console.log('EditName')
-                    }
-                    }
+                    }}
+                />
 
-                /> */}
-                {/* <InputLine
-                    labelValue={editingUser?.surname}
-                    placeholder="Name & Surname"
-                    iconType="edit"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    onChangeText={console.log('from edit comp object')}
-                    editable={false}
-                    onPress={() => {
-                        navigation.navigate('ProfileStack', {
-                            screen: 'EditSurname',
-                            params: { surname: editingUser?.surname, id: uidData },
-                        })
-                        console.log('EditSurname')
-                    }
-                    }
-
-                /> */}
                 <View style={styles.centeredView}>
-
                     <Modal
                         animationType="slide"
                         transparent={true}
@@ -173,7 +94,7 @@ const Profile = ({ navigation }: Props) => {
                             <View style={styles.modalView}>
                                 <Text style={styles.headerText}>Location Info</Text>
 
-                                <View style={styles.searchView} >
+                                {/* <View style={styles.searchView} >
                                     <TextInput
                                         autoFocus
                                         style={styles.serchInput}
@@ -182,7 +103,16 @@ const Profile = ({ navigation }: Props) => {
                                         placeholder='Location Type'
                                     />
                                     <Ionicons color='#7accff' name='albums' size={18} />
-                                </View>
+                                </View> */}
+                                <Picker
+                                    selectedValue={selectedValue}
+                                    style={{ height: 50, width: 150 }}
+                                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                                >
+                                    <Picker.Item label="Java" value="java" />
+                                    <Picker.Item label="JavaScript" value="js" />
+                                </Picker>
+
                                 <View style={{ flexDirection: 'row', marginTop: 6, justifyContent: 'space-around' }}>
                                     <TouchableOpacity
                                         style={{ ...styles.openButton, backgroundColor: "#7accff" }}
