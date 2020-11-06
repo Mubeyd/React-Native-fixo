@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ViewStyle, Modal, Alert, TouchableOpacity, Text
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
 
 
 import useUser from '../hooks/useUser';
@@ -52,6 +53,7 @@ const Profile = ({ navigation }: Props) => {
     const [locationType, setLocationType] = useState(LocationTypes[0])
 
     const [selectedValue, setSelectedValue] = useState("java");
+    const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
 
 
     return (
@@ -104,14 +106,26 @@ const Profile = ({ navigation }: Props) => {
                                     />
                                     <Ionicons color='#7accff' name='albums' size={18} />
                                 </View> */}
-                                <Picker
+                                {/* <Picker
                                     selectedValue={selectedValue}
                                     style={{ height: 50, width: 150 }}
                                     onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                                 >
                                     <Picker.Item label="Java" value="java" />
                                     <Picker.Item label="JavaScript" value="js" />
-                                </Picker>
+                                </Picker> */}
+                                <Layout style={styles.container} level='1'>
+                                    <Select
+                                        selectedIndex={selectedIndex}
+                                        onSelect={index => setSelectedIndex(index)}>
+                                            {LocationTypes.map((item, indexMap) => {
+                                                <SelectItem title={item} key={indexMap} />
+                                            } )}
+                                        {/* <SelectItem title='Option 1' />
+                                        <SelectItem title='Option 2' />
+                                        <SelectItem title='Option 3' /> */}
+                                    </Select>
+                                </Layout>
 
                                 <View style={{ flexDirection: 'row', marginTop: 6, justifyContent: 'space-around' }}>
                                     <TouchableOpacity
