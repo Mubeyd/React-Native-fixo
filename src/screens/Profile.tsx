@@ -4,9 +4,7 @@ import {
     Alert, TouchableOpacity, TextInput, ScrollView,
     Picker, ImageBackground
 } from 'react-native'
-import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Button } from '@ui-kitten/components';
 
 
@@ -18,15 +16,13 @@ import {
 } from '../config/styleConstants';
 import InputLine from '../components/InputLine'
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { usersColRef } from '../config/firebaseCollections';
+import { addressesColRef, usersColRef } from '../config/firebaseCollections';
 import EditLocation from '../components/EditLocation';
-import InputLineUser from '../components/InputLineUser';
 import ProfileNames from '../components/ProfileNames';
+import { Address } from '../models/firestoreInterfaces';
 
 
 export interface Props { }
-
-// const Citiess = {Gazinatep: ['Sahinbey', 'Sehitkamil'], Adana: ['Seyhan', 'Ceyhan'], }
 
 const Cities = ['Gazinatep', 'Adana',]
 const Provinces = ['Sahinbey', 'Sehitkamil']
@@ -35,31 +31,58 @@ const LocationTypes = ['Home', 'Office', 'Other']
 
 const Profile = ({ navigation }: Props) => {
     const user = useUser()
-    const uidData = user?.uid
-    const editingUserId: string | undefined = uidData
+    const uidData = user?.uid || 'no id'
+    const [userDocSnapshot] = useDocument(usersColRef.doc(uidData))
+    const editingUser = userDocSnapshot?.data()
 
-    // const [userUseDocSnapshot] = useDocument(usersColRef.doc(editingUserId ?? 'noUser'))
-    const docIdConst = 'gxZRUa2ZomSiHLfhDXZ1'
-    const [userUseDocSnapshot] = useDocument(usersColRef.doc(docIdConst))
-    const editingUser = userUseDocSnapshot?.data()
+    console.log('userData surname :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
 
-    // useEffect(() => { }, [editingUser])
-    // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', uidData);
-    // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', user);
-    console.log('userData erwe :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
-    // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.phoneNumber);
-
-    const phoneNumber = user?.phoneNumber ?? editingUser?.phoneNumber
 
     const [modalVisible, setModalVisible] = useState(false);
 
-    const [address, setAddress] = useState(editingUser?.address)
-
     const [form, setState] = useState({
-        locationType: LocationTypes[0],
+        country: 'Turkey',
         city: Cities[0],
-        province: Provinces[0]
+        province: Provinces[0],
+        details: editingUser?.address,
+        latitude: 232344,
+        longitude: 232344,
+        locationType: LocationTypes[0],
     })
+
+    const addAddress = async () => {
+        let addressId: string
+        const oldAddresses = userDocSnapshot.data()?.addresses || []
+
+        const addressesSnapshot = await addressesColRef.where('id', 'array-contains', oldAddresses).get()
+        const noAddress = addressesSnapshot.empty
+
+        if (noAddress) {
+            const newAddress = await addressesColRef.add({
+                country: form.country,
+                city: form.city,
+                province: form.province,
+                details: form.details,
+                latitude: form.latitude,
+                longitude: form.longitude,
+                LocationTypes: form.locationType,
+            } as Address)
+            addressId = newAddress.id
+        } else {
+            addressId = addressesSnapshot.docs[0].id
+            await addressesSnapshot.docs[0].ref.update({
+                country: form.country,
+                city: form.city,
+                province: form.province,
+                details: form.details,
+                latitude: form.latitude,
+                longitude: form.longitude,
+                LocationTypes: form.locationType,
+            })
+        }
+
+        await usersColRef.doc(uidData).set({ addresses: [...oldAddresses, addressId] }, { merge: true })
+    }
 
 
     return (
@@ -73,7 +96,7 @@ const Profile = ({ navigation }: Props) => {
                 <View style={styles.container}>
                     <Text style={styles.headerText}>Profile</Text>
                     <InputLine
-                        labelValue={phoneNumber}
+                        labelValue={editingUser?.phoneNumber}
                         placeholder="Phone Number"
                         iconType='phone'
                         keyboardType="phone-pad"
@@ -160,8 +183,8 @@ const Profile = ({ navigation }: Props) => {
                                     <View style={styles.searchView} >
                                         <TextInput
                                             style={styles.serchInput}
-                                            onChangeText={e => { setAddress(e) }}
-                                            value={editingUser?.address}
+                                            onChangeText={e => { setState({ ...form, details: e }) }}
+                                            value={form.details}
                                             placeholder='Inpute your Address here'
                                             numberOfLines={2}
                                         />
@@ -172,7 +195,9 @@ const Profile = ({ navigation }: Props) => {
                                         status='basic'
                                         size='medium'
                                         accessoryRight={() => (<Ionicons color='#7accff' name='location-outline' size={18} />)}
-                                        onPress={() => { }}
+                                        onPress={() => {
+                                            console.log('get gps func. here')
+                                        }}
                                     >
                                         Get gps location
                                 </Button>
@@ -180,7 +205,8 @@ const Profile = ({ navigation }: Props) => {
                                         <TouchableOpacity
                                             style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
                                             onPress={async () => {
-                                                await usersColRef.doc(uidData).update({ address: address })
+                                                addAddress()
+                                                // await usersColRef.doc(uidData).update({ address: address })
                                                 setModalVisible(!modalVisible);
                                             }}
                                         >
