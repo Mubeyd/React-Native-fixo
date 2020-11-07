@@ -21,7 +21,7 @@ export interface Props { }
 
 const Cities = ['Gazinatep', 'Adana']
 const Provinces = ['Sahinbey', 'Sehitkamil']
-const LocationTypes = ['Home', 'Office', 'athor']
+const LocationTypes = ['Home', 'Office', 'other']
 
 
 const Profile = ({ navigation }: Props) => {
@@ -52,7 +52,7 @@ const Profile = ({ navigation }: Props) => {
 
     const [locationType, setLocationType] = useState(LocationTypes[0])
 
-    const [selectedValue, setSelectedValue] = useState("java");
+    const [selectedValue, setSelectedValue] = useState(LocationTypes[0]);
     const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
 
 
@@ -106,26 +106,31 @@ const Profile = ({ navigation }: Props) => {
                                     />
                                     <Ionicons color='#7accff' name='albums' size={18} />
                                 </View> */}
-                                {/* <Picker
+                                <Picker
                                     selectedValue={selectedValue}
                                     style={{ height: 50, width: 150 }}
-                                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                                    onValueChange={(itemValue, itemIndex) => {
+
+                                        setSelectedValue(itemValue)
+                                    }}
                                 >
-                                    <Picker.Item label="Java" value="java" />
-                                    <Picker.Item label="JavaScript" value="js" />
-                                </Picker> */}
-                                <Layout style={styles.container} level='1'>
+                                    {LocationTypes.map((item, indexMap) => (
+                                        <Picker.Item label={item} key={indexMap} value={item} />
+                                    ))}
+                                </Picker>
+                                {/* <Layout style={{ height: 128, }} level='1'>
                                     <Select
                                         selectedIndex={selectedIndex}
                                         onSelect={index => setSelectedIndex(index)}>
-                                            {LocationTypes.map((item, indexMap) => {
-                                                <SelectItem title={item} key={indexMap} />
-                                            } )}
-                                        {/* <SelectItem title='Option 1' />
-                                        <SelectItem title='Option 2' />
-                                        <SelectItem title='Option 3' /> */}
+
+                                        {LocationTypes.map((item, indexMap) =>
+                                        (
+
+                                            <SelectItem title={item} key={indexMap}  />
+                                        )
+                                    )}
                                     </Select>
-                                </Layout>
+                                </Layout> */}
 
                                 <View style={{ flexDirection: 'row', marginTop: 6, justifyContent: 'space-around' }}>
                                     <TouchableOpacity
@@ -212,12 +217,12 @@ const Profile = ({ navigation }: Props) => {
                         <EditLocation
                             onPress={() => { }}
                             backgroundColor='#e32b56'
-                            text='office1'
+                            text='office'
                         />
                         <EditLocation
                             onPress={() => { }}
                             backgroundColor='#e0b424'
-                            text='office2'
+                            text='other'
                         />
                         <EditLocation
                             onPress={() => { }}
