@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         marginRight: 10,
         height: windowHeight / 10,
+        backgroundColor: '#fff',
     },
     labelText: {
         color: '#aaa',

@@ -23,7 +23,7 @@ const AuthLoading = ({ }: Props) => {
         }
 
         if (user) {
-            console.log('user.uid :>> ', user?.uid);
+            console.log('Auth user.uid :>> ', user?.uid);
             console.log(' Authlodaing userId :>> ', userId);
 
         } else {

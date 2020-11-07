@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, ViewStyle, Modal, Alert, TouchableOpacity, TextInput, ScrollView, Picker } from 'react-native'
+import {
+    StyleSheet, Text, View, ViewStyle, Modal,
+    Alert, TouchableOpacity, TextInput, ScrollView,
+    Picker, ImageBackground
+} from 'react-native'
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
+import { Button } from '@ui-kitten/components';
 
 
 import useUser from '../hooks/useUser';
-import { backgroundColor, borderColor, borderRadius, borderWidth, cardElevation, largeFontSize, primaryTextColor, space, windowHeight } from '../config/styleConstants';
+import {
+    backgroundColor, borderColor, borderRadius,
+    borderWidth, cardElevation, largeFontSize,
+    primaryTextColor, space
+} from '../config/styleConstants';
 import InputLine from '../components/InputLine'
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { usersColRef } from '../config/firebaseCollections';
@@ -20,15 +28,14 @@ export interface Props { }
 
 // const Citiess = {Gazinatep: ['Sahinbey', 'Sehitkamil'], Adana: ['Seyhan', 'Ceyhan'], }
 
-const Cities = ['Gazinatep', 'Adana', ]
+const Cities = ['Gazinatep', 'Adana',]
 const Provinces = ['Sahinbey', 'Sehitkamil']
 const LocationTypes = ['Home', 'Office', 'Other']
 
 
 const Profile = ({ navigation }: Props) => {
     const user = useUser()
-    const uid = useUser()
-    const uidData = uid?.uid
+    const uidData = user?.uid
     const editingUserId: string | undefined = uidData
 
     // const [userUseDocSnapshot] = useDocument(usersColRef.doc(editingUserId ?? 'noUser'))
@@ -37,21 +44,16 @@ const Profile = ({ navigation }: Props) => {
     const editingUser = userUseDocSnapshot?.data()
 
     // useEffect(() => { }, [editingUser])
-    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', uidData);
+    // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', uidData);
     // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', user);
-    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
-    console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.phoneNumber);
+    console.log('userData erwe :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
+    // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.phoneNumber);
 
     const phoneNumber = user?.phoneNumber ?? editingUser?.phoneNumber
 
-    const [editField, setEditField] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
-    const [name, setName] = useState(editingUser?.name)
-    const [surname, setSurname] = useState(editingUser?.surname)
     const [address, setAddress] = useState(editingUser?.address)
-
-    const [locationType, setLocationType] = useState(LocationTypes[0])
 
     const [form, setState] = useState({
         locationType: LocationTypes[0],
@@ -59,191 +61,177 @@ const Profile = ({ navigation }: Props) => {
         province: Provinces[0]
     })
 
-    const [selectedValue, setSelectedValue] = useState(0);
-    // const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
-
 
     return (
-        <ScrollView>
+        <ImageBackground
+            source={require('../assets/serviceBack.png')}
+            style={styles.backgroundImage}
+            resizeMode='cover'
+        >
+            <ScrollView>
 
-            <View style={styles.container}>
-                <Text style={styles.headerText}>Profile</Text>
-                <InputLine
-                    labelValue={phoneNumber}
-                    placeholder="Phone Number"
-                    iconType='phone'
-                    keyboardType="phone-pad"
-                    onChangeText={() => {
-                        // console.log('from edit comp object')
-                    }}
-                    onPress={() => {
-                        // console.log('from edit comp object')
-                    }}
-                    editable={false}
-
-                />
-                <ProfileNames
-                    firstName={editingUser?.name}
-                    lastName={editingUser?.surname}
-                    onPress={() => {
-                        navigation.navigate('ProfileStack', {
-                            screen: 'EditName',
-                            params: { name: editingUser?.name, surname: editingUser?.surname, id: uidData },
-                        })
-                        console.log('EditName')
-                    }}
-                />
-
-                <View style={styles.centeredView}>
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => {
-                            setModalVisible(!modalVisible)
+                <View style={styles.container}>
+                    <Text style={styles.headerText}>Profile</Text>
+                    <InputLine
+                        labelValue={phoneNumber}
+                        placeholder="Phone Number"
+                        iconType='phone'
+                        keyboardType="phone-pad"
+                        onChangeText={() => {
+                            // console.log('from edit comp object')
                         }}
-                    >
-                        <View style={styles.centeredView}>
-                            <View style={styles.modalView}>
-                                {/* <Text style={styles.headerText}>Location Info</Text> */}
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <Text style={{ color: '#787' }}>Address Type</Text>
-                                    <Picker
-                                        mode='dropdown'
-                                        selectedValue={form.locationType}
-                                        style={{ height: 50, width: 150 }}
-                                        onValueChange={(itemValue, itemIndex) => {
-                                            setState({...form, locationType: itemValue})
-                                        }}
-                                    >
-                                        {LocationTypes.map((item, indexMap) => (
-                                            <Picker.Item label={item} key={indexMap} value={item} />
-                                        ))}
-                                    </Picker>
-                                </View>
+                        onPress={() => {
+                            // console.log('from edit comp object')
+                        }}
+                        editable={false}
 
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <Text style={{ color: '#787' }}>City</Text>
-                                    <Picker
-                                        mode='dropdown'
-                                        selectedValue={form.city}
-                                        style={{ height: 50, width: 150 }}
-                                        onValueChange={(itemValue, itemIndex) => {
-                                            setState({...form, city: itemValue})
-                                        }}
-                                    >
-                                        {Cities.map((item, indexMap) => (
-                                            <Picker.Item label={item} key={indexMap} value={item} />
-                                        ))}
-                                    </Picker>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <Text style={{ color: '#787' }}>Province</Text>
-                                    <Picker
-                                        mode='dropdown'
-                                        selectedValue={form.province}
-                                        style={{ height: 50, width: 150 }}
-                                        onValueChange={(itemValue, itemIndex) => {
-                                            setState({...form, province: itemValue})
-                                        }}
-                                    >
-                                        {Provinces.map((item, indexMap) => (
-                                            <Picker.Item label={item} key={indexMap} value={item} />
-                                        ))}
-                                    </Picker>
-                                </View>
+                    />
+                    <ProfileNames
+                        firstName={editingUser?.name}
+                        lastName={editingUser?.surname}
+                        onPress={() => {
+                            navigation.navigate('ProfileStack', {
+                                screen: 'EditName',
+                                params: { name: editingUser?.name, surname: editingUser?.surname, id: uidData },
+                            })
+                            console.log('EditName')
+                        }}
+                    />
 
-                                <View style={styles.searchView} >
-                                    <TextInput
-                                        style={styles.serchInput}
-                                        onChangeText={e => { setAddress(e) }}
-                                        value={editingUser?.address}
-                                        placeholder='Inpute your Address'
-                                        numberOfLines={3}
-                                    />
-                                    <Ionicons color='#7accff' name='location-outline' size={18} />
-                                </View>
-                                <View style={{ flexDirection: 'row', marginTop: 30 }}>
-                                    <TouchableOpacity
-                                        style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                        onPress={async () => {
-                                            await usersColRef.doc(uidData).update({ address: address })
-                                            setModalVisible(!modalVisible);
-                                        }}
+                    <View style={styles.centeredView}>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                                setModalVisible(!modalVisible)
+                            }}
+                        >
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalView}>
+                                    {/* <Text style={styles.headerText}>Location Info</Text> */}
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+                                        <Text style={{ color: '#787' }}>Address Type</Text>
+                                        <Picker
+                                            mode='dropdown'
+                                            selectedValue={form.locationType}
+                                            style={{ height: 50, width: 150 }}
+                                            onValueChange={(itemValue, itemIndex) => {
+                                                setState({ ...form, locationType: itemValue })
+                                            }}
+                                        >
+                                            {LocationTypes.map((item, indexMap) => (
+                                                <Picker.Item label={item} key={indexMap} value={item} />
+                                            ))}
+                                        </Picker>
+                                    </View>
+
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+                                        <Text style={{ color: '#787' }}>City</Text>
+                                        <Picker
+                                            mode='dropdown'
+                                            selectedValue={form.city}
+                                            style={{ height: 50, width: 150 }}
+                                            onValueChange={(itemValue, itemIndex) => {
+                                                setState({ ...form, city: itemValue })
+                                            }}
+                                        >
+                                            {Cities.map((item, indexMap) => (
+                                                <Picker.Item label={item} key={indexMap} value={item} />
+                                            ))}
+                                        </Picker>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+                                        <Text style={{ color: '#787' }}>Province</Text>
+                                        <Picker
+                                            mode='dropdown'
+                                            selectedValue={form.province}
+                                            style={{ height: 50, width: 150 }}
+                                            onValueChange={(itemValue, itemIndex) => {
+                                                setState({ ...form, province: itemValue })
+                                            }}
+                                        >
+                                            {Provinces.map((item, indexMap) => (
+                                                <Picker.Item label={item} key={indexMap} value={item} />
+                                            ))}
+                                        </Picker>
+                                    </View>
+
+                                    <View style={styles.searchView} >
+                                        <TextInput
+                                            style={styles.serchInput}
+                                            onChangeText={e => { setAddress(e) }}
+                                            value={editingUser?.address}
+                                            placeholder='Inpute your Address here'
+                                            numberOfLines={2}
+                                        />
+                                        <Ionicons color='#7accff' name='location-outline' size={18} />
+                                    </View>
+                                    <Button
+                                        style={{ marginTop: 8 }}
+                                        status='basic'
+                                        size='medium'
+                                        accessoryRight={() => (<Ionicons color='#7accff' name='location-outline' size={18} />)}
+                                        onPress={() => { }}
                                     >
-                                        <Text style={styles.textStyle}>Approve</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                        onPress={async () => {
-                                            setModalVisible(!modalVisible);
-                                        }}
-                                    >
-                                        <Text style={styles.textStyle}>Cancel</Text>
-                                    </TouchableOpacity>
+                                        Get gps location
+                                </Button>
+                                    <View style={{ flexDirection: 'row', marginTop: 30 }}>
+                                        <TouchableOpacity
+                                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                            onPress={async () => {
+                                                await usersColRef.doc(uidData).update({ address: address })
+                                                setModalVisible(!modalVisible);
+                                            }}
+                                        >
+                                            <Text style={styles.textStyle}>Approve</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                            onPress={async () => {
+                                                setModalVisible(!modalVisible);
+                                            }}
+                                        >
+                                            <Text style={styles.textStyle}>Cancel</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </Modal>
-
-                    {/* {editField ?
-                        <View style={{ flexDirection: 'row', marginTop: 30 }}>
-                            <TouchableOpacity
-                                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                onPress={async () => {
-                                    // await usersColRef.doc(uidData).update({ address: address })
-                                    setEditField(!editField);
-                                    console.log('setEditField(!editField);')
-                                }}
-                            >
-                                <Text style={styles.textStyle}>Approve</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                onPress={async () => {
-                                    setEditField(!editField);
-                                }}
-                            >
-                                <Text style={styles.textStyle}>Cancel</Text>
-                            </TouchableOpacity>
-                        </View>
-                        : null
-                    } */}
-
-                </View>
-
-
-                <View>
-                    <Text style={styles.locationText}>
-                        Edit Location
-                </Text>
-
-                    <View style={{ flexDirection: 'row' }}>
-                        <EditLocation
-                            onPress={() => setModalVisible(true)}
-                            backgroundColor='#4287f5'
-                            text='home'
-                        />
-                        <EditLocation
-                            onPress={() => { }}
-                            backgroundColor='#e32b56'
-                            text='office'
-                        />
-                        <EditLocation
-                            onPress={() => { }}
-                            backgroundColor='#e0b424'
-                            text='other'
-                        />
-                        <EditLocation
-                            onPress={() => { }}
-                            backgroundColor='#4287f5'
-                            text='+'
-                        />
+                        </Modal>
                     </View>
 
+                    <View>
+                        <Text style={styles.locationText}>
+                            Edit Location
+                        </Text>
+
+                        <View style={{ flexDirection: 'row' }}>
+                            <EditLocation
+                                onPress={() => setModalVisible(true)}
+                                backgroundColor='#4287f5'
+                                text='home'
+                            />
+                            <EditLocation
+                                onPress={() => { }}
+                                backgroundColor='#e32b56'
+                                text='office'
+                            />
+                            <EditLocation
+                                onPress={() => { }}
+                                backgroundColor='#e0b424'
+                                text='other'
+                            />
+                            <EditLocation
+                                onPress={() => { }}
+                                backgroundColor='#4287f5'
+                                text='+'
+                            />
+                        </View>
+
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </ImageBackground>
 
     )
 }
@@ -252,6 +240,9 @@ export default Profile
 
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+    },
     container: {
         // flex: 1,
         alignItems: 'center',
