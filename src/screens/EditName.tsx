@@ -14,7 +14,7 @@ const EditName = ({ navigation, route }) => {
     const [form, setState] = useState({
         firstName: name,
         lastName: surname
-    });
+    })
 
     const changeName = async () => {
         await usersColRef.doc(id).update({ name: form.firstName, surname: form.lastName })

@@ -18,10 +18,11 @@ import ProfileNames from '../components/ProfileNames';
 
 export interface Props { }
 
+// const Citiess = {Gazinatep: ['Sahinbey', 'Sehitkamil'], Adana: ['Seyhan', 'Ceyhan'], }
 
-const Cities = ['Gazinatep', 'Adana']
+const Cities = ['Gazinatep', 'Adana', ]
 const Provinces = ['Sahinbey', 'Sehitkamil']
-const LocationTypes = ['Home', 'Office', 'other']
+const LocationTypes = ['Home', 'Office', 'Other']
 
 
 const Profile = ({ navigation }: Props) => {
@@ -35,7 +36,7 @@ const Profile = ({ navigation }: Props) => {
     const [userUseDocSnapshot] = useDocument(usersColRef.doc(docIdConst))
     const editingUser = userUseDocSnapshot?.data()
 
-    useEffect(() => { }, [editingUser])
+    // useEffect(() => { }, [editingUser])
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', uidData);
     // console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', user);
     console.log('userData :>>:>>:>>:>>:>>:>>:>>:>> ', editingUser?.surname);
@@ -52,8 +53,14 @@ const Profile = ({ navigation }: Props) => {
 
     const [locationType, setLocationType] = useState(LocationTypes[0])
 
-    const [selectedValue, setSelectedValue] = useState(LocationTypes[0]);
-    const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
+    const [form, setState] = useState({
+        locationType: LocationTypes[0],
+        city: Cities[0],
+        province: Provinces[0]
+    })
+
+    const [selectedValue, setSelectedValue] = useState(0);
+    // const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
 
 
     return (
@@ -66,8 +73,12 @@ const Profile = ({ navigation }: Props) => {
                     placeholder="Phone Number"
                     iconType='phone'
                     keyboardType="phone-pad"
-                    onChangeText={console.log('from edit comp object')}
-                    onPress={() => console.log('from edit comp object')}
+                    onChangeText={() => {
+                        // console.log('from edit comp object')
+                    }}
+                    onPress={() => {
+                        // console.log('from edit comp object')
+                    }}
                     editable={false}
 
                 />
@@ -94,56 +105,54 @@ const Profile = ({ navigation }: Props) => {
                     >
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
-                                <Text style={styles.headerText}>Location Info</Text>
-
-                                {/* <View style={styles.searchView} >
-                                    <TextInput
-                                        autoFocus
-                                        style={styles.serchInput}
-                                        onChangeText={e => setLocationType(e)}
-                                        value={locationType}
-                                        placeholder='Location Type'
-                                    />
-                                    <Ionicons color='#7accff' name='albums' size={18} />
-                                </View> */}
-                                <Picker
-                                    selectedValue={selectedValue}
-                                    style={{ height: 50, width: 150 }}
-                                    onValueChange={(itemValue, itemIndex) => {
-
-                                        setSelectedValue(itemValue)
-                                    }}
-                                >
-                                    {LocationTypes.map((item, indexMap) => (
-                                        <Picker.Item label={item} key={indexMap} value={item} />
-                                    ))}
-                                </Picker>
-                                {/* <Layout style={{ height: 128, }} level='1'>
-                                    <Select
-                                        selectedIndex={selectedIndex}
-                                        onSelect={index => setSelectedIndex(index)}>
-
-                                        {LocationTypes.map((item, indexMap) =>
-                                        (
-
-                                            <SelectItem title={item} key={indexMap}  />
-                                        )
-                                    )}
-                                    </Select>
-                                </Layout> */}
-
-                                <View style={{ flexDirection: 'row', marginTop: 6, justifyContent: 'space-around' }}>
-                                    <TouchableOpacity
-                                        style={{ ...styles.openButton, backgroundColor: "#7accff" }}
+                                {/* <Text style={styles.headerText}>Location Info</Text> */}
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Text style={{ color: '#787' }}>Address Type</Text>
+                                    <Picker
+                                        mode='dropdown'
+                                        selectedValue={form.locationType}
+                                        style={{ height: 50, width: 150 }}
+                                        onValueChange={(itemValue, itemIndex) => {
+                                            setState({...form, locationType: itemValue})
+                                        }}
                                     >
-                                        <Text style={styles.textStyle}>{Cities[0]}</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={{ ...styles.openButton, backgroundColor: "#7accff" }}
-                                    >
-                                        <Text style={styles.textStyle}>{Provinces[0]}</Text>
-                                    </TouchableOpacity>
+                                        {LocationTypes.map((item, indexMap) => (
+                                            <Picker.Item label={item} key={indexMap} value={item} />
+                                        ))}
+                                    </Picker>
                                 </View>
+
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Text style={{ color: '#787' }}>City</Text>
+                                    <Picker
+                                        mode='dropdown'
+                                        selectedValue={form.city}
+                                        style={{ height: 50, width: 150 }}
+                                        onValueChange={(itemValue, itemIndex) => {
+                                            setState({...form, city: itemValue})
+                                        }}
+                                    >
+                                        {Cities.map((item, indexMap) => (
+                                            <Picker.Item label={item} key={indexMap} value={item} />
+                                        ))}
+                                    </Picker>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Text style={{ color: '#787' }}>Province</Text>
+                                    <Picker
+                                        mode='dropdown'
+                                        selectedValue={form.province}
+                                        style={{ height: 50, width: 150 }}
+                                        onValueChange={(itemValue, itemIndex) => {
+                                            setState({...form, province: itemValue})
+                                        }}
+                                    >
+                                        {Provinces.map((item, indexMap) => (
+                                            <Picker.Item label={item} key={indexMap} value={item} />
+                                        ))}
+                                    </Picker>
+                                </View>
+
                                 <View style={styles.searchView} >
                                     <TextInput
                                         style={styles.serchInput}
@@ -177,13 +186,14 @@ const Profile = ({ navigation }: Props) => {
                         </View>
                     </Modal>
 
-                    {editField ?
+                    {/* {editField ?
                         <View style={{ flexDirection: 'row', marginTop: 30 }}>
                             <TouchableOpacity
                                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
                                 onPress={async () => {
                                     // await usersColRef.doc(uidData).update({ address: address })
                                     setEditField(!editField);
+                                    console.log('setEditField(!editField);')
                                 }}
                             >
                                 <Text style={styles.textStyle}>Approve</Text>
@@ -198,7 +208,7 @@ const Profile = ({ navigation }: Props) => {
                             </TouchableOpacity>
                         </View>
                         : null
-                    }
+                    } */}
 
                 </View>
 
@@ -295,7 +305,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 64,
+        elevation: 164,
         width: 340,
         height: 460,
     },

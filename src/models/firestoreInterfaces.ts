@@ -4,10 +4,22 @@ export interface User {
     phoneNumber: string
     name: string
     surname: string
-    addresses: string
+    addresses: string[]
+    services: string[]
     createdAt: FirebaseFirestoreTypes.Timestamp
 }
-
+export interface Provider {
+    name: string
+    phoneNumber: string
+    logo: string
+    serviceType: string
+    description: string
+    rating: number
+    reviews: number
+    adresses: string[]
+    services: string[]
+    createdAt: FirebaseFirestoreTypes.Timestamp
+}
 export interface Address {
     country: string
     city: string
@@ -15,26 +27,14 @@ export interface Address {
     details: string
     latitude: number
     longitude: number
+    LocationTypes: 'Home' | 'Office' | 'Other'
 }
-
-export interface Provider {
-    name: string
-    phoneNumber: string
-    adress: string
-    logo: string
-    serviceType: string
-    description: string
-    rating: number
-    reviews: number
-    createdAt: FirebaseFirestoreTypes.Timestamp
-}
-export interface service {
-    providerId: string
-    userId: string
+export interface Service {
     serviceType: string
     price: number
     orderState: string
     image: string
     audio: string
     descrpition: string
+    createdAt: FirebaseFirestoreTypes.Timestamp
 }
