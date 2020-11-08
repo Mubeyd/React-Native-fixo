@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
     StyleSheet, Text, View, ViewStyle, Modal,
     Alert, TouchableOpacity, TextInput, ScrollView,
-    Picker, ImageBackground
-} from 'react-native'
+    Picker, ImageBackground } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Button } from '@ui-kitten/components';
 
@@ -12,8 +11,7 @@ import useUser from '../hooks/useUser';
 import {
     backgroundColor, borderColor, borderRadius,
     borderWidth, cardElevation, largeFontSize,
-    primaryTextColor, space
-} from '../config/styleConstants';
+    primaryTextColor, space } from '../config/styleConstants';
 import InputLine from '../components/InputLine'
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { addressesColRef, usersColRef } from '../config/firebaseCollections';

@@ -11,7 +11,7 @@ const ServicesStack = (navigation) => {
         <ServicesRootStack.Navigator
         
             headerMode='none'
-            initialRouteName="Services">
+            initialRouteName="ServicesMap">
             <ServicesRootStack.Screen name='Services' component={Services} />
             <ServicesRootStack.Screen name='ServicesMap' component={ServicesMap} />
         </ServicesRootStack.Navigator>
