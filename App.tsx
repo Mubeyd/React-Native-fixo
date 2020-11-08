@@ -14,7 +14,7 @@ import Providers from './src/navigation/Providers';
 
 const App = () => {
 
-  useUser()
+  // useUser()
 
   useEffect(() => {
     SplashScreen.hide()

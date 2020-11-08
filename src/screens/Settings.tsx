@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: space * 4,
-        backgroundColor: '#fcfcfc',
+        // backgroundColor: '#fcfcfc',
         width: '100%',
         height: windowHeight / 10,
         borderRadius: 3,

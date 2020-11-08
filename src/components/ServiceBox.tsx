@@ -1,38 +1,36 @@
 import { TouchableNativeFeedback } from 'react-native-gesture-handler'
 import React from 'react'
-import { StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { backgroundIconColor, borderColor, largeFontSize, paragraphFontSize, space, windowDimension } from '../config/styleConstants'
+import { backgroundIconColor, borderColor, largeFontSize, space, windowDimension } from '../config/styleConstants'
 
 export interface Props {
-    color: string
-    iconName: string
+    iconPath: any
     name: string
     onPress: any
+    iconWidth: number
+    iconHeight: number
 }
 
 const ServiceBox = (props: Props) => {
 
     return (
         <View style={styles.mainContainer}>
-            <TouchableNativeFeedback
-                onPress={props.onPress}
-                style={styles.container}
+            <ImageBackground
+                style={styles.gradientImage}
+                source={require('../assets/icons/Clip.png')}
             >
-                <Text style={styles.text}>{props.name}</Text>
-                <MaterialCommunityIcons
-                    name={props.iconName}
-                    style={[
-                        styles.icon,
-                        {
-                            color: props.color,
-                        },
-                    ]}
-                    // onPress={() => {
-                    //     navigate()
-                    // }}
-                />
-            </TouchableNativeFeedback>
+                <TouchableNativeFeedback
+                    onPress={props.onPress}
+                    style={styles.container}
+                >
+                    <Text style={styles.text}>{props.name}</Text>
+                    <Image
+                        style={[styles.icon, { width: props.iconWidth, height: props.iconHeight }]}
+                        source={props.iconPath}
+                    />
+                </TouchableNativeFeedback>
+            </ImageBackground>
         </View>
     )
 }
@@ -41,30 +39,38 @@ export default ServiceBox
 
 const boxSize = (windowDimension.width - space * 2) / 2 - space / 2
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
+    mainContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        margin: space / 2,
         backgroundColor: backgroundIconColor,
         borderColor: borderColor,
         borderRadius: space * 2,
         borderWidth: 1,
+
+
+    },
+    container: {
+        flexDirection: 'column',
         justifyContent: 'center',
-        paddingVertical: space * 2,
         width: boxSize,
-        height: boxSize / 1.8,
+        height: boxSize / 1.5,
     },
     icon: {
-        fontSize: space * 4,
-    } as ViewStyle,
-    mainContainer: {
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        margin: space / 2,
+        alignSelf: 'flex-end',
+        marginRight: boxSize / 8,
+        marginTop: boxSize / 26,
+        resizeMode: 'stretch'
     },
     text: {
         fontSize: largeFontSize,
-        marginTop: space,
+        marginBottom: space / 1,
+        marginLeft: boxSize / 10,
         textAlign: 'left',
-        color: '#fff'
+        color: '#fff',
     },
+    gradientImage: {
+        flex: 1,
+        resizeMode: "cover",
+    }
 })

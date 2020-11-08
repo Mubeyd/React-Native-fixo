@@ -1,21 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
-    TouchableOpacity,
-    TextInput,
     Platform,
     StyleSheet,
     StatusBar,
-    Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 
 import { useTheme } from 'react-native-paper';
 
-import { AuthContext } from '../components/Context'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '@react-native-firebase/auth'
 import { usersColRef } from '../config/firebaseCollections';
@@ -24,16 +18,14 @@ import { User } from '../models/firestoreInterfaces';
 import { useBackButton } from '../hooks/useBackButton';
 import { Button, Input, Text } from '@ui-kitten/components'
 import { backgroundColor, space } from '../config/styleConstants';
-
-
-
+import InputLine from '../components/InputLine';
 
 
 const SignInScreen = ({ navigation }) => {
 
     const [phoneNumber, setPhoneNumber] = useState('+90')
     const [code, setCode] = useState('')
-    const [confirmResult, setConfirmResult] = useState(() => {})
+    const [confirmResult, setConfirmResult] = useState(() => { })
     const [loginWithNumber, setLoginWithNumber] = useState(false)
     const [confirming, setConfirming] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -50,6 +42,7 @@ const SignInScreen = ({ navigation }) => {
                         createdAt: firestore.FieldValue.serverTimestamp(),
                         name: '',
                         surname: '',
+                        adress: '',
                     } as User)
                 }
             })()
@@ -76,8 +69,8 @@ const SignInScreen = ({ navigation }) => {
     const { colors } = useTheme();
 
     return (
-        <View style={styles.container}>
-            <StatusBar backgroundColor='#009387' barStyle="light-content" />
+        <LinearGradient colors={['#36A7E7', '#6DBCE8']} style={styles.container}>
+            <StatusBar backgroundColor='#36A7E7' barStyle="light-content" />
             <View style={styles.header}>
                 <Text style={styles.text_header}>Welcome!</Text>
             </View>
@@ -88,29 +81,21 @@ const SignInScreen = ({ navigation }) => {
                 }]}
             >
                 <Text style={[styles.text_footer, {
-                    color: colors.text, 
+                    color: colors.text,
                 }]}> Enter Your Phone Number </Text>
 
                 <View style={styles.action}>
-                        <FontAwesome
-                            name="mobile-phone"
-                            color={colors.text}
-                            size={30}
-                        />
-                    <Input
+                    <InputLine
                         maxLength={13}
                         autoFocus
                         disabled={confirming}
-                        style={[styles.textInput, {
-                            color: colors.text
-                        }]}
                         returnKeyType="next"
                         textContentType="telephoneNumber"
                         keyboardType="phone-pad"
                         placeholder="Phone Number"
                         placeholderTextColor="#666666"
                         autoCapitalize="none"
-                        value={phoneNumber}
+                        labelValue={phoneNumber}
                         onChangeText={(e) => {
                             if (e === '') {
                                 setPhoneNumber('+')
@@ -121,13 +106,15 @@ const SignInScreen = ({ navigation }) => {
                             setPhoneNumber(e)
                             console.log(e)
                         }}
+                        iconType='phone'
+                        onPress={() => console.log('from edit comp object')}
                     />
                 </View>
 
                 {!confirming ? (
                     <Button
                         style={styles.buttonLogin}
-                        status='success'
+                        status='info'
                         disabled={phoneNumber.length !== 13 || !phoneNumber.startsWith('+')}
                         onPress={async () => {
                             try {
@@ -135,7 +122,7 @@ const SignInScreen = ({ navigation }) => {
                                 const confirm = await auth().signInWithPhoneNumber(phoneNumber)
                                 setConfirming(true)
 
-                                setConfirmResult( () => async (c: string) => {
+                                setConfirmResult(() => async (c: string) => {
                                     setLoading(true)
                                     try {
                                         await confirm.confirm(c)
@@ -153,27 +140,34 @@ const SignInScreen = ({ navigation }) => {
                             }
                         }}
                     >
-                        Next
+                        Get verification code
                     </Button>
                 ) : null}
 
                 {confirming ? (
                     <>
-                        <Input
-                            autoFocus
-                            style={styles.loginInput}
-                            placeholder="Code"
-                            maxLength={14}
-                            keyboardType="number-pad"
-                            returnKeyType="go"
-                            onChangeText={e => {
-                                setCode(e)
-                            }}
-                        />
+                        <View style={styles.action}>
+
+                            <InputLine
+                                style={styles.loginInput}
+                                autoFocus
+                                placeholder="Code"
+                                maxLength={14}
+                                keyboardType="phone-pad"
+                                returnKeyType="go"
+                                labelValue={null}
+                                onChangeText={(e) => {
+                                    setCode(e)
+                                }}
+                                iconType='message1'
+
+                                onPress={() => console.log('from edit comp object')}
+                            />
+                        </View>
                         <Button
                             disabled={!code}
                             style={styles.buttonLogin}
-                            status='success'
+                            status='info'
                             size="large"
                             onPress={() => {
                                 confirmResult(code)
@@ -186,7 +180,7 @@ const SignInScreen = ({ navigation }) => {
                 ) : null}
 
             </Animatable.View>
-        </View>
+        </LinearGradient>
     );
 };
 
@@ -195,13 +189,12 @@ export default SignInScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#009387'
     },
     header: {
         flex: 1,
         justifyContent: 'flex-end',
         paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingBottom: 30
     },
     footer: {
         flex: 3,
@@ -209,37 +202,42 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: 30,
     },
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 30,
+        marginTop: 20,
     },
     text_footer: {
         color: '#05375a',
         fontSize: 18,
-        marginBottom:12,
-
+        marginBottom: 12,
     },
     action: {
         flexDirection: 'row',
         marginTop: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#f2f2f2',
-        paddingBottom: 5
+        paddingBottom: 5,
+        justifyContent: 'center'
     },
     textInput: {
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingLeft: 10,
         color: '#05375a',
+        height: 100
     },
     buttonLogin: {
         borderColor: backgroundColor,
         marginTop: space,
+        width: '90%',
+        alignSelf: "center"
     },
     loginInput: {
-        marginVertical: space,
+        marginLeft: space,
+        alignSelf: 'center',
     },
 });

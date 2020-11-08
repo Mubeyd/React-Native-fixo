@@ -3,20 +3,16 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { space } from '../config/styleConstants'
+import StarRating from './StartRating'
 
 const OrderCard = () => {
     return (
         <View style={styles.conatiner}>
             <View style={styles.viewPart1}>
                 <View style={styles.viewInner1}>
-                    <AntDesign name='filetext1' size={24} />
+                    <AntDesign name='github' size={64} color= '#6274fc'/>
                     <Text>Muhammed Ubeyd</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <AntDesign name='staro' size={8} />
-                        <AntDesign name='staro' size={8} />
-                        <AntDesign name='staro' size={8} />
-                        <AntDesign name='staro' size={8} />
-                    </View>
+                    <StarRating ratings={4} reviews={55} />
                 </View>
                 <View style={styles.viewInner2}>
                     <Text>
@@ -33,6 +29,7 @@ const OrderCard = () => {
                     mode='text'
                     color='#000'
                     style={styles.button}
+                    onPress= {() => console.log('details')}
                 >
                     Details
                 </Button>
@@ -47,7 +44,7 @@ const styles = StyleSheet.create({
     conatiner: {
         borderRadius: 15,
         margin: space * 1,
-        backgroundColor: '#cef2ef',
+        backgroundColor: '#DFF3FF',
 
     },
     viewPart1: {
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
     viewPart2: {
         flexDirection: 'row',
         margin: 3,
-        padding: 3
+        padding: 3,
     },
     text: {
         flexDirection: 'row',
