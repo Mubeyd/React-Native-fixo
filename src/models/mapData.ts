@@ -17,6 +17,9 @@ export const markers = [
     image: Images[0].image,
     rating: 4,
     reviews: 99,
+    price: 75,
+    orderState: 'done',
+    logo: 'github',
   },
   {
     coordinate: {
@@ -28,6 +31,9 @@ export const markers = [
     image: Images[1].image,
     rating: 5,
     reviews: 102,
+    price: 75,
+    orderState: 'waiting',
+    logo: 'github',
   },
   {
     coordinate: {
@@ -39,6 +45,9 @@ export const markers = [
     image: Images[2].image,
     rating: 3,
     reviews: 220,
+    price: 75,
+    orderState: 'processing',
+    logo: 'github',
   },
   {
     coordinate: {
@@ -46,10 +55,13 @@ export const markers = [
       longitude: 37.319047,
     },
     title: 'Charizard',
-    description: 'is a Pokémon in Nintendo Freak.\'s Pokémon franchise',
+    description: "is a Pokémon in Nintendo Freak.'s Pokémon franchise",
     image: Images[3].image,
     rating: 4,
     reviews: 48,
+    price: 75,
+    orderState: 'cancelled',
+    logo: 'github',
   },
   {
     coordinate: {
@@ -61,5 +73,8 @@ export const markers = [
     image: Images[4].image,
     rating: 4,
     reviews: 178,
+    price: 75,
+    orderState: 'cancelled',
+    logo: 'github',
   },
 ];

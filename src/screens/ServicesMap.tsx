@@ -15,6 +15,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import StarRating from '../components/StartRating';
 import { markers } from '../models/mapData';
+import MapCard from '../components/MapCard';
 
 
 const { width, height } = Dimensions.get("window");
@@ -264,7 +265,19 @@ const ServicesMap = () => {
             >
                 {state.markers.map((marker, index) => (
                     <View style={styles.card} key={index}>
-                        <Image
+                        <MapCard
+                            name={marker.title}
+                            logo={marker.logo}
+                            ratings={marker.rating}
+                            reviews={marker.reviews}
+                            price={marker.price}
+                            description={marker.description}
+                            orderState={marker.orderState}
+                            onPress={() => {
+                                console.log('MapCard', index)
+                            }}
+                        />
+                        {/* <Image
                             source={marker.image}
                             style={styles.cardImage}
                             resizeMode="cover"
@@ -286,7 +299,7 @@ const ServicesMap = () => {
                                     }]}>Order Now</Text>
                                 </TouchableOpacity>
                             </View>
-                        </View>
+                        </View> */}
                     </View>
                 ))}
             </Animated.ScrollView>
@@ -305,21 +318,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    searchBox: {
-        position: 'absolute',
-        marginTop: Platform.OS === 'ios' ? 40 : 20,
-        flexDirection: "row",
-        backgroundColor: '#fff',
-        width: '90%',
-        alignSelf: 'center',
-        borderRadius: 5,
-        padding: 10,
-        shadowColor: '#ccc',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-        elevation: 10,
-    },
+    // searchBox: {
+    //     position: 'absolute',
+    //     marginTop: Platform.OS === 'ios' ? 40 : 20,
+    //     flexDirection: "row",
+    //     backgroundColor: '#fff',
+    //     width: '90%',
+    //     alignSelf: 'center',
+    //     borderRadius: 5,
+    //     padding: 10,
+    //     shadowColor: '#ccc',
+    //     shadowOffset: { width: 0, height: 3 },
+    //     shadowOpacity: 0.5,
+    //     shadowRadius: 5,
+    //     elevation: 10,
+    // },
     gpsIcon1: {
         position: 'absolute',
         marginTop: Platform.OS === 'ios' ? 40 : 20,
@@ -330,38 +343,38 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: 'center',
     },
-    gpsIcon2: {
-        position: 'absolute',
-        marginTop: Platform.OS === 'ios' ? 40 : 20,
-        marginLeft: 20,
-        flexDirection: "row",
-        width: '12%',
-        alignSelf: 'flex-start',
-        borderRadius: 5,
-        justifyContent: 'center',
-    },
-    chipsScrollView: {
-        position: 'absolute',
-        top: Platform.OS === 'ios' ? 90 : 80,
-        paddingHorizontal: 10
-    },
-    chipsIcon: {
-        marginRight: 5,
-    },
-    chipsItem: {
-        flexDirection: "row",
-        backgroundColor: '#fff',
-        borderRadius: 20,
-        padding: 8,
-        paddingHorizontal: 20,
-        marginHorizontal: 10,
-        height: 35,
-        shadowColor: '#ccc',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-        elevation: 10,
-    },
+    // gpsIcon2: {
+    //     position: 'absolute',
+    //     marginTop: Platform.OS === 'ios' ? 40 : 20,
+    //     marginLeft: 20,
+    //     flexDirection: "row",
+    //     width: '12%',
+    //     alignSelf: 'flex-start',
+    //     borderRadius: 5,
+    //     justifyContent: 'center',
+    // },
+    // chipsScrollView: {
+    //     position: 'absolute',
+    //     top: Platform.OS === 'ios' ? 90 : 80,
+    //     paddingHorizontal: 10
+    // },
+    // chipsIcon: {
+    //     marginRight: 5,
+    // },
+    // chipsItem: {
+    //     flexDirection: "row",
+    //     backgroundColor: '#fff',
+    //     borderRadius: 20,
+    //     padding: 8,
+    //     paddingHorizontal: 20,
+    //     marginHorizontal: 10,
+    //     height: 35,
+    //     shadowColor: '#ccc',
+    //     shadowOffset: { width: 0, height: 3 },
+    //     shadowOpacity: 0.5,
+    //     shadowRadius: 5,
+    //     elevation: 10,
+    // },
     scrollView: {
         position: "absolute",
         bottom: 0,
@@ -369,11 +382,11 @@ const styles = StyleSheet.create({
         right: 0,
         paddingVertical: 10,
     },
-    endPadding: {
-        paddingRight: width - CARD_WIDTH,
-    },
+    // endPadding: {
+    //     paddingRight: width - CARD_WIDTH,
+    // },
     card: {
-        padding: 10,
+        // padding: 10,
         elevation: 2,
         backgroundColor: "#FFF",
         borderTopLeftRadius: 5,
@@ -399,7 +412,7 @@ const styles = StyleSheet.create({
     },
     cardtitle: {
         fontSize: 12,
-        marginTop: 5,
+        // marginTop: 5,
         fontWeight: "bold",
     },
     cardDescription: {
