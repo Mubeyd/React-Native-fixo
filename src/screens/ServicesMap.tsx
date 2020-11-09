@@ -7,6 +7,9 @@ import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import Geolocation from '@react-native-community/geolocation';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
+import BottomSheet from 'reanimated-bottom-sheet';
+import ReAnimated from 'react-native-reanimated';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -182,102 +185,145 @@ const ServicesMap = () => {
         }
     }
 
+    const bs = React.createRef()
+    const fall = new ReAnimated.Value(1)
+
+    const renderInner = () => (
+        <View style={styles.panel}>
+            <View style={{ alignItems: 'center' }}>
+                <Text style={styles.panelTitle}>Upload Photo</Text>
+                <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
+            </View>
+            <TouchableOpacity style={styles.panelButton} onPress={() => { console.log('chosefoto') }}>
+                <Text style={styles.panelButtonTitle}>Take Photo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.panelButton} onPress={() => { console.log('chosefoto') }}>
+                <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.panelButton}
+                onPress={() => bs.current.snapTo(1)}>
+                <Text style={styles.panelButtonTitle}>Cancel</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
+    const renderHeader = () => (
+        <View style={styles.header}>
+            <View style={styles.panelHeader}>
+                <View style={styles.panelHandle} />
+            </View>
+        </View>
+    );
+
+
     return (
 
         <View style={styles.container}>
+            <BottomSheet
+                ref={bs}
+                snapPoints={[530, 0]}
+                renderContent={renderInner}
+                renderHeader={renderHeader}
+                initialSnap={1}
+                callbackNode={fall}
+                enabledGestureInteraction={false}
+            />
+            <ReAnimated.View style={[styles.container,
+                 {opacity: ReAnimated.add(0.4, ReAnimated.multiply(fall, 1.0)),}]}>
+                <MapView
+                    ref={_map}
+                    initialRegion={state.region}
+                    style={styles.container}
+                    provider={PROVIDER_GOOGLE}
+                >
+                    {state.markers.map((marker, index) => {
+                        const scaleStyle = {
+                            transform: [
+                                {
+                                    scale: interpolations[index].scale,
+                                },
+                            ],
+                        };
+                        return (
+                            <Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
+                                <Animated.View style={[styles.markerWrap]}>
+                                    <Animated.Image
+                                        source={require('../assets/map_marker.png')}
+                                        style={[styles.marker, scaleStyle]}
+                                        resizeMode="cover"
+                                    />
+                                </Animated.View>
+                            </Marker>
+                        );
+                    })}
 
-            <MapView
-                ref={_map}
-                initialRegion={state.region}
-                style={styles.container}
-                provider={PROVIDER_GOOGLE}
-            >
-                {state.markers.map((marker, index) => {
-                    const scaleStyle = {
-                        transform: [
-                            {
-                                scale: interpolations[index].scale,
-                            },
-                        ],
-                    };
-                    return (
-                        <Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
-                            <Animated.View style={[styles.markerWrap]}>
-                                <Animated.Image
-                                    source={require('../assets/map_marker.png')}
-                                    style={[styles.marker, scaleStyle]}
-                                    resizeMode="cover"
-                                />
-                            </Animated.View>
-                        </Marker>
-                    );
-                })}
-
-                {
-                    viewLocation ?
-                        <Marker
-                            coordinate={{
-                                latitude: currentLocation.latitude,
-                                longitude: currentLocation.longitude,
-                            }}
-                            image={require('../assets/icons8-live-photos-96.png')}
-                            title='Cuurent Location'
-                        >
-                        </Marker>
-                        : null
-                }
-            </MapView>
-            {/* <View>
+                    {
+                        viewLocation ?
+                            <Marker
+                                coordinate={{
+                                    latitude: currentLocation.latitude,
+                                    longitude: currentLocation.longitude,
+                                }}
+                                image={require('../assets/icons8-live-photos-96.png')}
+                                title='Cuurent Location'
+                            >
+                            </Marker>
+                            : null
+                    }
+                </MapView>
+                {/* <View>
                 // check if user pressed on a marker then display the card related
                     // this done by addLisetener or useState 
                 // else display null 
             </View> */}
-            <Animated.ScrollView
-                ref={_scrollView}
-                horizontal
-                pagingEnabled
-                scrollEventThrottle={1}
-                showsHorizontalScrollIndicator={false}
-                snapToInterval={CARD_WIDTH + 20}
-                snapToAlignment="center"
-                style={styles.scrollView}
-                contentInset={{
-                    top: 0,
-                    left: SPACING_FOR_CARD_INSET,
-                    bottom: 0,
-                    right: SPACING_FOR_CARD_INSET
-                }}
-                contentContainerStyle={{
-                    paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
-                }}
-                onScroll={Animated.event(
-                    [
-                        {
-                            nativeEvent: {
-                                contentOffset: {
-                                    x: mapAnimation,
-                                }
+                <Animated.ScrollView
+                    ref={_scrollView}
+                    horizontal
+                    pagingEnabled
+                    scrollEventThrottle={1}
+                    showsHorizontalScrollIndicator={false}
+                    snapToInterval={CARD_WIDTH + 20}
+                    snapToAlignment="center"
+                    style={styles.scrollView}
+                    contentInset={{
+                        top: 0,
+                        left: SPACING_FOR_CARD_INSET,
+                        bottom: 0,
+                        right: SPACING_FOR_CARD_INSET
+                    }}
+                    contentContainerStyle={{
+                        paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
+                    }}
+                    onScroll={Animated.event(
+                        [
+                            {
+                                nativeEvent: {
+                                    contentOffset: {
+                                        x: mapAnimation,
+                                    }
+                                },
                             },
-                        },
-                    ],
-                    { useNativeDriver: true }
-                )}
-            >
-                {state.markers.map((marker, index) => (
-                    <View style={styles.card} key={index}>
-                        <MapCard
-                            name={marker.title}
-                            logo={marker.logo}
-                            ratings={marker.rating}
-                            reviews={marker.reviews}
-                            price={marker.price}
-                            description={marker.description}
-                            orderState={marker.orderState}
-                            onPress={() => {
-                                console.log('MapCard', index)
-                            }}
-                        />
-                        {/* <Image
+                        ],
+                        { useNativeDriver: true }
+                    )}
+                >
+                    {state.markers.map((marker, index) => (
+                        <View style={styles.card} key={index}>
+                            <MapCard
+                                name={marker.title}
+                                logo={marker.logo}
+                                ratings={marker.rating}
+                                reviews={marker.reviews}
+                                price={marker.price}
+                                description={marker.description}
+                                orderState={marker.orderState}
+                                onPress={() => {
+                                    bs.current.snapTo(0)
+                                    console.log('MapCard', index)
+                                }}
+                            />
+                            {/* <Image
                             source={marker.image}
                             style={styles.cardImage}
                             resizeMode="cover"
@@ -300,14 +346,15 @@ const ServicesMap = () => {
                                 </TouchableOpacity>
                             </View>
                         </View> */}
-                    </View>
-                ))}
-            </Animated.ScrollView>
-            <View style={styles.gpsIcon1}>
-                <MaterialIcons
-                    onPress={() => pdsFunc()}
-                    name="gps-fixed" size={36} />
-            </View>
+                        </View>
+                    ))}
+                </Animated.ScrollView>
+                <View style={styles.gpsIcon1}>
+                    <MaterialIcons
+                        onPress={() => pdsFunc()}
+                        name="gps-fixed" size={36} />
+                </View>
+            </ReAnimated.View>
         </View>
     )
 }
@@ -443,5 +490,60 @@ const styles = StyleSheet.create({
     textSign: {
         fontSize: 14,
         fontWeight: 'bold'
-    }
+    },
+    panel: {
+        padding: 20,
+        backgroundColor: '#FFFFFF',
+        paddingTop: 20,
+        // borderTopLeftRadius: 20,
+        // borderTopRightRadius: 20,
+        // shadowColor: '#000000',
+        // shadowOffset: {width: 0, height: 0},
+        // shadowRadius: 5,
+        // shadowOpacity: 0.4,
+        height: 530,
+    },
+    header: {
+        backgroundColor: '#FFFFFF',
+        shadowColor: '#333333',
+        shadowOffset: { width: -1, height: -3 },
+        shadowRadius: 2,
+        shadowOpacity: 0.4,
+        // elevation: 5,
+        paddingTop: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    panelHeader: {
+        alignItems: 'center',
+    },
+    panelHandle: {
+        width: 40,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: '#00000040',
+        marginBottom: 10,
+    },
+    panelTitle: {
+        fontSize: 27,
+        height: 35,
+    },
+    panelSubtitle: {
+        fontSize: 14,
+        color: 'gray',
+        height: 30,
+        marginBottom: 10,
+    },
+    panelButton: {
+        padding: 13,
+        borderRadius: 10,
+        backgroundColor: '#FF6347',
+        alignItems: 'center',
+        marginVertical: 7,
+    },
+    panelButtonTitle: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: 'white',
+    },
 })
