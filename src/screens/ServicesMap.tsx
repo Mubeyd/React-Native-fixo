@@ -9,6 +9,7 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import ReAnimated from 'react-native-reanimated';
+import ImagePicker from 'react-native-image-crop-picker'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -188,18 +189,49 @@ const ServicesMap = () => {
     const bs = React.createRef()
     const fall = new ReAnimated.Value(1)
 
+    const [image, setImage] = useState('');
+
+    const takePhotoFromCamera = () => {
+        ImagePicker.openCamera({
+            compressImageMaxWidth: 300,
+            compressImageMaxHeight: 300,
+            // cropping: true,
+            compressImageQuality: 0.7
+        }).then(image => {
+            console.log(image);
+            setImage(image.path);
+            // bs.current.snapTo(1);
+        });
+    }
+
     const renderInner = () => (
         <View style={styles.panel}>
             <View style={{ alignItems: 'center' }}>
                 <Text style={styles.panelTitle}>Upload Photo</Text>
                 <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
             </View>
-            <TouchableOpacity style={styles.panelButton} onPress={() => { console.log('chosefoto') }}>
+            <TouchableOpacity style={styles.panelButton} onPress={() => {
+                takePhotoFromCamera()
+                console.log('chosefoto')
+            }}>
                 <Text style={styles.panelButtonTitle}>Take Photo</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.panelButton} onPress={() => { console.log('chosefoto') }}>
-                <Text style={styles.panelButtonTitle}>Choose From Library</Text>
-            </TouchableOpacity>
+            <View style={{
+                width: 220, height: 220,
+                alignSelf: 'center'
+            }}>
+                <Image
+                    source={{ uri: image }}
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                    }}
+                    resizeMode="cover"
+                >
+
+                </Image>
+
+            </View>
             <TouchableOpacity
                 style={styles.panelButton}
                 onPress={() => bs.current.snapTo(1)}>
@@ -230,7 +262,7 @@ const ServicesMap = () => {
                 enabledGestureInteraction={false}
             />
             <ReAnimated.View style={[styles.container,
-                 {opacity: ReAnimated.add(0.4, ReAnimated.multiply(fall, 1.0)),}]}>
+            { opacity: ReAnimated.add(0.4, ReAnimated.multiply(fall, 1.0)), }]}>
                 <MapView
                     ref={_map}
                     initialRegion={state.region}
@@ -537,7 +569,7 @@ const styles = StyleSheet.create({
     panelButton: {
         padding: 13,
         borderRadius: 10,
-        backgroundColor: '#FF6347',
+        backgroundColor: '#00a0fc',
         alignItems: 'center',
         marginVertical: 7,
     },
