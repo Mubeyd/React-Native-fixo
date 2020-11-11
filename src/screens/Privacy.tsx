@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Button, Card, Divider, Title, } from 'react-native-paper';
+import { Button as Buttonk } from '@ui-kitten/components'
 import AudioRecorderPlayer, {
     AVEncoderAudioQualityIOSType,
     AVEncodingOption,
@@ -21,80 +22,100 @@ const Privacy = () => {
         duration: '00:00:00',
     })
 
-    const audioRecorderPlayer = new AudioRecorderPlayer();
+    // const [audioRecorderPlayer, setAudioRecorderPlayer] = useState(new AudioRecorderPlayer());
+    const audioRecorderPlayer = new AudioRecorderPlayer()
 
 
     const onStartRecord = async () => {
-        const path = 'sdcard/hello.m4a';
-        const audioSet: AudioSet = {
-            AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
-            AudioSourceAndroid: AudioSourceAndroidType.MIC,
-            AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
-            AVNumberOfChannelsKeyIOS: 2,
-            AVFormatIDKeyIOS: AVEncodingOption.aac,
-        };
-        console.log('AudioSet', audioSet);
-        const uri = await audioRecorderPlayer.startRecorder(path, audioSet);
+        try {
+            const path = 'sdcard/hello.mp4';
+            const audioSet: AudioSet = {
+                AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
+                AudioSourceAndroid: AudioSourceAndroidType.MIC,
+                AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
+                AVNumberOfChannelsKeyIOS: 2,
+                AVFormatIDKeyIOS: AVEncodingOption.aac,
+            };
+            console.log('AudioSet', audioSet);
+            const uri = await audioRecorderPlayer.startRecorder(path, audioSet);
 
-        audioRecorderPlayer.addRecordBackListener((e) => {
-            setState({
-                ...state,
-                recordSecs: e.current_position,
-                recordTime: audioRecorderPlayer.mmssss(
-                    Math.floor(e.current_position),
-                ),
+            audioRecorderPlayer.addRecordBackListener((e) => {
+                setState({
+                    ...state,
+                    recordSecs: e.current_position,
+                    recordTime: audioRecorderPlayer.mmssss(
+                        Math.floor(e.current_position),
+                    ),
+                });
             });
-        });
-        console.log(`uri: ${uri}`);
+            console.log(`uri: ${uri}`);
+        } catch (e) {
+            console.log('e :>> ', e);
+        }
     }
 
 
     const onStopRecord = async () => {
-        const result = await audioRecorderPlayer.stopRecorder()
-        audioRecorderPlayer.removeRecordBackListener()
-        setState({
-            ...state,
-            recordSecs: 0,
-        })
-        console.log(result)
+        try {
+            const result = await audioRecorderPlayer.stopRecorder()
+            audioRecorderPlayer.removeRecordBackListener()
+            setState({
+                ...state,
+                recordSecs: 0,
+            })
+            console.log(result)
+        } catch (e) {
+            console.log('e :>> ', e);
+        }
     }
 
 
 
     const onStartPlay = async () => {
-        console.log('onStartPlay')
-        const path = 'hello.m4a'
-        const msg = await audioRecorderPlayer.startPlayer(path)
-        audioRecorderPlayer.setVolume(1.0)
-        console.log(msg)
-        audioRecorderPlayer.addPlayBackListener((e) => {
-            if (e.current_position === e.duration) {
-                console.log('finished')
-                audioRecorderPlayer.stopPlayer()
-            }
-            setState({
-                ...state,
-                currentPositionSec: e.current_position,
-                currentDurationSec: e.duration,
-                playTime: audioRecorderPlayer.mmssss(
-                    Math.floor(e.current_position),
-                ),
-                duration: audioRecorderPlayer.mmssss(Math.floor(e.duration)),
+        try {
+            console.log('onStartPlay')
+            const path = 'sdcard/hello.mp4'
+            const msg = await audioRecorderPlayer.startPlayer(path)
+            audioRecorderPlayer.setVolume(1.0)
+            console.log(msg)
+            console.log(path)
+            audioRecorderPlayer.addPlayBackListener((e) => {
+                if (e.current_position === e.duration) {
+                    console.log('finished')
+                    audioRecorderPlayer.stopPlayer()
+                }
+                setState({
+                    ...state,
+                    currentPositionSec: e.current_position,
+                    currentDurationSec: e.duration,
+                    playTime: audioRecorderPlayer.mmssss(
+                        Math.floor(e.current_position),
+                    ),
+                    duration: audioRecorderPlayer.mmssss(Math.floor(e.duration)),
+                })
             })
-        })
+        } catch (e) {
+            console.log('e :>> ', e);
+        }
     }
 
     const onPausePlay = async () => {
-        await audioRecorderPlayer.pausePlayer()
+        try {
+            await audioRecorderPlayer.pausePlayer()
+        } catch (e) {
+            console.log('e :>> ', e);
+        }
     }
 
     const onStopPlay = async () => {
-        console.log('onStopPlay')
-        audioRecorderPlayer.stopPlayer()
-        audioRecorderPlayer.removePlayBackListener()
+        try {
+            console.log('onStopPlay')
+            audioRecorderPlayer.stopPlayer()
+            audioRecorderPlayer.removePlayBackListener()
+        } catch (e) {
+            console.log('e :>> ', e);
+        }
     };
-
-
 
 
     return (
@@ -139,6 +160,24 @@ const Privacy = () => {
                 STOP
         </Button>
             {/* </Background> */}
+            <Buttonk
+                status='danger'
+                size='large'
+                onPress={() => { }} >
+                Record
+            </Buttonk>
+            <Buttonk
+                status='warning'
+                size='large'
+                onPress={() => onStopRecord()} >
+                Stop
+            </Buttonk>
+            <Buttonk
+                status='success'
+                size='large'
+                onPress={() => { }} >
+                Play
+            </Buttonk>
 
         </Card>
     )

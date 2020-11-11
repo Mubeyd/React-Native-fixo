@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Settings from './Settings'
 import Privacy from './Privacy'
+import Help from './Help'
 
 
 const SettingsStack = () => {
@@ -14,6 +15,7 @@ const SettingsStack = () => {
             initialRouteName='Settings'>
             <SettingsRootStack.Screen name='Settings' component={Settings} />
             <SettingsRootStack.Screen name='Privacy' component={Privacy} />
+            <SettingsRootStack.Screen name='Help' component={Help} />
         </SettingsRootStack.Navigator>
     )
 }

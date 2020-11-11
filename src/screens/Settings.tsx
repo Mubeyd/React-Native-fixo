@@ -38,7 +38,7 @@ const Settings = ({navigation }: Props) => {
                 />
                 <SettingCard
                     text='Help'
-                    onPress={() => console.log("object")}
+                    onPress={() => navigation.navigate('Help')}
                 />
                 <SettingCard
                     text='Be a FIXO'
