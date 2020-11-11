@@ -2,10 +2,10 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Settings from './Settings';
 import ProfileStack from './ProfileStack';
 import ServicesStack from './ServicesStack';
 import OrdersTabs from './OrdersTabs';
+import SettingsStack from './SettingsStack';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -64,8 +64,8 @@ const MainTab = () => (
             }}
         />
         <Tab.Screen
-            name="Settings"
-            component={Settings}
+            name="SettingsStack"
+            component={SettingsStack}
             options={{
                 tabBarLabel: 'Settings',
                 tabBarColor: '#36A7E7',

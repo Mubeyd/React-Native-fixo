@@ -10,6 +10,14 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import BottomSheet from 'reanimated-bottom-sheet';
 import ReAnimated from 'react-native-reanimated';
 import ImagePicker from 'react-native-image-crop-picker'
+import AudioRecorderPlayer, {
+    AVEncoderAudioQualityIOSType,
+    AVEncodingOption,
+    AudioEncoderAndroidType,
+    AudioSet,
+    AudioSourceAndroidType,
+} from 'react-native-audio-recorder-player';
+import { Button } from '@ui-kitten/components'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -186,10 +194,13 @@ const ServicesMap = () => {
         }
     }
 
-    const bs = React.createRef()
+    const bs = React.useRef(null)
     const fall = new ReAnimated.Value(1)
 
-    const [image, setImage] = useState('');
+
+    // image 
+
+    const [image, setImage] = useState('../assets/banners/service-banner1.jpeg');
 
     const takePhotoFromCamera = () => {
         ImagePicker.openCamera({
@@ -204,12 +215,37 @@ const ServicesMap = () => {
         });
     }
 
+
+    // sound 
+    const [audio, setAudio] = useState({
+        isLoggingIn: false,
+        recordSecs: 0,
+        recordTime: '00:00:00',
+        currentPositionSec: 0,
+        currentDurationSec: 0,
+        playTime: '00:00:00',
+        duration: '00:00:00',
+    })
+
+    const audioRecorderPlayer = new AudioRecorderPlayer();
+
+
+
     const renderInner = () => (
         <View style={styles.panel}>
-            <View style={{ alignItems: 'center' }}>
+            <Button status='danger' size='large' onPress={() => {}} >
+                Record 
+            </Button>
+            <Button status='warning' size='large' onPress={() => {}} >
+                Stop 
+            </Button>
+            <Button status='success' size='large' onPress={() => {}} >
+                Play 
+            </Button>
+            {/* <View style={{ alignItems: 'center' }}>
                 <Text style={styles.panelTitle}>Upload Photo</Text>
                 <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
-            </View>
+            </View> */}
             <TouchableOpacity style={styles.panelButton} onPress={() => {
                 takePhotoFromCamera()
                 console.log('chosefoto')
@@ -242,11 +278,14 @@ const ServicesMap = () => {
 
     const renderHeader = () => (
         <View style={styles.header}>
-            <View style={styles.panelHeader}>
+            {/* <View style={styles.panelHeader}>
                 <View style={styles.panelHandle} />
-            </View>
+            </View> */}
         </View>
     );
+
+
+    
 
 
     return (
@@ -254,7 +293,7 @@ const ServicesMap = () => {
         <View style={styles.container}>
             <BottomSheet
                 ref={bs}
-                snapPoints={[530, 0]}
+                snapPoints={[560, 0]}
                 renderContent={renderInner}
                 renderHeader={renderHeader}
                 initialSnap={1}
@@ -533,7 +572,7 @@ const styles = StyleSheet.create({
         // shadowOffset: {width: 0, height: 0},
         // shadowRadius: 5,
         // shadowOpacity: 0.4,
-        height: 530,
+        height: 560,
     },
     header: {
         backgroundColor: '#FFFFFF',

@@ -6,7 +6,7 @@ import { space, windowHeight } from '../config/styleConstants'
 
 export interface Props { }
 
-const Settings = ({ }: Props) => {
+const Settings = ({navigation }: Props) => {
 
     const logout = async () => {
         try {
@@ -26,7 +26,7 @@ const Settings = ({ }: Props) => {
             <View style={styles.cardContainer}>
                 <SettingCard
                     text='Privacy'
-                    onPress={() => console.log("object")}
+                    onPress={() => navigation.navigate('Privacy')}
                 />
                 <SettingCard
                     text='Sign out'
