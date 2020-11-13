@@ -42,7 +42,7 @@ const Settings = ({navigation }: Props) => {
                 />
                 <SettingCard
                     text='Be a FIXO'
-                    onPress={() => console.log("object")}
+                    onPress={() => navigation.navigate('BeaFIXO')}
                 />
                 <SettingCard
                     text='Contact Us'
