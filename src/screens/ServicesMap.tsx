@@ -281,6 +281,9 @@ const ServicesMap = () => {
                 {imageIcon ?
 
                     <TouchableOpacity
+                    style={{
+                        marginTop: 24
+                    }}
                         onPress={() => {
                             takePhotoFromCamera()
                             console.log('object')
@@ -288,12 +291,13 @@ const ServicesMap = () => {
                         }}
                     >
                         <Image
-                            source={require('../assets/banners/add.png')}
+                            source={require('../assets/banners/add2.png')}
                             style={{
                                 width: "100%",
-                                height: "100%",
+                                height: "90%",
+                                alignSelf: 'center'
                             }}
-                            resizeMode="cover"
+                            resizeMode="stretch"
                         >
                         </Image>
                     </TouchableOpacity>
