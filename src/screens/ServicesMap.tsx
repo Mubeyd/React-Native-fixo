@@ -28,6 +28,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import StarRating from '../components/StartRating';
 import { markers } from '../models/mapData';
 import MapCard from '../components/MapCard';
+import { space } from '../config/styleConstants';
+import VoiceRecorder from '../components/VoiceRecorder';
 
 
 const { width, height } = Dimensions.get("window");
@@ -200,7 +202,10 @@ const ServicesMap = () => {
 
     // image 
 
-    const [image, setImage] = useState('../assets/banners/service-banner1.jpeg');
+    const addImage = require('../assets/banners/add.png')
+
+    const [image, setImage] = useState('../assets/banners/add.png');
+    const [imageIcon, setImageIcon] = useState(true);
 
     const takePhotoFromCamera = () => {
         ImagePicker.openCamera({
@@ -233,39 +238,74 @@ const ServicesMap = () => {
 
     const renderInner = () => (
         <View style={styles.panel}>
-            <Button status='danger' size='large' onPress={() => { }} >
-                Record
-            </Button>
-            <Button status='warning' size='large' onPress={() => { }} >
-                Stop
-            </Button>
-            <Button status='success' size='large' onPress={() => { }} >
-                Play
-            </Button>
+            <Text style={{
+                marginBottom: 12,
+                marginLeft: 12,
+                fontWeight: 'bold',
+            }}>
+                Description
+            </Text>
+            <View style={styles.textInputView} >
+                <TextInput
+                    style={styles.textInputField}
+                    onChangeText={e => { console.log('input description') }}
+                    value={''}
+                    placeholder='Please write a brief description'
+                    numberOfLines={2}
+                />
+            </View>
+            <Text style={{ margin: 6, fontWeight: 'bold', }}>
+                Record a message
+            </Text>
+            <View style={{ justifyContent: 'center', margin: 6 }}>
+
+                <VoiceRecorder />
+            </View>
             {/* <View style={{ alignItems: 'center' }}>
                 <Text style={styles.panelTitle}>Upload Photo</Text>
                 <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
             </View> */}
-            <TouchableOpacity style={styles.panelButton} onPress={() => {
+            {/* <TouchableOpacity style={styles.panelButton} onPress={() => {
                 takePhotoFromCamera()
                 console.log('chosefoto')
             }}>
                 <Text style={styles.panelButtonTitle}>Take Photo</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View style={{
                 width: 220, height: 220,
                 alignSelf: 'center'
             }}>
-                <Image
-                    source={{ uri: image }}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                    }}
-                    resizeMode="cover"
-                >
+                {imageIcon ?
 
-                </Image>
+                    <TouchableOpacity
+                        onPress={() => {
+                            takePhotoFromCamera()
+                            console.log('object')
+                            setImageIcon(false)
+                        }}
+                    >
+                        <Image
+                            source={require('../assets/banners/add.png')}
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                            }}
+                            resizeMode="cover"
+                        >
+                        </Image>
+                    </TouchableOpacity>
+                    :
+                    <Image
+                        source={{ uri: image }}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                        }}
+                        resizeMode="cover"
+                    >
+
+                    </Image>
+                }
 
             </View>
             <TouchableOpacity
@@ -570,9 +610,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     panel: {
-        padding: 20,
+        padding: 12,
         backgroundColor: '#FFFFFF',
-        paddingTop: 20,
+        paddingTop: 0,
         // borderTopLeftRadius: 20,
         // borderTopRightRadius: 20,
         // shadowColor: '#000000',
@@ -588,7 +628,7 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         shadowOpacity: 0.4,
         // elevation: 5,
-        paddingTop: 20,
+        paddingTop: 12,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
@@ -596,10 +636,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     panelHandle: {
-        width: 40,
+        width: 200,
         height: 8,
         borderRadius: 4,
-        backgroundColor: '#00000040',
+        backgroundColor: '#00a0fc',
         marginBottom: 10,
     },
     panelTitle: {
@@ -623,5 +663,31 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontWeight: 'bold',
         color: 'white',
+    },
+    textInputView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // marginTop: space,
+        marginBottom: 6,
+        backgroundColor: '#F4F2F2',
+        width: '95%',
+        height: space * 8,
+        alignSelf: 'center',
+        borderRadius: 24,
+        shadowColor: '#ccc',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    textInputField: {
+        // height: 44,
+        width: '80%',
+        borderRadius: 24,
+        margin: space,
+        alignContent: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
     },
 })

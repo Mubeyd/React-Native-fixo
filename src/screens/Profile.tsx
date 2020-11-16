@@ -178,9 +178,9 @@ const Profile = ({ navigation }: Props) => {
                                         </Picker>
                                     </View>
 
-                                    <View style={styles.searchView} >
+                                    <View style={styles.textInputView} >
                                         <TextInput
-                                            style={styles.serchInput}
+                                            style={styles.textInputField}
                                             onChangeText={e => { setState({ ...form, details: e }) }}
                                             value={form.details}
                                             placeholder='Inpute your Address here'
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: "center"
     },
-    searchView: {
+    textInputView: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 5,
     },
-    serchInput: {
+    textInputField: {
         // height: 44,
         width: '75%',
         borderRadius: 24,
