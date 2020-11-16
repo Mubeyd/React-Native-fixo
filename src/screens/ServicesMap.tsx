@@ -30,6 +30,8 @@ import { markers } from '../models/mapData';
 import MapCard from '../components/MapCard';
 import { space } from '../config/styleConstants';
 import VoiceRecorder from '../components/VoiceRecorder';
+import TimeDate from '../components/TimeDate';
+import Submit from '../components/Submit';
 
 
 const { width, height } = Dimensions.get("window");
@@ -261,6 +263,7 @@ const ServicesMap = () => {
 
                 <VoiceRecorder />
             </View>
+
             {/* <View style={{ alignItems: 'center' }}>
                 <Text style={styles.panelTitle}>Upload Photo</Text>
                 <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
@@ -308,11 +311,17 @@ const ServicesMap = () => {
                 }
 
             </View>
-            <TouchableOpacity
+            <View style={{ margin: 6 }}>
+                <TimeDate />
+            </View>
+            {/* <TouchableOpacity
                 style={styles.panelButton}
                 onPress={() => bs.current.snapTo(1)}>
                 <Text style={styles.panelButtonTitle}>Cancel</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <View style={{ margin: 6 }}>
+                <Submit />
+            </View>
         </View>
     );
 
@@ -333,7 +342,7 @@ const ServicesMap = () => {
         <View style={styles.container}>
             <BottomSheet
                 ref={bs}
-                snapPoints={[560, 0]}
+                snapPoints={[610, 0]}
                 renderContent={renderInner}
                 renderHeader={renderHeader}
                 initialSnap={1}
@@ -619,7 +628,7 @@ const styles = StyleSheet.create({
         // shadowOffset: {width: 0, height: 0},
         // shadowRadius: 5,
         // shadowOpacity: 0.4,
-        height: 560,
+        height: 610,
     },
     header: {
         backgroundColor: '#FFFFFF',

@@ -23,7 +23,7 @@ const VoiceRecorder = () => {
                 </View>
             </View>
 
-            <View style={styles.viewLine}>
+            <View style={styles.rightBox}>
                 <View style={{
                     width: 200,
                     height: 2,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginRight: 12,
     },
-    viewLine: {
+    rightBox: {
         justifyContent: 'center',
         marginLeft: 18,
         width: 250,
