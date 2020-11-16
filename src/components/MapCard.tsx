@@ -1,8 +1,8 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import { space } from '../config/styleConstants'
+import { space, windowDimension } from '../config/styleConstants'
 import StarRating from './StartRating'
 
 interface Props {
@@ -11,11 +11,15 @@ interface Props {
     ratings: number
     reviews: number
     price: number
-    description: string
-    orderState: 'waiting' | 'processing' | 'cancelled' | 'done'
+    description1: string
+    description2: string
+    orderState?: 'waiting' | 'processing' | 'cancelled' | 'done'
+    imageSource: any
     onPress: () => void
 }
+const boxSize = (windowDimension.width - space * 2) / 2 - space / 2
 const MapCard = (props: Props) => {
+
 
     let color = '#ffffff'
 
@@ -37,35 +41,43 @@ const MapCard = (props: Props) => {
                 source={require('../assets/icons/orderscomp.png')}
             >
                 <View style={styles.columnLeft}>
-                    <AntDesign name={props.logo} size={64} color='#c2cacf' />
+                    <View style={{ marginTop: 2 }}>
+                        <Image
+                            source={props.imageSource}
+                            style={styles.cardImage}
+                            resizeMode="cover"
+                        />
+
+                        {/* <AntDesign style={{margin:2}} name={props.logo} size={64} color='#c2cacf' /> */}
+                    </View>
                     <Text style={styles.userName}>{props.name}</Text>
                     <StarRating ratings={props.ratings} reviews={props.reviews} />
-                    <Text style={styles.price}>Estimated Price : {props.price}$</Text>
+                    <Text style={styles.price}>Price: {props.price} TL</Text>
                 </View>
 
                 <View style={styles.columnRight}>
                     <View style={styles.explainTextView}>
                         <Text numberOfLines={2} style={styles.explainText}>
-                            {props.description}
+                            {props.description1}
                         </Text>
                         <Text numberOfLines={2} style={styles.explainText}>
-                            {props.description}
+                            {props.description2}
                         </Text>
                     </View>
 
                     <View style={styles.buttonsView}>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             onPress={() => { }}
                             style={[styles.orderStateTouch, { backgroundColor: color, }]}
                         >
                             <Text> {props.orderState} </Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
                         <TouchableOpacity
                             onPress={props.onPress}
                             style={styles.detailsTouch}
                         >
-                            <Text> Order </Text>
+                            <Text style={{ color: '#fff' }}> Order Now!</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -96,15 +108,20 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         marginLeft: 12,
-        marginBottom: 12
+        marginBottom: 24,
     },
     userName: {
         fontWeight: 'bold',
         fontSize: 14,
-        marginTop: 24
+        marginTop: 48,
+        margin: 12,
+        marginLeft: 12,
     },
     price: {
         fontWeight: 'bold',
+        color: '#36A7E7',
+        margin: 12,
+        marginLeft: 12,
     },
     columnRight: {
         flex: 1,
@@ -116,6 +133,7 @@ const styles = StyleSheet.create({
     explainTextView: {
         flexWrap: 'wrap',
         alignItems: 'flex-start',
+        marginTop: 14
     },
     explainText: {
         flexWrap: 'wrap',
@@ -136,9 +154,22 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
     detailsTouch: {
-        backgroundColor: '#f7a3a3',
+        backgroundColor: '#36A7E7',
         padding: 5,
         borderRadius: 6,
-        marginRight: 6,
+        marginLeft: 58,
+        marginBottom: 28, 
+        height: 32, 
+        width: 88,
+
+    },
+    cardImage: {
+        // flex: 3,
+        width: 76,
+        height: 76,
+        alignSelf: 'flex-end',
+        marginRight: 0,
+        marginTop: 28,
+        resizeMode: 'stretch',
     },
 })

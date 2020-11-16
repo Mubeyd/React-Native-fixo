@@ -23,7 +23,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import StarRating from '../components/StartRating';
 import { markers } from '../models/mapData';
@@ -233,14 +233,14 @@ const ServicesMap = () => {
 
     const renderInner = () => (
         <View style={styles.panel}>
-            <Button status='danger' size='large' onPress={() => {}} >
-                Record 
+            <Button status='danger' size='large' onPress={() => { }} >
+                Record
             </Button>
-            <Button status='warning' size='large' onPress={() => {}} >
-                Stop 
+            <Button status='warning' size='large' onPress={() => { }} >
+                Stop
             </Button>
-            <Button status='success' size='large' onPress={() => {}} >
-                Play 
+            <Button status='success' size='large' onPress={() => { }} >
+                Play
             </Button>
             {/* <View style={{ alignItems: 'center' }}>
                 <Text style={styles.panelTitle}>Upload Photo</Text>
@@ -285,7 +285,7 @@ const ServicesMap = () => {
     );
 
 
-    
+
 
 
     return (
@@ -319,6 +319,11 @@ const ServicesMap = () => {
                         return (
                             <Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
                                 <Animated.View style={[styles.markerWrap]}>
+                                    {/* <Animated.FontAwesome5
+                                        style={[styles.marker, scaleStyle]}
+                                        name='map-marker-alt'
+                                        size={18}
+                                    ></Animated.FontAwesome5> */}
                                     <Animated.Image
                                         source={require('../assets/map_marker.png')}
                                         style={[styles.marker, scaleStyle]}
@@ -387,8 +392,10 @@ const ServicesMap = () => {
                                 ratings={marker.rating}
                                 reviews={marker.reviews}
                                 price={marker.price}
-                                description={marker.description}
-                                orderState={marker.orderState}
+                                description1={marker.description1}
+                                description2={marker.description2}
+                                // orderState={marker.orderState}
+                                imageSource={marker.image}
                                 onPress={() => {
                                     bs.current.snapTo(0)
                                     console.log('MapCard', index)
