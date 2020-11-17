@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { windowHeight, windowWidth } from '../config/styleConstants';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 const InputLine = ({ labelValue, iconType, onPress, placeholder, ...rest }) => {
@@ -9,11 +10,12 @@ const InputLine = ({ labelValue, iconType, onPress, placeholder, ...rest }) => {
     return (
         <View style={styles.inputContainer}>
             <View style={styles.iconStyle}>
-                <AntDesign
+                <FontAwesome
                     name={iconType}
-                    size={25}
+                    size={30}
                     color="#666"
                     onPress={() => onPress()}
+                    color='#36A7E7'
                 />
             </View>
             <TextInput
@@ -61,6 +63,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         fontWeight: "bold",
-        letterSpacing: 2
+        letterSpacing: 1
     },
 });

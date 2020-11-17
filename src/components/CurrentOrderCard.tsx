@@ -36,7 +36,7 @@ const CurrentOrderCard = (props: Props) => {
                 source={require('../assets/icons/orderscomp.png')}
             >
                 <View style={styles.columnLeft}>
-                <View style={{ marginTop: 2 }}>
+                    <View style={{ marginTop: 2 }}>
                         <Image
                             source={props.imageSource}
                             style={styles.cardImage}
@@ -70,7 +70,10 @@ const CurrentOrderCard = (props: Props) => {
                             onPress={() => { }}
                             style={styles.detailsTouch}
                         >
-                            <Text> Details </Text>
+                            <Text style={{
+                                color: '#fff',
+                                fontWeight: 'bold'
+                            }}> Details </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
     detailsTouch: {
-        backgroundColor: '#f7a3a3',
+        backgroundColor: '#36A7E7',
         padding: 5,
         borderRadius: 6,
         marginRight: 6,

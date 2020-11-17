@@ -68,6 +68,8 @@ const styles = StyleSheet.create({
         marginLeft: boxSize / 10,
         textAlign: 'left',
         color: '#fff',
+        fontWeight: 'bold',
+        letterSpacing: 0.5,
     },
     gradientImage: {
         flex: 1,

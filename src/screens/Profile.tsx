@@ -87,7 +87,7 @@ const Profile = ({ navigation }: Props) => {
         <ImageBackground
             source={require('../assets/serviceBack.png')}
             style={styles.backgroundImage}
-            resizeMode='cover'
+            resizeMode='stretch'
         >
             <ScrollView>
 
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         margin: space / 2,
-        marginTop: space * 5
+        marginTop: '20%',
     },
     headerText: {
         fontSize: 24,

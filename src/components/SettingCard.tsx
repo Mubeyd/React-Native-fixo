@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: '90%',
         height: windowHeight / 15,
-        backgroundColor: '#f5d5d9',
+        backgroundColor: '#4EB1EA',
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: space * 2,
         fontWeight: 'bold',
-        color: '#000000',
+        color: '#fff',
         fontFamily: 'Lato-Regular',
     },
 })

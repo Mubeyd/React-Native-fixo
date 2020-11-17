@@ -58,7 +58,7 @@ export default ProfileNames
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        // justifyContent: 'space-around',
+        justifyContent: 'space-around',
         // marginHorizontal: 24,
         // marginVertical: 10,
         // alignItems: 'center',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         margin: 0,
     },
     inputLeft: {
-        width: 140,
+        width: 130,
         fontSize: 18,
         fontFamily: 'Lato-Regular',
         color: '#333',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         marginBottom: 18,
     },
     inputRight: {
-        width: 140,
+        width: 130,
         fontSize: 18,
         fontFamily: 'Lato-Regular',
         color: '#333',
