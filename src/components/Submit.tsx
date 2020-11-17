@@ -15,11 +15,11 @@ const Submit = (props: Props) => {
                 <Text
                     style={{
                         fontWeight: 'bold',
-                        fontSize: 22,
+                        fontSize: 20,
                         color: '#fff',
                         alignSelf: 'center',
                     }}
-                >Submit</Text>
+                >Confirm Order</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -38,11 +38,12 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         width: 360,
-        height: 56,
+        height: 50,
     },
     leftBox: {
         backgroundColor: '#36A7E7',
         flexDirection: 'row',
+        
         justifyContent: 'center',
         borderRadius: 24,
         shadowColor: '#ccc',
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 5,
         width: 280,
-        height: 56,
+        height: 50,
         margin: 0,
     },
     rightBox: {

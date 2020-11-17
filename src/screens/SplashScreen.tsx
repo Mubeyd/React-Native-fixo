@@ -11,12 +11,12 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
-import {version} from '../config/constants'
+import { version } from '../config/constants'
 import useUser from '../hooks/useUser';
 
 
-const SplashScreen = ({navigation}) => {
-    
+const SplashScreen = ({ navigation }) => {
+
     const { colors } = useTheme();
     const user = useUser()
 
@@ -24,7 +24,7 @@ const SplashScreen = ({navigation}) => {
     console.log('user Id', user?.uid)
 
     return (
-        
+
         <LinearGradient colors={['#36A7E7', '#6DBCE8']} style={styles.container}>
             <StatusBar backgroundColor='#36A7E7' barStyle="light-content" />
             <View style={styles.header}>
@@ -43,8 +43,8 @@ const SplashScreen = ({navigation}) => {
                 animation="fadeInUpBig"
             >
                 <Text style={[styles.title, {
-                    color: colors.text
-                }]}>Your home deserves the best</Text>
+                    // color: colors.text
+                }]}>Your Home Deserves The Best</Text>
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
                         <LinearGradient
@@ -60,10 +60,10 @@ const SplashScreen = ({navigation}) => {
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
-                <Text style={styles.textVersion}>Starlab.tech</Text>
-                <Text style={styles.textVersion}>Version : {version}</Text>
+                {/* <Text style={styles.textVersion}>Starlab.tech</Text> */}
+                <Text style={styles.textVersion}>Version : 0.2.1</Text>
             </Animatable.View>
-            </LinearGradient>
+        </LinearGradient>
     );
 };
 
@@ -96,9 +96,10 @@ const styles = StyleSheet.create({
         // height: height_logo,
     },
     title: {
-        color: '#05375a',
+        color: '#36A7E7',
         fontSize: 30,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        // textDecorationStyle: ''
     },
     textVersion: {
         color: 'grey',

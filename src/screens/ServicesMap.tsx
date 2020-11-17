@@ -315,7 +315,7 @@ const ServicesMap = () => {
                 }
 
             </View>
-            <View style={{ margin: 6 }}>
+            <View style={{ margin: 6, marginTop:12 }}>
                 <TimeDate />
             </View>
             {/* <TouchableOpacity
@@ -323,7 +323,7 @@ const ServicesMap = () => {
                 onPress={() => bs.current.snapTo(1)}>
                 <Text style={styles.panelButtonTitle}>Cancel</Text>
             </TouchableOpacity> */}
-            <View style={{ margin: 6 }}>
+            <View style={{ margin: 6, marginBottom:6 }}>
                 <Submit onPress={() => bs.current.snapTo(1)} />
             </View>
         </View>

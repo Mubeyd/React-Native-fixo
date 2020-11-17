@@ -81,7 +81,7 @@ const SignInScreen = ({ navigation }) => {
                 }]}
             >
                 <Text style={[styles.text_footer, {
-                    color: colors.text,
+                    // color: colors.text,
                 }]}> Enter Your Phone Number </Text>
 
                 <View style={styles.action}>
@@ -152,14 +152,14 @@ const SignInScreen = ({ navigation }) => {
                                 style={styles.loginInput}
                                 autoFocus
                                 placeholder="Code"
-                                maxLength={14}
+                                maxLength={12}
                                 keyboardType="phone-pad"
                                 returnKeyType="go"
                                 labelValue={null}
                                 onChangeText={(e) => {
                                     setCode(e)
                                 }}
-                                iconType='message1'
+                                iconType='envelope-o'
 
                                 onPress={() => console.log('from edit comp object')}
                             />
@@ -211,9 +211,10 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     text_footer: {
-        color: '#05375a',
+        color: '#36A7E7',
         fontSize: 18,
         marginBottom: 12,
+        fontWeight: 'bold',
     },
     action: {
         flexDirection: 'row',
