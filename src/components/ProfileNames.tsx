@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { Image } from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import { space, windowHeight } from '../config/styleConstants'
@@ -35,12 +36,18 @@ const ProfileNames = ({ firstName, lastName, onPress }) => {
             </View>
             <TouchableOpacity
                 onPress={onPress}
+                style={{}}
             >
-                <AntDesign
+                <Image
+                    source={require('../assets/banners/pencil.png')}
+                    style={styles.cardImage}
+                    // resizeMode="cover"
+                />
+                {/* <AntDesign
                     color='#000'
                     name='edit'
                     size={48}
-                />
+                /> */}
             </TouchableOpacity>
         </View>
     )
@@ -51,10 +58,10 @@ export default ProfileNames
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginHorizontal: 24,
-        marginVertical: 10,
-        alignItems: 'center',
+        // justifyContent: 'space-around',
+        // marginHorizontal: 24,
+        // marginVertical: 10,
+        // alignItems: 'center',
     },
     boxView: {
         borderWidth: 1,
@@ -63,32 +70,45 @@ const styles = StyleSheet.create({
         marginRight: 10,
         height: windowHeight / 10,
         backgroundColor: '#fff',
+        paddingBottom: 12
     },
     labelText: {
         color: '#aaa',
         marginHorizontal: 12,
-        fontSize: space
+        // fontSize: space,
+        marginTop: 6,
+        margin: 0,
     },
     inputLeft: {
         width: 140,
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: 'Lato-Regular',
         color: '#333',
-        justifyContent: 'center',
-        alignItems: 'center',
         fontWeight: "bold",
         letterSpacing: 1,
-        margin: 2
+        marginLeft: 6,
+        marginBottom: 18,
     },
     inputRight: {
         width: 140,
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: 'Lato-Regular',
         color: '#333',
         justifyContent: 'center',
         alignItems: 'center',
         fontWeight: "bold",
         letterSpacing: 1,
-        margin: 2
+        marginLeft: 6,
+        marginBottom: 18,
+
+    },
+    cardImage: {
+        // flex: 3,
+        width: 44,
+        height: 44,
+        // alignSelf: 'center',
+        marginRight: 0,
+        marginTop: 12,
+        resizeMode: 'stretch',
     },
 })

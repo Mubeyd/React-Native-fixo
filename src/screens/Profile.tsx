@@ -92,7 +92,7 @@ const Profile = ({ navigation }: Props) => {
             <ScrollView>
 
                 <View style={styles.container}>
-                    <Text style={styles.headerText}>Profile</Text>
+                    {/* <Text style={styles.headerText}>Profile</Text> */}
                     <InputLine
                         labelValue={editingUser?.phoneNumber}
                         placeholder="Phone Number"
@@ -232,7 +232,7 @@ const Profile = ({ navigation }: Props) => {
                         <View style={{ flexDirection: 'row' }}>
                             <EditLocation
                                 onPress={() => setModalVisible(true)}
-                                backgroundColor='#4287f5'
+                                backgroundColor='#36A7E7'
                                 text='home'
                             />
                             <EditLocation
@@ -247,7 +247,7 @@ const Profile = ({ navigation }: Props) => {
                             />
                             <EditLocation
                                 onPress={() => { }}
-                                backgroundColor='#4287f5'
+                                backgroundColor='#4EB1EA'
                                 text='+'
                             />
                         </View>
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         margin: space / 2,
-        marginTop: space * 1
+        marginTop: space * 5
     },
     headerText: {
         fontSize: 24,
@@ -282,8 +282,9 @@ const styles = StyleSheet.create({
     },
     locationText: {
         fontSize: 24,
-        color: '#4287f5',
+        color: '#36A7E7',
         margin: space,
+        fontWeight: 'bold'
     },
     card: {
         flexDirection: 'row',

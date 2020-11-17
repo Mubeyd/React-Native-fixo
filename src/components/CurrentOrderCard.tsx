@@ -21,7 +21,7 @@ const CurrentOrderCard = (props: Props) => {
     if (props.orderState === 'waiting') {
         color = '#fcba03'
     } else if (props.orderState === 'processing') {
-        color = '#00a0fc'
+        color = '#36A7E7'
     } else if (props.orderState === 'cancelled') {
         color = '#ff0000'
     } else if (props.orderState === 'done') {
