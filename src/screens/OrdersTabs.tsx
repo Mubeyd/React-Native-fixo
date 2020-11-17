@@ -1,6 +1,6 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import CrurrentOrders from './CrurrentOrders';
+import CurrentOrders from './CurrentOrders';
 import PastOrders from './PastOrders';
 import { space } from '../config/styleConstants';
 
@@ -50,14 +50,15 @@ const OrdersTabs = () => {
                 },
                 labelStyle: {
                     fontSize: 14,
-                    marginBottom: 0
+                    marginBottom: 0,
+                    fontWeight: 'bold',
                 },
 
             }}
         >
             <Tab.Screen
-                name="Crurrent Orders"
-                component={CrurrentOrders}
+                name="Current Orders"
+                component={CurrentOrders}
             />
             <Tab.Screen
                 name="Past Orders"

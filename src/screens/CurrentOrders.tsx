@@ -1,20 +1,14 @@
-import React from 'react'
-import { View, ScrollView, Text } from 'react-native'
+import * as React from 'react'
+import { ScrollView, View } from 'react-native'
 import CurrentOrderCard from '../components/CurrentOrderCard'
 import OrderCard from '../components/OrderCard'
-import { markers } from '../models/mapData'
+import { markers } from '../models/mapData';
 
-const PastOrders = () => {
 
-    const filtered = markers.filter(function(el, index) {
-        // normally even numbers have the feature that number % 2 === 0;
-        // JavaScript is, however, zero-based, so want those elements with a modulo of 1:
-        return index % 2 === 1;
-      });
-
+const CurrentOrders = () => {
     return (
         <ScrollView>
-            {filtered.map((marker, index) => (
+            {markers.map((marker, index) => (
                 <CurrentOrderCard
                     key={index}
                     name={marker.title}
@@ -31,4 +25,4 @@ const PastOrders = () => {
     )
 }
 
-export default PastOrders
+export default CurrentOrders

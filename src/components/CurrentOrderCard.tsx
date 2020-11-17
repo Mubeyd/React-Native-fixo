@@ -1,18 +1,18 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import AntDesign from 'react-native-vector-icons/AntDesign'
 import { space } from '../config/styleConstants'
 import StarRating from './StartRating'
 
 interface Props {
     name: string
-    logo: string
     ratings: number
     reviews: number
     price: number
-    description: string
+    description1: string
+    description2: string
     orderState: 'waiting' | 'processing' | 'cancelled' | 'done'
+    imageSource: any
 }
 const CurrentOrderCard = (props: Props) => {
 
@@ -36,19 +36,25 @@ const CurrentOrderCard = (props: Props) => {
                 source={require('../assets/icons/orderscomp.png')}
             >
                 <View style={styles.columnLeft}>
-                    <AntDesign name={props.logo} size={64} color='#c2cacf' />
+                <View style={{ marginTop: 2 }}>
+                        <Image
+                            source={props.imageSource}
+                            style={styles.cardImage}
+                            resizeMode="cover"
+                        />
+                    </View>
                     <Text style={styles.userName}>{props.name}</Text>
                     <StarRating ratings={props.ratings} reviews={props.reviews} />
-                    <Text style={styles.price}>Estimated Price : {props.price}$</Text>
+                    <Text style={styles.price}>Price: {props.price}$</Text>
                 </View>
 
                 <View style={styles.columnRight}>
                     <View style={styles.explainTextView}>
                         <Text numberOfLines={2} style={styles.explainText}>
-                            {props.description}
+                            {props.description1}
                         </Text>
                         <Text numberOfLines={2} style={styles.explainText}>
-                            {props.description}
+                            {props.description2}
                         </Text>
                     </View>
 
@@ -97,6 +103,15 @@ const styles = StyleSheet.create({
         marginLeft: 12,
         marginBottom: 12
     },
+    cardImage: {
+        // flex: 3,
+        width: 76,
+        height: 76,
+        alignSelf: 'flex-end',
+        marginRight: 0,
+        marginTop: 28,
+        resizeMode: 'stretch',
+    },
     userName: {
         fontWeight: 'bold',
         fontSize: 14,
@@ -104,6 +119,7 @@ const styles = StyleSheet.create({
     },
     price: {
         fontWeight: 'bold',
+        color: '#36A7E7',
     },
     columnRight: {
         flex: 1,

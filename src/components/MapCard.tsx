@@ -1,7 +1,6 @@
 import React from 'react'
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import AntDesign from 'react-native-vector-icons/AntDesign'
 import { space, windowDimension } from '../config/styleConstants'
 import StarRating from './StartRating'
 
@@ -47,8 +46,6 @@ const MapCard = (props: Props) => {
                             style={styles.cardImage}
                             resizeMode="cover"
                         />
-
-                        {/* <AntDesign style={{margin:2}} name={props.logo} size={64} color='#c2cacf' /> */}
                     </View>
                     <Text style={styles.userName}>{props.name}</Text>
                     <StarRating ratings={props.ratings} reviews={props.reviews} />

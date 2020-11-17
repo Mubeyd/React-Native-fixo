@@ -3,7 +3,10 @@ import { View, Text, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const Submit = () => {
+interface Props {
+    onPress: () => void
+}
+const Submit = (props: Props) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
@@ -20,6 +23,7 @@ const Submit = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
+                onPress={props.onPress}
                 style={styles.rightBox}
             >
                 <Entypo name='cross' size={36} color='#fff' />

@@ -281,9 +281,9 @@ const ServicesMap = () => {
                 {imageIcon ?
 
                     <TouchableOpacity
-                    style={{
-                        marginTop: 24
-                    }}
+                        style={{
+                            marginTop: 24
+                        }}
                         onPress={() => {
                             takePhotoFromCamera()
                             console.log('object')
@@ -324,7 +324,7 @@ const ServicesMap = () => {
                 <Text style={styles.panelButtonTitle}>Cancel</Text>
             </TouchableOpacity> */}
             <View style={{ margin: 6 }}>
-                <Submit />
+                <Submit onPress={() => bs.current.snapTo(1)} />
             </View>
         </View>
     );
