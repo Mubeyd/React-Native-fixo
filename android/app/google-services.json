@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "39346621089",
+    "firebase_url": "https://fixo-4848a.firebaseio.com",
+    "project_id": "fixo-4848a",
+    "storage_bucket": "fixo-4848a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39346621089:android:a5b430181e8bb14332bee0",
+        "android_client_info": {
+          "package_name": "com.starlab.fixo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39346621089-j0oeq3f380f291ahev05ckrb369fkk9f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.starlab.fixo",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "39346621089-csv6v3i730ap9lu2599236tdmdp4smn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbwnrQQWKzH1loAP_NIs6nEDlhsUfkuP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39346621089-csv6v3i730ap9lu2599236tdmdp4smn9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
