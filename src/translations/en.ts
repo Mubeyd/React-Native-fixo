@@ -8,4 +8,7 @@ export default {
     error: 'error',
     success: 'success',
   },
+  services: {
+    services: 'Services'
+  }
 };
